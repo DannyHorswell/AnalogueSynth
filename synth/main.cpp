@@ -454,7 +454,7 @@ void SocketCommand(const string& com)
 	}
 }
 
-static int async_loop(snd_pcm_t *handle, signed short* samples)
+static void async_loop(snd_pcm_t *handle, signed short* samples)
  {
 	printf("async_loop\n");
 

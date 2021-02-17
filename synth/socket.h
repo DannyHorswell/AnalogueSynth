@@ -28,8 +28,8 @@ public:
 	synth_socket();
 	~synth_socket();
 
-	int opensocket();
-	int polllisten();
+	void opensocket();
+	void polllisten();
 
 	int closesocket();
 

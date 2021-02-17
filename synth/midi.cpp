@@ -260,7 +260,7 @@ void midi::pollmidi()
 	while (ret != -EAGAIN);
 }
 
-int midi::stopmidi()
+void midi::stopmidi()
 {
 	snd_rawmidi_drain(handle_in); 
 	snd_rawmidi_close(handle_in);

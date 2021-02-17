@@ -61,7 +61,7 @@ public:
 	
 	void pollmidi();
 	
-	int stopmidi();
+	void stopmidi();
 
 	// MIDI callbacks
 	NoteOff noteOffCallback;

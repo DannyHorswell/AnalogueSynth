@@ -750,7 +750,7 @@ bool ReadPatchFromFile(patch* pPatch, char* filePath)
 
 
 // Saves a patch to the named file
-bool SavePatch(synth* pSynth, patch* pPatch, char* filePath)
+void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 {
 	fprintf(stderr, "Writing patch '%s' - ", filePath);
 
@@ -1083,7 +1083,7 @@ bool SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 }
 
 // Populates a default patch, useful for testing and for missing patch files
-bool PopulateDefaultPatch(patch* pPatch)
+void PopulateDefaultPatch(patch* pPatch)
 {
 	// LFOS
 	for (int count=0; count<NUMBER_OF_LFO_FOR_SYNTH; count++)

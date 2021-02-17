@@ -43,7 +43,7 @@ void synth_socket::error(const char *msg)
     printf("Socket error  %s\n", msg);
 }
 
-int synth_socket::opensocket()
+void synth_socket::opensocket()
 {
      listensock = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -78,7 +78,7 @@ int synth_socket::opensocket()
      bzero(buffer,256);
 }
 
-int synth_socket::polllisten()
+void synth_socket::polllisten()
 {
 	if (newsockfd <= 0) // Once connected we do not want to listen anymore
 	{
