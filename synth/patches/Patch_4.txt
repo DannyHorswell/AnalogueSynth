@@ -1,0 +1,171 @@
+#*************** Patch File **************************************
+
+#****************** Low frequency oscillators ********************
+# 
+#*****************************************************************
+LFO[0].Frequency = 1.0
+LFO[0].Type = SIN
+
+LFO[1].Frequency = 7.0
+LFO[1].Type = SIN
+
+#*************************** Wave generators ********************
+# 
+#****************************************************************
+
+WG[0].Type = PCM
+WG[0].EnablePitchBend = true
+WG[0].PitchBendAmount = 0.0
+
+WG[0].KeyOffestSemitones = 0.0
+WG[0].FreqLFOid = 1
+WG[0].FreqLFOLevel = 0.0
+WG[0].FreqLFODelay = 0.0
+WG[0].PWMLFOid = 0;
+WG[0].PWMLFOLevel = 0
+
+WG[0].Filter.FilterType = OFF
+WG[0].Filter.Q = 20.0
+WG[0].Filter.RelativeFrequency = 1.0
+WG[0].Filter.VelocityFactor = 36.0
+WG[0].Filter.DBGain = 0.0
+
+WG[1].Type = MUTE
+WG[1].EnablePitchBend = true
+WG[1].PitchBendAmount = 0.0
+
+WG[1].KeyOffestSemitones = 0.0
+WG[1].FreqLFOid = 1
+WG[1].FreqLFOLevel = 0.0
+WG[1].FreqLFODelay = 0.0
+WG[1].PWMLFOid = 1;
+WG[1].PWMLFOLevel = 0
+
+WG[1].Filter.FilterType = OFF
+WG[1].Filter.Q = 1.0
+WG[1].Filter.RelativeFrequency = 1.0
+WG[1].Filter.VelocityFactor = 72.0
+WG[1].Filter.DBGain = 0.0
+
+# ****************** Time dependant amplifier *******************
+# Levels in gain 0.0F to 1.0F
+#****************************************************************
+WG[0].TDA.L0 = 1.0
+WG[0].TDA.T1 = 1.0
+WG[0].TDA.L1 = 1.0
+WG[0].TDA.T2 = 1.0
+WG[0].TDA.L2 = 1.0
+WG[0].TDA.T3 = 1.0
+WG[0].TDA.Sustain = 1.0
+WG[0].TDA.T4 = 2.0
+WG[0].TDA.L4 = 0.0
+
+WG[1].TDA.L0 = 1.0
+WG[1].TDA.T1 = 0.5
+WG[1].TDA.L1 = 1.0
+WG[1].TDA.T2 = 0.5
+WG[1].TDA.L2 = 0.5
+WG[1].TDA.T3 = 1.0
+WG[1].TDA.Sustain = 0.1
+WG[1].TDA.T4 = 1.0
+WG[1].TDA.L4 = 0.0
+
+# ****** Time dependant frequency adjustment *******************
+# Levels in semitines
+#***************************************************************
+WG[0].TDP.L0 = 0.0
+WG[0].TDP.T1 = 0.2
+WG[0].TDP.L1 = 0.0
+WG[0].TDP.T2 = 0.2
+WG[0].TDP.L2 = 0.0
+WG[0].TDP.T3 = 1.0
+WG[0].TDP.Sustain = 0.0
+WG[0].TDP.T4 = 1.0
+WG[0].TDP.L4 = 0.0
+
+WG[1].TDP.L0 = 0.0
+WG[1].TDP.T1 = 0.2
+WG[1].TDP.L1 = 0.0
+WG[1].TDP.T2 = 0.2
+WG[1].TDP.L2 = 0.0
+WG[1].TDP.T3 = 1.0
+WG[1].TDP.Sustain = 0.0
+WG[1].TDP.T4 = 1.0
+WG[1].TDP.L4 = 0.0
+
+#************** Sample sets **********************************
+#
+#**************************************************************
+WG[0].SampleSet.NSamples = 8
+
+WG[0].SampleSet.Sample[0].File = samples/PIANO_LOUD_C1.wav
+WG[0].SampleSet.Sample[0].SampledNoteFrequency = 32.703
+WG[0].SampleSet.Sample[0].LoopStartSample = 0
+WG[0].SampleSet.Sample[0].LoopEndSample = 0
+
+WG[0].SampleSet.Sample[1].File = samples/PIANO_LOUD_C2.wav
+WG[0].SampleSet.Sample[1].SampledNoteFrequency = 65.406
+WG[0].SampleSet.Sample[1].LoopStartSample = 0
+WG[0].SampleSet.Sample[1].LoopEndSample = 0
+
+WG[0].SampleSet.Sample[2].File = samples/PIANO_LOUD_C3.wav
+WG[0].SampleSet.Sample[2].SampledNoteFrequency = 130.81
+WG[0].SampleSet.Sample[2].LoopStartSample = 0
+WG[0].SampleSet.Sample[2].LoopEndSample = 0
+
+WG[0].SampleSet.Sample[3].File = samples/PIANO_LOUD_C4.wav
+WG[0].SampleSet.Sample[3].SampledNoteFrequency = 261.63
+WG[0].SampleSet.Sample[3].LoopStartSample = 0
+WG[0].SampleSet.Sample[3].LoopEndSample = 0
+
+WG[0].SampleSet.Sample[4].File = samples/PIANO_LOUD_C5.wav
+WG[0].SampleSet.Sample[4].SampledNoteFrequency = 523.25
+WG[0].SampleSet.Sample[4].LoopStartSample = 0
+WG[0].SampleSet.Sample[4].LoopEndSample = 0
+
+WG[0].SampleSet.Sample[5].File = samples/PIANO_LOUD_C6.wav
+WG[0].SampleSet.Sample[5].SampledNoteFrequency = 1046.50
+WG[0].SampleSet.Sample[5].LoopStartSample = 0
+WG[0].SampleSet.Sample[5].LoopEndSample = 0
+
+WG[0].SampleSet.Sample[6].File = samples/PIANO_LOUD_C7.wav
+WG[0].SampleSet.Sample[6].SampledNoteFrequency = 2093.00
+WG[0].SampleSet.Sample[6].LoopStartSample = 0
+WG[0].SampleSet.Sample[6].LoopEndSample = 0
+
+WG[0].SampleSet.Sample[7].File = samples/PIANO_LOUD_C8.wav
+WG[0].SampleSet.Sample[7].SampledNoteFrequency =4186.01
+WG[0].SampleSet.Sample[7].LoopStartSample = 0
+WG[0].SampleSet.Sample[7].LoopEndSample = 0
+
+WG[1].SampleSet.NSamples = 4
+
+WG[1].SampleSet.Sample[0].File = samples/CELLO_C2.wav
+WG[1].SampleSet.Sample[0].SampledNoteFrequency = 65.406
+WG[1].SampleSet.Sample[0].LoopStartSample = 40000
+WG[1].SampleSet.Sample[0].LoopEndSample = 40674
+
+WG[1].SampleSet.Sample[1].File = samples/CELLO_C3.wav
+WG[1].SampleSet.Sample[1].SampledNoteFrequency = 130.81
+WG[1].SampleSet.Sample[1].LoopStartSample = 40000
+WG[1].SampleSet.Sample[1].LoopEndSample = 40674
+
+WG[1].SampleSet.Sample[2].File = samples/CELLO_C4.wav
+WG[1].SampleSet.Sample[2].SampledNoteFrequency = 261.63
+WG[1].SampleSet.Sample[2].LoopStartSample = 40000
+WG[1].SampleSet.Sample[2].LoopEndSample = 40674
+
+WG[1].SampleSet.Sample[3].File = samples/CELLO_C5.wav
+WG[1].SampleSet.Sample[3].SampledNoteFrequency = 523.25
+WG[1].SampleSet.Sample[3].LoopStartSample = 40000
+WG[1].SampleSet.Sample[3].LoopEndSample = 40674
+
+#****************** Voice Settings ****************************
+WGMixMode = MIX
+
+#************************** Reverb settings ********************
+Reverb.Enabled = 0
+Reverb.Feedback = 0.60
+Reverb.SampleLength = 4000
+Reverb.Level = 0.08
+

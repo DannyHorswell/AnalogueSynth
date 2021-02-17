@@ -1,0 +1,128 @@
+# *************** Patch File ***************************
+
+
+
+
+# *************** LFOs  ***************************
+
+LFO[0].Frequency=1.000000
+LFO[0].Type=SIN
+
+LFO[1].Frequency=1.000000
+LFO[1].Type=SIN
+
+
+
+
+# *************** Wave generators  ***************************
+
+WG[0].Type=SQUARE
+WG[0].EnablePitchBend=true
+WG[0].PitchBendAmount=1.000000
+WG[0].KeyOffestSemitones=1.000000
+WG[0].FreqLFOid=0
+WG[0].FreqLFOLevel=1.000000
+WG[0].FreqLFODelay=1.000000
+WG[0].PWMLFOid=0
+WG[0].PWMLFOLevel=1.000000
+
+# ****************** Filter *******************
+WG[0].Filter.FilterType=LPF
+WG[0].Filter.Q=1.000000
+WG[0].Filter.RelativeFrequency=1.000000
+WG[0].Filter.DBGain=1.000000
+WG[0].Filter.VelocityFactor=1.000000
+
+WG[1].Type=SQUARE
+WG[1].EnablePitchBend=true
+WG[1].PitchBendAmount=1.000000
+WG[1].KeyOffestSemitones=1.000000
+WG[1].FreqLFOid=0
+WG[1].FreqLFOLevel=1.000000
+WG[1].FreqLFODelay=1.000000
+WG[1].PWMLFOid=0
+WG[1].PWMLFOLevel=1.000000
+# ****************** Filter *******************
+WG[1].Filter.FilterType=LPF
+WG[1].Filter.Q=1.000000
+WG[1].Filter.RelativeFrequency=1.000000
+WG[1].Filter.DBGain=1.000000
+WG[1].Filter.VelocityFactor=1.000000
+
+
+
+
+# ****************** Time dependant amplifier *******************
+# Levels in gain 0.0F to 1.0F
+#****************************************************************
+
+WG[0].TDA.L0=1.000000
+WG[0].TDA.T1=1.000000
+WG[0].TDA.L1=1.000000
+WG[0].TDA.T2=1.000000
+WG[0].TDA.L2=1.000000
+WG[0].TDA.T3=1.000000
+WG[0].TDA.Sustain=1.000000
+WG[0].TDA.T4=1.000000
+WG[0].TDA.L4=1.000000
+
+WG[1].TDA.L0=1.000000
+WG[1].TDA.T1=1.000000
+WG[1].TDA.L1=1.000000
+WG[1].TDA.T2=1.000000
+WG[1].TDA.L2=1.000000
+WG[1].TDA.T3=1.000000
+WG[1].TDA.Sustain=1.000000
+WG[1].TDA.T4=1.000000
+WG[1].TDA.L4=1.000000
+
+
+
+
+# ****** Time dependant frequency adjustment *******************
+# Levels in semitines
+#****************************************************************
+
+WG[0].TDP.L0=1.000000
+WG[0].TDP.T1=1.000000
+WG[0].TDP.L1=1.000000
+WG[0].TDP.T2=1.000000
+WG[0].TDP.L2=1.000000
+WG[0].TDP.T3=1.000000
+WG[0].TDP.Sustain=1.000000
+WG[0].TDP.T4=1.000000
+WG[0].TDP.L4=1.000000
+
+WG[1].TDP.L0=1.000000
+WG[1].TDP.T1=1.000000
+WG[1].TDP.L1=1.000000
+WG[1].TDP.T2=1.000000
+WG[1].TDP.L2=1.000000
+WG[1].TDP.T3=1.000000
+WG[1].TDP.Sustain=1.000000
+WG[1].TDP.T4=1.000000
+WG[1].TDP.L4=1.000000
+
+
+
+
+#****************** Voice Settings ****************************
+# 
+#****************************************************************
+WGMixMode=MIX
+
+
+
+
+# ****** Reverb settings *******************
+# Feedback and Level should be less that 1.0 
+#****************************************************************
+Reverb.Enabled=0
+Reverb.Feedback=0.600000
+Reverb.SampleLength=4000
+Reverb.Level=0.080000
+
+
+
+
+# ************** END OF FILE *******************
