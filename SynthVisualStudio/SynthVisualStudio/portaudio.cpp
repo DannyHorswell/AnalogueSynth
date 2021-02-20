@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "Constants.h"
-#include "PortAudio.h"
+#include "constants.h"
+#include "portaudio.h"
 
 PaError PortAudio::Initalise(PaStreamCallback* pBufferCallback)
 {

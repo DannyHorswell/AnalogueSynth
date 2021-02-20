@@ -6,7 +6,7 @@
 #define ENABLE_TDA	// Enable time dependant amplitude
 //#define ENABLE_TDF	// Enable time dependant filter
 
-#define ENABLE_FILTERS
+//#define ENABLE_FILTERS
 //#define ENABLE_OUTPUT_COMPRESSION
 #define ENABLE_REVERB
 #define NORMALSE_SAMPLES
@@ -45,6 +45,9 @@
 
 // TCP
 #define TCP_PORT 1234
+
+#define MAX_VAL (32767)
+#define MIN_VAL (-32767)
 
 // Mathmatical
 #define PI 3.1415926535F

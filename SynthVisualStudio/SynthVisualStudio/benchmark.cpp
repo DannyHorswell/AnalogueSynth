@@ -15,9 +15,9 @@ benchmark::benchmark()
 {
 	deltaT = 1.0 / SAMPLE_FREQUENCY;
 
-	start = NULL;
-	stop = NULL;
-	result = NULL;
+	start = 0;
+	stop = 0;
+	result = 0;
 
 	nOps = 100000;
 }

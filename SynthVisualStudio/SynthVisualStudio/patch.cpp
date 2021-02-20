@@ -1088,18 +1088,30 @@ void PopulateDefaultPatch(patch* pPatch)
 	// LFOS
 	for (int count=0; count<NUMBER_OF_LFO_FOR_SYNTH; count++)
 	{
-		pPatch->LFOs[count].frequency = 1.0F;
+		pPatch->LFOs[count].frequency = 0.25F;
 		pPatch->LFOs[count]._type = SIN;
 	}
 
 	for (int count=0; count<NUMBER_OF_WAVE_GENERATORS_PER_VOICE; count++)
 	{
 		// Wave generators
-		pPatch->WGs[count]._type = SQUARE;
+		switch (count)
+		{
+			case 0:
+				pPatch->WGs[count]._type = SQUARE;
+				pPatch->WGs[count].keyOffestSemitones = 0.0F;
+				break;
+				
+			case 1:
+				pPatch->WGs[count]._type = SIN;
+				pPatch->WGs[count].keyOffestSemitones = 4.0F;
+				break;
+				
+		}
 		pPatch->WGs[count].enablePitchBend = true;
 		pPatch->WGs[count].pitchBendAmount = 1.0F;
 
-		pPatch->WGs[count].keyOffestSemitones = 0.0F;
+		
 		pPatch->WGs[count].freqLFOid = 0;
 		pPatch->WGs[count].freqLFOLevel = 0.0F;
 		pPatch->WGs[count].freqLFODelay = 0.0F;
@@ -1111,6 +1123,7 @@ void PopulateDefaultPatch(patch* pPatch)
 		pPatch->WGs[count].Filter.Q = 1;
 		pPatch->WGs[count].Filter.RelativeFrequency = 1.0F;
 		pPatch->WGs[count].Filter.DBGain = 0.0F;
+	
 
 #ifdef ENABLE_TDP
 		//********************** TDPs *********************

@@ -642,7 +642,7 @@ bool ProcessSetting(patch* pPatch, vector<NameIndexer> nixers, string value, boo
 
 bool ProcessPatchLine(patch* pPatch, const string& s, bool& wasSampleSetChange)
 {
-	//fprintf(stderr, "Process patch line %s\n", s.c_str());
+	fprintf(stderr, "Process patch line %s\n", s.c_str());
 
 	// Remove any comments
 	string findchar = "#";
@@ -703,8 +703,9 @@ bool ProcessPatchLine(patch* pPatch, const string& s, bool& wasSampleSetChange)
 	return ProcessSetting(pPatch, nameIndexList, value, wasSampleSetChange);
 }
 
-bool ReadPatchFromFile(patch* pPatch, char* filePath)
+bool ReadPatchFromFile(patch* pPatch, const string& s)
 {
+	const char* filePath = s.c_str();
 	ifstream ifs(filePath);
 
 	if (ifs)

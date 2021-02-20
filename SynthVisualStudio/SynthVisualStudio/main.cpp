@@ -6,7 +6,7 @@
 #include <pthread.h>
 #endif
 
-
+#include <math.h>
 #include <vector>
 
 using namespace std;
@@ -54,12 +54,27 @@ PortAudio ThePortAudio;
 #endif
 
 
-float deltaT;
+float deltaT = 1.0F / (float) SAMPLE_FREQUENCY; // Time between samples
 
 synth theSynth;
 
 int bufferpos = 0;
 
+
+float lastTestPhase = 0.0F;
+
+float getNextTestValue()
+{
+	float ret = 0.05F * sin(lastTestPhase);
+	lastTestPhase += (PI / 880);
+	
+	if (lastTestPhase > PI)
+	{
+		lastTestPhase -= TWO_PI;
+	}
+	
+	return ret;
+}
 
 
  static PaError StreamCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData)
@@ -76,14 +91,20 @@ int bufferpos = 0;
 
 	 for (unsigned int i = 0; i < framesPerBuffer; i++)
 	 {
-		 struct stereo nextVal = theSynth.getnext(deltaT);
+		 struct stereo nextVal;
+		 
+		 
+		 nextVal = theSynth.getnext(deltaT);
+		 
+		 //nextVal.left = getNextTestValue();
+		 //nextVal.right = nextVal.left;
 
 		 int valleft = nextVal.left * FLOAT_TO_SIGNED_16_MULTIPLIER;
 		 int valright = nextVal.right * FLOAT_TO_SIGNED_16_MULTIPLIER;
 
 
 #ifdef __arm__
-		 * out++ = valleft / MAX_VAL;
+		 * out++ = valleft;
 #else
 		 * out++ = valleft;
 #endif 
@@ -249,7 +270,7 @@ static void async_loop()
 
 	ThePortAudio.Initalise(StreamCallback);
 	
-	
+	printf("Delta T %f\n", deltaT);
 
 #ifdef ENABLE_MIDI
 	//pthread_t midiThread;

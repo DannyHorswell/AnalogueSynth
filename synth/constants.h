@@ -10,16 +10,16 @@
 //#define ENABLE_OUTPUT_COMPRESSION
 #define ENABLE_REVERB
 #define NORMALSE_SAMPLES
-#define ENABLE_MIDI
-#define ENABLE_SOCKET
+//#define ENABLE_MIDI
+//#define ENABLE_SOCKET
 
 //#define PRINT_GETNEXT // Used for debuging generation loop issues, under runs will occur, but can tell how far it gets if getting seg faults
 
 
-#define INITIAL_TEST_SOUND // if defined, the sound buffers are initially filled with a test sound to test the sound system
 
 // Options
-static unsigned int rate	= 44100;                     /* stream rate */
+static unsigned int rate	= 48000;                     /* stream rate  ALSA default*/
+//static unsigned int rate	= 44100; 					 /* stream rate */
 //static unsigned int rate	= 22050;                       /* stream rate */
 //static unsigned int rate = 11025;                       /* stream rate */
 

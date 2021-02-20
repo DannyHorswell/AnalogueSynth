@@ -153,7 +153,7 @@ struct patch
 
 // Reads a patch file to the patch pointer
 extern vector<string> split( const string& s, const string& f );
-extern bool ReadPatchFromFile(patch* pPatch, char* FileName);
+extern bool ReadPatchFromFile(patch* pPatch, const string& s);
 extern void PopulateDefaultPatch(patch* pPatch);
 extern void SavePatch(synth*pSynth, patch* pPatch, char* filePath);
 extern bool ProcessPatchLine(patch* pPatch, const string& s, bool& wasSampleSetChange);

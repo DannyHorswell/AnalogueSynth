@@ -21,13 +21,12 @@ using namespace std;
 #include "socket.h"
 #include "benchmark.h"
 
-using namespace std;
-
 
 const int CONSOLE_BUFFER_SIZE = 128;
 
 // Find device ids by cat /proc/asound/cards
-static char device[] = "plughw:0,0";                     /* playback device */
+//static char device[] = "plughw:0,0";                     /* playback device */
+static char device[] = "plughw:Alpha,0";                     /* playback device */
 static char mididevice[] = "hw:1,0";                     /* midi device */
 
 static snd_pcm_format_t format = SND_PCM_FORMAT_S16;    /* sample format */
@@ -43,6 +42,9 @@ static int period_event = 0;                            /* produce poll event af
 static snd_pcm_sframes_t buffer_size;
 static snd_pcm_sframes_t period_size;
 static snd_output_t *output = NULL;
+
+
+static long callbackCount = 0;
 
 #ifdef ENABLE_MIDI
 	static midi theMidi;
@@ -60,16 +62,44 @@ synth theSynth;
 
 int bufferpos = 0;
 
+
  struct async_private_data {
          signed short *samples;
          snd_pcm_channel_area_t *areas;
 };
 
+bool testMode = true;  // When set, synth is bypassed, and sin wave is played
+
+
+
+float testPhase = 0.0F;
+float testPhaseIncrement = 440.0F * TWO_PI / rate;
+
+// A method that returns a test tone used for testing sound
+// is working
+struct stereo GetTestToneNext()
+{
+	struct stereo ret;
+	
+	ret.left = wg_sin(testPhase);
+	
+	ret.right = ret.left;
+	
+	testPhase += testPhaseIncrement;
+	
+	if (testPhase > PI)
+	{
+		testPhase -= TWO_PI;
+	}
+	
+	return ret;
+}
+
 void PCMCallback(snd_async_handler_t* pcm_callback)
 {
-#ifdef PRINT_GETNEXT
-	fprintf(stderr, "PCMCallback\n");
-#endif
+	struct stereo nextVal;
+	
+	callbackCount++;
 
 #ifdef ENABLE_MIDI
 	theMidi.pollmidi();
@@ -84,20 +114,30 @@ void PCMCallback(snd_async_handler_t* pcm_callback)
 
 	avail = snd_pcm_avail_update(pcm_handle);
 
-	if (avail < 0)
+	if (avail = 0)
 	{
-		//fprintf(stderr, "avail negative %i\n", avail);
+		fprintf(stderr, "avail 0 or negative %i\n", avail);
 	}
 
 	while (avail >= period_size)
 	{
+		fprintf(stderr, "More\n");
+		
 		// Fill the buffer with more data
 
 		int offset = 0;
 
 		for (int count=0; count<period_size; count++)
 		{
-			struct stereo nextVal = theSynth.getnext(deltaT);
+			if (testMode)
+			{
+				fprintf(stderr, "New\n");
+				nextVal = GetTestToneNext();
+			}
+			else
+			{
+				nextVal = theSynth.getnext(deltaT);
+			}
 
 			int valleft = nextVal.left * FLOAT_TO_SIGNED_16_MULTIPLIER;
 			int valright = nextVal.right * FLOAT_TO_SIGNED_16_MULTIPLIER;
@@ -159,7 +199,7 @@ void PCMCallback(snd_async_handler_t* pcm_callback)
 
 		else if (err != (int) period_size)
 		{
-			fprintf(stderr, "short write, write %d frames\n", snd_strerror(err));
+			fprintf(stderr, "short write, wrote %d frames, wanted to write %i \n", err, period_size);
 		}
 
 		avail = snd_pcm_avail_update(pcm_handle);
@@ -168,6 +208,8 @@ void PCMCallback(snd_async_handler_t* pcm_callback)
 #ifdef ENABLE_SOCKET
 	theSocket.polllisten();
 #endif
+
+	//fprintf(stderr, "End PCMCallback\n");
 }
 
 static int set_hwparams(snd_pcm_t *handle,
@@ -249,6 +291,8 @@ static int set_hwparams(snd_pcm_t *handle,
                  return err;
          }
          period_size = size;
+	 
+	 printf("Period size: %d\n", period_size);
 	
 
          /* write the parameters to device */
@@ -356,7 +400,7 @@ void SocketCommand(const string& com)
 {
 	int keyNo;
 
-	//printf("%s\n",com.c_str()); // Print the command(s)
+	printf("%s\n",com.c_str()); // Print the command(s)
 
 	// Single characters are easy play notes from keyboard
 	if (com.size() == 1)
@@ -418,6 +462,19 @@ void SocketCommand(const string& com)
 		if (splits.size() == 2)
 		{
 			bool commandFound = false;
+			
+			if (splits[0] == "Test")
+			{
+				commandFound = true;
+				testMode = !testMode;
+				printf("Test mode: %s\n",testMode?"true":"false"); // Print the command(s)
+			}
+			
+			if (splits[0] == "Load")
+			{
+				commandFound = true;
+				ReadPatchFromFile(theSynth._pSelectedPatch, splits[1]);
+			}
 
 			if (splits[0] == "Patch")
 			{
@@ -473,9 +530,6 @@ static void async_loop(snd_pcm_t *handle, signed short* samples)
 
 	// Fill the buffer with initial data
 
-#ifdef INITIAL_TEST_SOUND
-	float testlevel = 0.0F;
-#endif
 
 	for (int per = 0; per < 3; per++) // Add 2 periods worth
 	{
@@ -483,23 +537,11 @@ static void async_loop(snd_pcm_t *handle, signed short* samples)
 
 		for (int count=0; count<period_size; count++)
 		{
-
-#ifdef INITIAL_TEST_SOUND
-			int valleft = testlevel * FLOAT_TO_SIGNED_16_MULTIPLIER;
-			int valright = testlevel * FLOAT_TO_SIGNED_16_MULTIPLIER;
-
-			testlevel += 0.025F;
-
-			if (testlevel > 1.0F)
-			{
-				testlevel = -1.0F;
-			}
-#else
 			struct stereo nextVal = theSynth.getnext(deltaT);
 			
 			int valleft = nextVal.left * FLOAT_TO_SIGNED_16_MULTIPLIER;
 			int valright = nextVal.right * FLOAT_TO_SIGNED_16_MULTIPLIER;
-#endif
+
 
 			for (int channel = 0; channel < NUMBER_OF_OP_CHANNELS; channel++)
 			{
@@ -534,7 +576,7 @@ static void async_loop(snd_pcm_t *handle, signed short* samples)
 	
 		else if (err != (int) period_size)
 		{
-			fprintf(stderr, "short write, write %d frames\n", snd_strerror(err));
+			fprintf(stderr, "short write, wrote %d frames, wanted to write %i \n", err, period_size);
 		}
 	
 	    if (snd_pcm_state(handle) == SND_PCM_STATE_PREPARED)
@@ -543,7 +585,7 @@ static void async_loop(snd_pcm_t *handle, signed short* samples)
 
 	            if (err < 0)
 				{
-	                    printf("Start error: %s\n", snd_strerror(err));
+	                    printf("Start error: %s %i\n", snd_strerror(err), err);
 	                    exit(EXIT_FAILURE);
 	            }
 	    }
@@ -574,26 +616,34 @@ static void async_loop(snd_pcm_t *handle, signed short* samples)
 	char consoleLine[CONSOLE_BUFFER_SIZE];
 	string com;
 
+	printf("Listen for input\n");
+
 	// wait for input loop
 	do
 	{
-		fgets(consoleLine, CONSOLE_BUFFER_SIZE, stdin);
-
-		// remove the end of line character
-		for (int count=0; count<CONSOLE_BUFFER_SIZE; count++)
+		if (fgets(consoleLine, CONSOLE_BUFFER_SIZE, stdin) != NULL)
 		{
-			if (consoleLine[count] == '\n')
+			// remove the end of line character
+			for (int count=0; count<CONSOLE_BUFFER_SIZE; count++)
 			{
-				consoleLine[count] = 0;
-				break;
+				if (consoleLine[count] == '\n')
+				{
+					consoleLine[count] = 0;
+					break;
+				}
 			}
+
+			com = consoleLine;
+
+			printf("key %s : Callback count %i\n", consoleLine, callbackCount);
+
+			SocketCommand(com);
 		}
-
-		com = consoleLine;
-
-		printf("key %s", consoleLine);
-
-		SocketCommand(com);
+		else
+		{
+			printf("Input NULL");
+			sleep(1);
+		}
 	}
 	while (com != "exit");
 

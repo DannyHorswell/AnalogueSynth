@@ -12,12 +12,12 @@ LFO[1].Type=SIN
 
 # *************** Wave generators  ***************************
 
-WG[0].Type=PCM
+WG[0].Type=SIN
 WG[0].EnablePitchBend=true
-WG[0].PitchBendAmount=0.000000
-WG[0].VelocityVolumeAdjust=1.000000
+WG[0].PitchBendAmount=1.000000
+WG[0].VelocityVolumeAdjust=0.000000
 WG[0].KeyOffestSemitones=0.000000
-WG[0].FreqLFOid=1
+WG[0].FreqLFOid=0
 WG[0].FreqLFOLevel=0.000000
 WG[0].FreqLFODelay=0.000000
 WG[0].PWMLFOid=0
@@ -25,75 +25,51 @@ WG[0].PWMLFOLevel=0.000000
 
 
 # ****************** Filter *******************
-WG[0].Filter.FilterType=OFF
-WG[0].Filter.Q=20.000000
+WG[0].Filter.FilterType=LPF
+WG[0].Filter.Q=1.000000
 WG[0].Filter.RelativeFrequency=1.000000
 WG[0].Filter.DBGain=0.000000
-WG[0].Filter.VelocityFactor=36.000000
+WG[0].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
-WG[14].SampleSet.NSamples=0
-WG[0].SampleSet.Sample[0].File=samples/CYCdh_K4-Kick05.wav
-WG[0].SampleSet.Sample[0].SampledNoteFrequency=61.735416
+WG[8].SampleSet.NSamples=0
+WG[0].SampleSet.Sample[0].File=samples/PIANO_LOUD_C1.wav
+WG[0].SampleSet.Sample[0].SampledNoteFrequency=32.702999
 WG[0].SampleSet.Sample[0].LoopStartSample=0
 WG[0].SampleSet.Sample[0].LoopEndSample=0
-WG[0].SampleSet.Sample[1].File=samples/CYCdh_K4-Kick05.wav
-WG[0].SampleSet.Sample[1].SampledNoteFrequency=65.406387
+WG[0].SampleSet.Sample[1].File=samples/PIANO_LOUD_C2.wav
+WG[0].SampleSet.Sample[1].SampledNoteFrequency=65.405998
 WG[0].SampleSet.Sample[1].LoopStartSample=0
 WG[0].SampleSet.Sample[1].LoopEndSample=0
-WG[0].SampleSet.Sample[2].File=samples/CYCdh_K2room_Rim-04.wav
-WG[0].SampleSet.Sample[2].SampledNoteFrequency=69.295654
+WG[0].SampleSet.Sample[2].File=samples/PIANO_LOUD_C3.wav
+WG[0].SampleSet.Sample[2].SampledNoteFrequency=130.809998
 WG[0].SampleSet.Sample[2].LoopStartSample=0
 WG[0].SampleSet.Sample[2].LoopEndSample=0
-WG[0].SampleSet.Sample[3].File=samples/CYCdh_K6-Snr04.wav
-WG[0].SampleSet.Sample[3].SampledNoteFrequency=73.416199
+WG[0].SampleSet.Sample[3].File=samples/PIANO_LOUD_C4.wav
+WG[0].SampleSet.Sample[3].SampledNoteFrequency=261.630005
 WG[0].SampleSet.Sample[3].LoopStartSample=0
 WG[0].SampleSet.Sample[3].LoopEndSample=0
-WG[0].SampleSet.Sample[4].File=samples/CYCdh_K2room_Snr-05.wav
-WG[0].SampleSet.Sample[4].SampledNoteFrequency=77.781738
+WG[0].SampleSet.Sample[4].File=samples/PIANO_LOUD_C5.wav
+WG[0].SampleSet.Sample[4].SampledNoteFrequency=523.250000
 WG[0].SampleSet.Sample[4].LoopStartSample=0
 WG[0].SampleSet.Sample[4].LoopEndSample=0
-WG[0].SampleSet.Sample[5].File=samples/CYCdh_VinylK2-Ride02.wav
-WG[0].SampleSet.Sample[5].SampledNoteFrequency=82.406883
+WG[0].SampleSet.Sample[5].File=samples/PIANO_LOUD_C6.wav
+WG[0].SampleSet.Sample[5].SampledNoteFrequency=1046.500000
 WG[0].SampleSet.Sample[5].LoopStartSample=0
 WG[0].SampleSet.Sample[5].LoopEndSample=0
-WG[0].SampleSet.Sample[6].File=samples/CYCdh_Kurz07-Tom01.wav
-WG[0].SampleSet.Sample[6].SampledNoteFrequency=87.307068
+WG[0].SampleSet.Sample[6].File=samples/PIANO_LOUD_C7.wav
+WG[0].SampleSet.Sample[6].SampledNoteFrequency=2093.000000
 WG[0].SampleSet.Sample[6].LoopStartSample=0
 WG[0].SampleSet.Sample[6].LoopEndSample=0
-WG[0].SampleSet.Sample[7].File=samples/CYCdh_K6-ClHat.wav
-WG[0].SampleSet.Sample[7].SampledNoteFrequency=92.498604
+WG[0].SampleSet.Sample[7].File=samples/PIANO_LOUD_C8.wav
+WG[0].SampleSet.Sample[7].SampledNoteFrequency=4186.009766
 WG[0].SampleSet.Sample[7].LoopStartSample=0
 WG[0].SampleSet.Sample[7].LoopEndSample=0
-WG[0].SampleSet.Sample[8].File=samples/CYCdh_Kurz07-Tom02.wav
-WG[0].SampleSet.Sample[8].SampledNoteFrequency=97.998848
-WG[0].SampleSet.Sample[8].LoopStartSample=0
-WG[0].SampleSet.Sample[8].LoopEndSample=0
-WG[0].SampleSet.Sample[9].File=samples/CYCdh_K6-OpHat02.wav
-WG[0].SampleSet.Sample[9].SampledNoteFrequency=103.826180
-WG[0].SampleSet.Sample[9].LoopStartSample=0
-WG[0].SampleSet.Sample[9].LoopEndSample=0
-WG[0].SampleSet.Sample[10].File=samples/CYCdh_Kurz07-Tom03.wav
-WG[0].SampleSet.Sample[10].SampledNoteFrequency=109.999992
-WG[0].SampleSet.Sample[10].LoopStartSample=0
-WG[0].SampleSet.Sample[10].LoopEndSample=0
-WG[0].SampleSet.Sample[11].File=samples/CYCdh_K2room_OpHat-07.wav
-WG[0].SampleSet.Sample[11].SampledNoteFrequency=116.540924
-WG[0].SampleSet.Sample[11].LoopStartSample=0
-WG[0].SampleSet.Sample[11].LoopEndSample=0
-WG[0].SampleSet.Sample[12].File=samples/CYCdh_Kurz07-Tom04.wav
-WG[0].SampleSet.Sample[12].SampledNoteFrequency=123.470833
-WG[0].SampleSet.Sample[12].LoopStartSample=0
-WG[0].SampleSet.Sample[12].LoopEndSample=0
-WG[0].SampleSet.Sample[13].File=samples/CYCdh_Kurz07-Tom05.wav
-WG[0].SampleSet.Sample[13].SampledNoteFrequency=130.812775
-WG[0].SampleSet.Sample[13].LoopStartSample=0
-WG[0].SampleSet.Sample[13].LoopEndSample=0
 
-WG[1].Type=MUTE
+WG[1].Type=SIN
 WG[1].EnablePitchBend=true
-WG[1].PitchBendAmount=0.000000
+WG[1].PitchBendAmount=-1.000000
 WG[1].VelocityVolumeAdjust=0.000000
-WG[1].KeyOffestSemitones=0.000000
+WG[1].KeyOffestSemitones=0.050000
 WG[1].FreqLFOid=1
 WG[1].FreqLFOLevel=0.000000
 WG[1].FreqLFODelay=0.000000
@@ -102,13 +78,29 @@ WG[1].PWMLFOLevel=0.000000
 
 
 # ****************** Filter *******************
-WG[1].Filter.FilterType=OFF
+WG[1].Filter.FilterType=LPF
 WG[1].Filter.Q=1.000000
 WG[1].Filter.RelativeFrequency=1.000000
 WG[1].Filter.DBGain=0.000000
-WG[1].Filter.VelocityFactor=72.000000
+WG[1].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
-WG[0].SampleSet.NSamples=0
+WG[4].SampleSet.NSamples=0
+WG[1].SampleSet.Sample[0].File=samples/CELLO_C2.wav
+WG[1].SampleSet.Sample[0].SampledNoteFrequency=65.405998
+WG[1].SampleSet.Sample[0].LoopStartSample=0
+WG[1].SampleSet.Sample[0].LoopEndSample=0
+WG[1].SampleSet.Sample[1].File=samples/CELLO_C3.wav
+WG[1].SampleSet.Sample[1].SampledNoteFrequency=130.809998
+WG[1].SampleSet.Sample[1].LoopStartSample=0
+WG[1].SampleSet.Sample[1].LoopEndSample=0
+WG[1].SampleSet.Sample[2].File=samples/CELLO_C4.wav
+WG[1].SampleSet.Sample[2].SampledNoteFrequency=261.630005
+WG[1].SampleSet.Sample[2].LoopStartSample=0
+WG[1].SampleSet.Sample[2].LoopEndSample=0
+WG[1].SampleSet.Sample[3].File=samples/CELLO_C5.wav
+WG[1].SampleSet.Sample[3].SampledNoteFrequency=523.250000
+WG[1].SampleSet.Sample[3].LoopStartSample=0
+WG[1].SampleSet.Sample[3].LoopEndSample=0
 
 
 # ****** Time dependant pitch adjustment *******************
@@ -142,11 +134,11 @@ WG[1].TDP.L4=0.000000
 
 WG[0].TDA.L0=1.000000
 WG[0].TDA.T1=2.000000
-WG[0].TDA.L1=1.000000
+WG[0].TDA.L1=0.500000
 WG[0].TDA.T2=0.000000
-WG[0].TDA.L2=1.000000
+WG[0].TDA.L2=0.400000
 WG[0].TDA.T3=0.000000
-WG[0].TDA.Sustain=1.000000
+WG[0].TDA.Sustain=0.100000
 WG[0].TDA.T4=0.000000
 WG[0].TDA.L4=0.000000
 
@@ -164,7 +156,7 @@ WG[1].TDA.L4=0.000000
 #****************** Voice Settings ****************************
 # 
 #****************************************************************
-WGMixMode=WG0
+WGMixMode=MIX
 
 
 # ****** Reverb settings *******************
