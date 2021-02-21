@@ -1,10 +1,13 @@
 #include <stdlib.h>
 #include <string>
 #include <stdio.h>
-#include <alsa/asoundlib.h>
 #include <math.h>
 #include <vector>
 #include <thread>
+
+#ifdef __arm__
+#include <alsa/asoundlib.h>
+#endif
 
 using namespace std;
 

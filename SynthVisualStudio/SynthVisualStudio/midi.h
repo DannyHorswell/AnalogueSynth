@@ -56,7 +56,6 @@ class midi
 	unsigned char data[MIDI_DATA_BUFFER_SIZE]; // Following databytes
 
 public:
-	//void startmidi(void* ptr);
 	void startmidi(char*);
 	
 	void pollmidi();

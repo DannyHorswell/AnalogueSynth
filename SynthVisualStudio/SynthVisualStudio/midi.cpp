@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include <string>
 #include <ctype.h>
-#include <alsa/asoundlib.h>
 #include <signal.h>
+
+#ifdef __arm__
+#include <alsa/asoundlib.h>
+#endif
 
 #include "constants.h"
 #include "midi.h"
