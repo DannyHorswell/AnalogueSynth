@@ -63,6 +63,7 @@ float tdl::getnext()
 	}
 
 	float amountThrough;
+	float amountLeft;
 
 	if (_pVoice->keyPressed)
 	{
@@ -107,8 +108,10 @@ float tdl::getnext()
 
 		if (_pVoice->timeSinceReleased < ppatchTDL->T4)
 		{
-			amountThrough = (_pVoice->timeSinceReleased - ppatchTDL->T4) / ppatchTDL->T4;
-			output = ppatchTDL->L4 + (releaseLevel - ppatchTDL->L4) * amountThrough;
+			amountLeft = (ppatchTDL->T4 - _pVoice->timeSinceReleased) / ppatchTDL->T4;
+			amountThrough = 1.0F - amountLeft;
+
+			output = ppatchTDL->L4 * amountThrough + releaseLevel * amountLeft;
 		}
 		else
 		{
