@@ -147,7 +147,8 @@ float wavegenerator::getnext(float deltaT)
 			break;
 	
 		case SIN:
-			ret = waveformLevel * wg_sin(TWO_PI * _part_period / _full_period);
+			//ret = waveformLevel * wg_sin(TWO_PI * _part_period / _full_period);
+			ret = waveformLevel * sin(TWO_PI * _part_period / _full_period);
 			break;
 
 		case SAW:

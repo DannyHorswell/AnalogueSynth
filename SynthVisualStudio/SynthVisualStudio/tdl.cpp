@@ -92,20 +92,30 @@ float tdl::getnext()
  		{
 			output = ppatchTDL->Sustain;
 		}
+		
+		lastKeystate = true;
 	}
 	else
 	{
 		// In release phase
+		if (lastKeystate)
+		{
+			// Key just release, record output level
+			releaseLevel = output;
+			printf("Released %f\n", releaseLevel);
+		}
 
 		if (_pVoice->timeSinceReleased < ppatchTDL->T4)
 		{
-			amountThrough = (ppatchTDL->T4 - _pVoice->timeSinceReleased) / ppatchTDL->T4;
-			output = ppatchTDL->L4 + (output - ppatchTDL->L4) * amountThrough;
+			amountThrough = (_pVoice->timeSinceReleased - ppatchTDL->T4) / ppatchTDL->T4;
+			output = ppatchTDL->L4 + (releaseLevel - ppatchTDL->L4) * amountThrough;
 		}
 		else
 		{
 			output = ppatchTDL->L4;
 		}
+		
+		lastKeystate = false;
 	}
 
 	return output;
