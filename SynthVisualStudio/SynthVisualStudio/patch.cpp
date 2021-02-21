@@ -1088,7 +1088,7 @@ void PopulateDefaultPatch(patch* pPatch)
 	// LFOS
 	for (int count=0; count<NUMBER_OF_LFO_FOR_SYNTH; count++)
 	{
-		pPatch->LFOs[count].frequency = 0.25F;
+		pPatch->LFOs[count].frequency = 3.0F;
 		pPatch->LFOs[count]._type = SIN;
 	}
 
@@ -1098,13 +1098,13 @@ void PopulateDefaultPatch(patch* pPatch)
 		switch (count)
 		{
 			case 0:
-				pPatch->WGs[count]._type = SQUARE;
+				pPatch->WGs[count]._type = SIN;
 				pPatch->WGs[count].keyOffestSemitones = 0.0F;
 				break;
 				
 			case 1:
 				pPatch->WGs[count]._type = SIN;
-				pPatch->WGs[count].keyOffestSemitones = 4.0F;
+				pPatch->WGs[count].keyOffestSemitones = 12.0F;
 				break;
 				
 		}
@@ -1116,7 +1116,7 @@ void PopulateDefaultPatch(patch* pPatch)
 		pPatch->WGs[count].freqLFOLevel = 0.0F;
 		pPatch->WGs[count].freqLFODelay = 0.0F;
 		pPatch->WGs[count].pwmLFOid = 0;
-		pPatch->WGs[count].pwmLFOLevel = 0.9F;
+		pPatch->WGs[count].pwmLFOLevel = 0.3F;
 
 		// **************** Filter *******************
 		pPatch->WGs[count].Filter.FilterType = LPF;
@@ -1126,36 +1126,58 @@ void PopulateDefaultPatch(patch* pPatch)
 	
 
 #ifdef ENABLE_TDP
-		//********************** TDPs *********************
-		// Levels in semitones 
-		pPatch->WGs[count].TDP.L0 = 0.0F;
-		pPatch->WGs[count].TDP.T1 = 0.0F;
-		pPatch->WGs[count].TDP.L1 = 0.0F;
-		pPatch->WGs[count].TDP.T2 = 0.2F;
-		pPatch->WGs[count].TDP.L2 = 0.0F;
-		pPatch->WGs[count].TDP.T3 = 0.0F;
-		pPatch->WGs[count].TDP.Sustain = 0.0F;
-		pPatch->WGs[count].TDP.T4 = 1.0F;
-		pPatch->WGs[count].TDP.L4 = 0.0F;
+		switch (count)
+		{
+			case 0:
+				//********************** TDPs *********************
+				// Pitch: Levels in semitones 
+				pPatch->WGs[count].TDP.L0 = 0.0F;
+				pPatch->WGs[count].TDP.T1 = 1.0F;
+				pPatch->WGs[count].TDP.L1 = 0.0F;
+				pPatch->WGs[count].TDP.T2 = 0.2F;
+				pPatch->WGs[count].TDP.L2 = 0.0F;
+				pPatch->WGs[count].TDP.T3 = 0.0F;
+				pPatch->WGs[count].TDP.Sustain = 0.0F;
+				pPatch->WGs[count].TDP.T4 = 3.0F;
+				pPatch->WGs[count].TDP.L4 = 0.0F;
+				break;
+				
+			case 1:
+				//********************** TDPs *********************
+				// Pitch: Levels in semitones 
+				pPatch->WGs[count].TDP.L0 = 0.0F;
+				pPatch->WGs[count].TDP.T1 = 0.0F;
+				pPatch->WGs[count].TDP.L1 = 0.0F;
+				pPatch->WGs[count].TDP.T2 = 0.2F;
+				pPatch->WGs[count].TDP.L2 = 0.0F;
+				pPatch->WGs[count].TDP.T3 = 0.0F;
+				pPatch->WGs[count].TDP.Sustain = 0.0F;
+				pPatch->WGs[count].TDP.T4 = 3.0F;
+				pPatch->WGs[count].TDP.L4 = 0.0F;
+				break;
+				
+		}
+
+
 #endif
 
 #ifdef ENABLE_TDA
 		// ********************* TDAs *********************
-		// Levels in gain 0.0F to 1.0F
-		pPatch->WGs[count].TDA.L0 = 1.0F;
-		pPatch->WGs[count].TDA.T1 = 1.0F;
+		// Amplitude: Levels in gain 0.0F to 1.0F
+		pPatch->WGs[count].TDA.L0 = 0.0F;
+		pPatch->WGs[count].TDA.T1 = 3.0F;
 		pPatch->WGs[count].TDA.L1 = 0.5F;
-		pPatch->WGs[count].TDA.T2 = 1.0F;
-		pPatch->WGs[count].TDA.L2 = 0.4F;
+		pPatch->WGs[count].TDA.T2 = 0.0F;
+		pPatch->WGs[count].TDA.L2 = 0.5F;
 		pPatch->WGs[count].TDA.T3 = 1.0F;
-		pPatch->WGs[count].TDA.Sustain = 0.1F;
-		pPatch->WGs[count].TDA.T4 = 2.0F;
+		pPatch->WGs[count].TDA.Sustain = 0.01F;
+		pPatch->WGs[count].TDA.T4 = 10.0F;
 		pPatch->WGs[count].TDA.L4 = 0.0F;
 #endif
 
 #ifdef ENABLE_TDF
 		// ********************* TDFs *********************
-		// Levels in semitones
+		// Filter
 		pPatch->WGs[count].TDF.L0 = 0.0F;
 		pPatch->WGs[count].TDF.T1 = 0.0F;
 		pPatch->WGs[count].TDF.L1 = 0.0F;
@@ -1168,11 +1190,11 @@ void PopulateDefaultPatch(patch* pPatch)
 #endif
 	}
 
-	pPatch->WGMixMode = MIX;
+	pPatch->WGMixMode = WG0;
 
 	// Reverb
-	pPatch->Reverb.feedback = 0.60F;
-	pPatch->Reverb.sampleLength = 4000;
-	pPatch->Reverb.level = 0.08F;
-
+	pPatch->Reverb.feedback = 0.50F;
+	pPatch->Reverb.sampleLength = 3000;
+	pPatch->Reverb.level = 0.2F;
+	pPatch->Reverb.enabled = false;
 }

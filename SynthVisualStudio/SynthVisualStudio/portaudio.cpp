@@ -59,7 +59,7 @@ PaError PortAudio::Initalise(PaStreamCallback* pBufferCallback)
     outParams.hostApiSpecificStreamInfo = NULL;
     outParams.suggestedLatency = Pa_GetDeviceInfo(outParams.device)->defaultHighOutputLatency;
 
-    printf("Openning device: %d, Sample rate %d\n", outParams.device, SAMPLE_FREQUENCY);
+    printf("Openning device: %d, Sample rate %d, Latency %f\n", outParams.device, SAMPLE_FREQUENCY, outParams.suggestedLatency );
     paError = Pa_OpenStream(&paStream, NULL, &outParams, SAMPLE_FREQUENCY, FRAMES_PER_BUFFER, paClipOff, pBufferCallback, NULL);
 
     if (paError != paNoError)

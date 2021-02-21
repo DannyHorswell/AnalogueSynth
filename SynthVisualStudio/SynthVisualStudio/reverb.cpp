@@ -16,7 +16,7 @@
 
 reverb::reverb()
 {
-	//fprintf(stderr, "reverb ctor");
+	fprintf(stderr, "reverb ctor");
 
 	pBuffer = (stereo*) malloc(sizeof(stereo) * MAX_REVERB_SAMPLES);
 
@@ -39,6 +39,8 @@ void reverb::init(synth* pSynth)
 stereo reverb::getnext(stereo input)
 {
 	patchReverb* pRevPatch = &_pSynth->_pSelectedPatch->Reverb;
+	
+	
 
 	input.right = input.right / 2.0F;
 	input.left = input.left / 2.0F;
@@ -55,8 +57,8 @@ stereo reverb::getnext(stereo input)
 		float level = pRevPatch->level;
 
 		// Crossover left right
-		pBuffer[nextSample].left = input.right + pBuffer[nextSample].right * feedback;
-		pBuffer[nextSample].right = input.left + pBuffer[nextSample].left * feedback;
+		pBuffer[nextSample].left = (input.right + pBuffer[nextSample].right) * feedback;
+		pBuffer[nextSample].right = (input.left + pBuffer[nextSample].left) * feedback;
 
 		nextSample++;
 

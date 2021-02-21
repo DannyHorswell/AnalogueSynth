@@ -61,7 +61,7 @@ void midi::pollmidi()
 	do
 	{
 		ret = snd_rawmidi_read(handle_in,&ch,1); 
-		//fprintf(stderr,"After snd_rawmidi_read\n");
+		
 
 		if (ret != -EAGAIN)
 		{
@@ -224,7 +224,7 @@ void midi::pollmidi()
 						break;
 
 					case NOTE_ON:
-
+						fprintf(stderr,"Note ON Note %d, velocity %d\n", data[1], data[2]);
 						if (noteOnCallback)
 						{
 							noteOnCallback(channel, data[1], data[2]);

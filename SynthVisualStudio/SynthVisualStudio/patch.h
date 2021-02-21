@@ -111,7 +111,7 @@ struct patchWG
 #endif
 
 #ifdef ENABLE_TDF
-	patchTDL TDF;				// Time dependant ampliude
+	patchTDL TDF;				// Time dependant filter
 #endif
 
 	patchFilter Filter;			// The filter

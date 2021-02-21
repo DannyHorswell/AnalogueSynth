@@ -17,6 +17,8 @@ class tdl
 
 public:
 	float output;
+	float releaseLevel;
+	bool lastKeystate;
 
 	tdl();
 	~tdl();
