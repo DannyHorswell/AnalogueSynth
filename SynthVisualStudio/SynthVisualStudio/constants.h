@@ -6,7 +6,7 @@
 #define ENABLE_TDA	// Enable time dependant amplitude
 //#define ENABLE_TDF	// Enable time dependant filter
 
-#define ENABLE_FILTERS
+//#define ENABLE_FILTERS
 //#define ENABLE_OUTPUT_COMPRESSION
 #define ENABLE_REVERB
 #define NORMALSE_SAMPLES
@@ -16,12 +16,22 @@
 //#define PRINT_GETNEXT // Used for debuging generation loop issues, under runs will occur, but can tell how far it gets if getting seg faults
 
 
+#define INITIAL_TEST_SOUND // if defined, the sound buffers are initially filled with a test sound to test the sound system
+
+#define NETWORK_DISCOVERY_PORT 8888
+#define GAME_ENGINE_DISCOVERY_RESPONSE_START "??GameEngine:"
+
 
 // Options
-static unsigned int rate	= 48000;                     /* stream rate  ALSA default*/
-//static unsigned int rate	= 44100; 					 /* stream rate */
-//static unsigned int rate	= 22050;                       /* stream rate */
-//static unsigned int rate = 11025;                       /* stream rate */
+#ifdef _WIN32
+#define SAMPLE_FREQUENCY (44100)
+#endif
+
+#ifdef __arm__
+#define SAMPLE_FREQUENCY (48000)
+#endif
+
+#define FRAMES_PER_BUFFER  (128)
 
 #define NUMBER_OF_OP_CHANNELS 2						/* number of output channels 1 or 2 */
 #define NUMBER_OF_WAVE_GENERATORS_PER_VOICE 2
@@ -35,6 +45,9 @@ static unsigned int rate	= 48000;                     /* stream rate  ALSA defau
 
 // TCP
 #define TCP_PORT 1234
+
+#define MAX_VAL (32767)
+#define MIN_VAL (-32767)
 
 // Mathmatical
 #define PI 3.1415926535F
@@ -62,6 +75,15 @@ class reverb;
 class filter;
 class noise;
 class tdl;
+
+#define reset_consolecolour		printf("\033[1;0m");
+#define red_consolecolour		printf("\033[1;31m");
+#define green_consolecolour		printf("\033[1;32m");
+#define yellow_consolecolour	printf("\033[1;33m");
+#define blue_consolecolour		printf("\033[1;34m");
+#define purple_consolecolour	printf("\033[1;35m");
+#define cyan_consolecolour		printf("\033[1;36m");
+#define white_consolecolour		printf("\033[1;37m");
 
 #endif
 
