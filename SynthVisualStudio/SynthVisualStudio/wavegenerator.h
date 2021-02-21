@@ -18,7 +18,7 @@ class voice;
 
 class wavegenerator
 {
-	struct synth* _pSynth;
+	synth* _pSynth;
 	int _wgID;
 
 	// recalc freq count

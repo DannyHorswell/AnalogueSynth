@@ -3,6 +3,12 @@
 #include "constants.h"
 #include "portaudio.h"
 
+#ifdef _WIN64
+#pragma comment(lib, "portaudio_x64.lib")
+#endif
+
+
+
 PaError PortAudio::Initalise(PaStreamCallback* pBufferCallback)
 {
     PaError paError;
