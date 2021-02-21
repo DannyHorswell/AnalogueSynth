@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string>
 #include <ctype.h>
+#include <alsa/asoundlib.h>
 #include <signal.h>
 
 #include "constants.h"

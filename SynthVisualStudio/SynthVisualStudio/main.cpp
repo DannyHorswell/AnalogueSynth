@@ -1,13 +1,10 @@
 #include <stdlib.h>
 #include <string>
 #include <stdio.h>
-
-#ifdef __arm__
-#include <pthread.h>
-#endif
-
+#include <alsa/asoundlib.h>
 #include <math.h>
 #include <vector>
+#include <thread>
 
 using namespace std;
 
@@ -52,6 +49,10 @@ PortAudio ThePortAudio;
 #ifdef ENABLE_SOCKET
 	static SocketClient theSocket;
 #endif
+
+bool running = true;
+
+std::thread* pConsoleLoopThread = NULL;
 
 
 float deltaT = 1.0F / (float) SAMPLE_FREQUENCY; // Time between samples
@@ -264,33 +265,8 @@ void SocketCommand(const string& com)
 	}
 }
 
-static void async_loop()
- {
-	printf("async_loop\n");
-
-	ThePortAudio.Initalise(StreamCallback);
-	
-	printf("Delta T %f\n", deltaT);
-
-#ifdef ENABLE_MIDI
-	//pthread_t midiThread;
-	// start the MIDI reading thread
-
-	// Set up callbacks first
-	theMidi.noteOnCallback = &MIDINoteOn;
-	theMidi.noteOffCallback = &MIDINoteOff;
-	theMidi.pitchBendCallback =	&MIDIPitchBend;
-	theMidi.afterTouchCallback = &MIDIAfterTouch;
-	theMidi.programChangeCallback = &MIDIProgramChange;
-
-	theMidi.startmidi(mididevice);
-#endif
-
-#ifdef ENABLE_SOCKET
-	theSocket.tcpCommandCallback = &SocketCommand;
-	theSocket.opensocket();
-#endif
-
+void ConsoleLoop()
+{
 	char consoleLine[CONSOLE_BUFFER_SIZE];
 	string com;
 
@@ -316,16 +292,24 @@ static void async_loop()
 		SocketCommand(com);
 	}
 	while (com != "exit");
+	
+	running = false;
+}
 
-#ifdef ENABLE_SOCKET
-	theSocket.closesocket();
-#endif
+void MainProcessingLoop()
+{
+    printf("Entering MainProcessingLoop\n");
 
+    while (running)
+    {
 #ifdef ENABLE_MIDI
-	theMidi.stopmidi(); // tell midi thread to terminate
-	//pthread_join(midiThread, NULL);
+		theMidi.pollmidi();
 #endif
 
+        Pa_Sleep(MAIN_THREAD_SLEEP_PERIOD_MS);
+    }
+
+    printf("Exiting MainProcessingLoop\n");
  }
  
 
@@ -335,5 +319,52 @@ int main(int argc,char** argv)
 
 	srand((unsigned) time(0));
 
-	async_loop();
+	ThePortAudio.Initalise(StreamCallback);
+	
+	printf("Delta T %f\n", deltaT);
+	
+	pConsoleLoopThread = new std::thread(ConsoleLoop);
+
+#ifdef ENABLE_MIDI
+	//pthread_t midiThread;
+	// start the MIDI reading thread
+
+	// Set up callbacks first
+	theMidi.noteOnCallback = &MIDINoteOn;
+	theMidi.noteOffCallback = &MIDINoteOff;	char consoleLine[CONSOLE_BUFFER_SIZE];
+	string com;
+
+
+	theMidi.pitchBendCallback =	&MIDIPitchBend;
+	theMidi.afterTouchCallback = &MIDIAfterTouch;
+	theMidi.programChangeCallback = &MIDIProgramChange;
+
+	theMidi.startmidi(mididevice);
+
+#endif
+
+#ifdef ENABLE_SOCKET
+	theSocket.tcpCommandCallback = &SocketCommand;
+	theSocket.opensocket();
+#endif
+
+	MainProcessingLoop();
+	
+	if (pConsoleLoopThread != NULL)
+    {
+        pConsoleLoopThread->join();
+        delete(pConsoleLoopThread);
+    }
+    
+#ifdef ENABLE_MIDI
+	theMidi.stopmidi(); // stop midi
+#endif
+
+#ifdef ENABLE_SOCKET
+	theSocket.closesocket();
+#endif
+
+
+
+	
 }

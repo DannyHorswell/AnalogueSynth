@@ -10,7 +10,7 @@
 //#define ENABLE_OUTPUT_COMPRESSION
 #define ENABLE_REVERB
 #define NORMALSE_SAMPLES
-//#define ENABLE_MIDI
+#define ENABLE_MIDI
 //#define ENABLE_SOCKET
 
 //#define PRINT_GETNEXT // Used for debuging generation loop issues, under runs will occur, but can tell how far it gets if getting seg faults
@@ -42,6 +42,9 @@
 #define INITIAL_MASTER_TUNE  440.0F
 
 #define MAX_REVERB_SAMPLES 20000
+
+// Main thread poll time
+#define MAIN_THREAD_SLEEP_PERIOD_MS 2
 
 // TCP
 #define TCP_PORT 1234
