@@ -35,11 +35,6 @@ const int CONSOLE_BUFFER_SIZE = 128;
 static char device[] = "plughw:0,0";                     /* playback device */
 static char mididevice[] = "hw:1,0";                     /* midi device */
 
-//static unsigned int buffer_time = 100000;               /* ring buffer length in us */
-//static unsigned int period_time = 20000;               /* period time in us */
-static unsigned int buffer_time = 20000;               /* ring buffer length in us */
-static unsigned int period_time = 4000;               /* period time in us */
-
 static int resample = 0;                                /* enable alsa-lib resampling */
 static int period_event = 0;                            /* produce poll event after each period */
 
@@ -316,15 +311,44 @@ void MainProcessingLoop()
  }
  
 
+
+void PrintValues()
+{
+	stereo nextVal;
+
+	for (long sample=0; sample<48000 * 20; sample++)
+	{
+			if (sample == 20)
+			{
+				theSynth.keyPressed(60, 64);
+			}
+
+			if (sample == 5 * 48000 )
+			{
+				theSynth.keyReleased(64);
+			}
+
+
+			nextVal = theSynth.getnext(deltaT);
+
+		 printf("%f",nextVal.left);
+
+	}
+}
+
+
+
 int main(int argc,char** argv)
 {
 	printf("main\n");
+	printf("Delta T %f\n", deltaT);
+
+	PrintValues();
+	return 0;
 
 	srand((unsigned) time(0));
 
 	ThePortAudio.Initalise(StreamCallback);
-	
-	printf("Delta T %f\n", deltaT);
 	
 	pConsoleLoopThread = new std::thread(ConsoleLoop);
 

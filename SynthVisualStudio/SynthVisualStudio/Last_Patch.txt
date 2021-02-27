@@ -3,16 +3,16 @@
 
 # *************** LFOs  ***************************
 
-LFO[0].Frequency=3.000000
+LFO[0].Frequency=1.000000
 LFO[0].Type=SIN
 
-LFO[1].Frequency=3.000000
+LFO[1].Frequency=1.000000
 LFO[1].Type=SIN
 
 
 # *************** Wave generators  ***************************
 
-WG[0].Type=SIN
+WG[0].Type=SQUARE
 WG[0].EnablePitchBend=true
 WG[0].PitchBendAmount=1.000000
 WG[0].VelocityVolumeAdjust=0.000000
@@ -33,7 +33,7 @@ WG[0].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
 WG[0].SampleSet.NSamples=0
 
-WG[1].Type=SIN
+WG[1].Type=MUTE
 WG[1].EnablePitchBend=true
 WG[1].PitchBendAmount=1.000000
 WG[1].VelocityVolumeAdjust=0.000000
@@ -60,7 +60,7 @@ WG[0].SampleSet.NSamples=0
 #****************************************************************
 
 WG[0].TDP.L0=0.000000
-WG[0].TDP.T1=1.000000
+WG[0].TDP.T1=10.000000
 WG[0].TDP.L1=0.000000
 WG[0].TDP.T2=0.200000
 WG[0].TDP.L2=0.000000
@@ -70,7 +70,7 @@ WG[0].TDP.T4=3.000000
 WG[0].TDP.L4=0.000000
 
 WG[1].TDP.L0=0.000000
-WG[1].TDP.T1=0.000000
+WG[1].TDP.T1=9.000000
 WG[1].TDP.L1=0.000000
 WG[1].TDP.T2=0.200000
 WG[1].TDP.L2=0.000000
@@ -87,28 +87,28 @@ WG[1].TDP.L4=0.000000
 WG[0].TDA.L0=0.000000
 WG[0].TDA.T1=3.000000
 WG[0].TDA.L1=0.500000
-WG[0].TDA.T2=0.000000
-WG[0].TDA.L2=0.500000
+WG[0].TDA.T2=3.000000
+WG[0].TDA.L2=0.300000
 WG[0].TDA.T3=1.000000
-WG[0].TDA.Sustain=0.010000
-WG[0].TDA.T4=10.000000
+WG[0].TDA.Sustain=0.500000
+WG[0].TDA.T4=0.500000
 WG[0].TDA.L4=0.000000
 
 WG[1].TDA.L0=0.000000
 WG[1].TDA.T1=3.000000
 WG[1].TDA.L1=0.500000
-WG[1].TDA.T2=0.000000
-WG[1].TDA.L2=0.500000
+WG[1].TDA.T2=3.000000
+WG[1].TDA.L2=0.300000
 WG[1].TDA.T3=1.000000
-WG[1].TDA.Sustain=0.010000
-WG[1].TDA.T4=10.000000
+WG[1].TDA.Sustain=0.500000
+WG[1].TDA.T4=0.500000
 WG[1].TDA.L4=0.000000
 
 
 #****************** Voice Settings ****************************
 # 
 #****************************************************************
-WGMixMode=WG0
+WGMixMode=MIX
 
 
 # ****** Reverb settings *******************
@@ -116,7 +116,7 @@ WGMixMode=WG0
 #****************************************************************
 Reverb.Enabled=0
 Reverb.Feedback=0.500000
-Reverb.SampleLength=3000
+Reverb.SampleLength=30000
 Reverb.Level=0.200000
 
 

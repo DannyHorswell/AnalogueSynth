@@ -63,7 +63,7 @@ stereo voice::getnext(float deltaT)
 		timeSinceReleased += deltaT;
 	}
 
-	// Recalculate TVLss
+	// Recalculate TDLs
 	if (tvlRecalcCount++ == 0)
 	{
 		for (int count=0; count<NUMBER_OF_LFO_FOR_SYNTH; count++)
