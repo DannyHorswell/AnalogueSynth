@@ -10,7 +10,11 @@
 //#define ENABLE_OUTPUT_COMPRESSION
 #define ENABLE_REVERB
 #define NORMALSE_SAMPLES
+
+#ifdef __arm__
 #define ENABLE_MIDI
+#endif
+
 //#define ENABLE_SOCKET
 
 //#define PRINT_GETNEXT // Used for debuging generation loop issues, under runs will occur, but can tell how far it gets if getting seg faults
@@ -63,6 +67,8 @@
 // Scales
 #define FLOAT_TO_SIGNED_16_MULTIPLIER 32767.0F
 #define FLOAT_TO_SIGNED_24_MULTIPLIER 8388352.0F
+
+#define WAVE_FORMAT_IEEE_FLOAT 3
 
 struct stereo
 {
