@@ -309,6 +309,36 @@ void MainProcessingLoop()
 
     printf("Exiting MainProcessingLoop\n");
  }
+
+// Writes synth output to file for testing
+void WriteTestToFile()
+{
+	stereo sample;
+
+	long nSamples = SAMPLE_FREQUENCY * 10;
+
+	wav wavToSave;
+
+	wavToSave.initnew(nSamples);
+
+	for (long sampleCount = 0; sampleCount < SAMPLE_FREQUENCY * 10; sampleCount++)
+	{
+		if (sampleCount == 0)
+		{
+			theSynth.keyPressed(60, 64);
+		}
+
+		if (sampleCount == SAMPLE_FREQUENCY * 5)
+		{
+			theSynth.keyReleased(60);
+		}
+
+		sample = theSynth.getnext(deltaT);
+		wavToSave.addSample(sample);
+	}
+
+	wavToSave.saveFile("TestOutput.wav");
+}
  
 
 
@@ -347,6 +377,9 @@ int main(int argc,char** argv)
 	return 0;
 
 	srand((unsigned) time(0));
+
+	WriteTestToFile();
+	return 0;
 
 	ThePortAudio.Initalise(StreamCallback);
 	

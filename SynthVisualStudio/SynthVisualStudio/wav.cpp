@@ -26,21 +26,81 @@ wav::~wav()
 	}
 }
 
-struct WAVHeader
+
+
+void wav::initnew(long nStereoSamples)
 {
-	char ChunkId[4];
-	uint32_t ChunkSize;
-	char Format[4];
-	uint32_t SubChunk1ID;
-	uint32_t Subchunk1Size;
-	uint16_t AudioFormat;
-	uint16_t NumChannels;
-	uint32_t SampleRate;
-	uint32_t ByteRate;
-	uint16_t BlockAlign;
-	uint16_t BitsPerSample;
-	uint32_t Subchunk2ID;
-};
+	if (pSampleBuffer != NULL)
+	{
+		free(pSampleBuffer);
+		pSampleBuffer = NULL;
+	}
+
+	// Create the buffer
+	pSampleBuffer = (float*) malloc(nStereoSamples * (long) 2 * sizeof(float));
+
+	header.ChunkId[0] = 'R';
+	header.ChunkId[1] = 'I';
+	header.ChunkId[2] = 'F';
+	header.ChunkId[3] = 'F';
+
+	header.Format[0] = 'W';
+	header.Format[1] = 'A';
+	header.Format[2] = 'V';
+	header.Format[3] = 'E';
+
+	header.SubChunk1ID[0] = 'f';
+	header.SubChunk1ID[1] = 'm';
+	header.SubChunk1ID[2] = 't';
+	header.SubChunk1ID[3] = ' ';
+
+	header.Subchunk1Size = 16;
+	header.AudioFormat = WAVE_FORMAT_IEEE_FLOAT;
+	header.NumChannels = 2;
+	header.SampleRate = 44100;
+	
+	header.BitsPerSample = 32;
+
+	header.Subchunk2ID[0] = 'd';
+	header.Subchunk2ID[1] = 'a';
+	header.Subchunk2ID[2] = 't';
+	header.Subchunk2ID[3] = 'a';
+
+	header.Subchunk2Size = nStereoSamples * header.NumChannels * header.BitsPerSample / 8;
+
+	header.BlockAlign = header.NumChannels * header.BitsPerSample / 8;
+	header.ByteRate = header.SampleRate * header.NumChannels * header.BitsPerSample / 8;
+	header.ChunkSize = 36 + header.Subchunk2Size;
+
+	nSamples = nStereoSamples;
+}
+
+void wav::addSample(stereo sample)
+{
+	if (_writeSamplePos < nSamples)
+	{
+		pSampleBuffer[_writeSamplePos * 2] = sample.left;
+		pSampleBuffer[(_writeSamplePos * 2) + 1] = sample.right;
+
+		_writeSamplePos++;
+	}
+}
+
+void wav::saveFile(const string& FileName)
+{
+	FILE* wavFile = fopen(FileName.c_str(), "w");
+
+	// Write the header
+	fwrite(&header, sizeof(WAVHeader), 1, wavFile);
+
+	for (long count = 0; count < _writeSamplePos; count++)
+	{
+		fwrite(&pSampleBuffer[count * 2], sizeof(float), 2, wavFile);
+	}
+
+	fclose(wavFile);
+}
+
 
 void wav::loadFile(const string& FileName, float noteFrequency, int loopStartSample, int loopEndSample)
 {
@@ -76,7 +136,7 @@ void wav::loadFile(const string& FileName, float noteFrequency, int loopStartSam
 
 		FILE* csvFile = fopen ("wav.csv","w");
 
-		char readData[44];
+		//char readData[44];
 		int headerChunkSize;
 
 		int dataLength;
@@ -93,25 +153,25 @@ void wav::loadFile(const string& FileName, float noteFrequency, int loopStartSam
 			dataLength -= sizeof(WAVHeader);
 
 			// Read the header
-			ifs.read(readData, sizeof(WAVHeader));
+			ifs.read((char*)&header, sizeof(WAVHeader));
 		
-			WAVHeader* pheader = (WAVHeader*) readData;
+			//WAVHeader* pheader = (WAVHeader*) readData;
 
-			fprintf(stderr, "ChunkId %c%c%c%c\n", pheader->ChunkId[0],pheader->ChunkId[1],pheader->ChunkId[2],pheader->ChunkId[3]);
-			fprintf(stderr, "Format %c%c%c%c\n", pheader->Format[0],pheader->Format[1],pheader->Format[2],pheader->Format[3]);
-			fprintf(stderr, "Audio Format %p\n", pheader->AudioFormat);
-			fprintf(stderr, "Sample Rate %p\n", pheader->SampleRate);
-			fprintf(stderr, "Num Channels %u\n", pheader->NumChannels);
-			fprintf(stderr, "Bits Per Sample %u\n", pheader->BitsPerSample);
+			fprintf(stderr, "ChunkId %c%c%c%c\n", header.ChunkId[0], header.ChunkId[1], header.ChunkId[2], header.ChunkId[3]);
+			fprintf(stderr, "Format %c%c%c%c\n", header.Format[0], header.Format[1], header.Format[2], header.Format[3]);
+			fprintf(stderr, "Audio Format %i\n", header.AudioFormat);
+			fprintf(stderr, "Sample Rate %i\n", header.SampleRate);
+			fprintf(stderr, "Num Channels %u\n", header.NumChannels);
+			fprintf(stderr, "Bits Per Sample %u\n", header.BitsPerSample);
 			fprintf(stderr, "DataLength %u\n", dataLength);
 
-			sampleRate = (float) pheader->SampleRate;
+			sampleRate = (float)header.SampleRate;
 
 			samplePeriod = 1.0F / sampleRate;
 
-			int bytesPerSample = ((int) pheader->BitsPerSample) / 8;
+			int bytesPerSample = ((int)header.BitsPerSample) / 8;
 
-			nSamples = dataLength / bytesPerSample / pheader->NumChannels;
+			nSamples = dataLength / bytesPerSample / header.NumChannels;
 
 			sampleLengthTime = nSamples / sampleRate;
 
@@ -133,19 +193,19 @@ void wav::loadFile(const string& FileName, float noteFrequency, int loopStartSam
 			// 8 bit sample
 			if (bytesPerSample == 1)
 			{
-				valScale = (float) (128 * pheader->NumChannels);
+				valScale = (float) (128 * header.NumChannels);
 			}
 
 			// 16 bit sample
 			if (bytesPerSample == 2)
 			{
-				valScale = (float) (FLOAT_TO_SIGNED_16_MULTIPLIER * pheader->NumChannels);
+				valScale = (float) (FLOAT_TO_SIGNED_16_MULTIPLIER * header.NumChannels);
 			}
 
 			// 24 bit sample
 			if (bytesPerSample == 3)
 			{
-				valScale = (float) (FLOAT_TO_SIGNED_24_MULTIPLIER * pheader->NumChannels);
+				valScale = (float) (FLOAT_TO_SIGNED_24_MULTIPLIER * header.NumChannels);
 			}
 
 			// 32 bit float sample
@@ -159,7 +219,7 @@ void wav::loadFile(const string& FileName, float noteFrequency, int loopStartSam
 				float val = 0;
 
 				// Mix multi channel
-				for (int count2=0; count2<pheader->NumChannels; count2++)
+				for (int count2=0; count2< header.NumChannels; count2++)
 				{
 					if (bytesPerSample == 1)
 					{
@@ -259,7 +319,6 @@ void wav::loadFile(const string& FileName, float noteFrequency, int loopStartSam
 		}
 	}
 }
-
 
 float wav::getNext(float& positionTime, float deltaT, float _full_period, bool keyPressed)
 {

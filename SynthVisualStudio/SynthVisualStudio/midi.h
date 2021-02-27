@@ -1,6 +1,7 @@
 #ifndef MIDI_H
 #define MIDI_H
 
+
 #ifdef ENABLE_MIDI
 typedef void (*NoteOff)(int channel, int key, int velocity);
 typedef void (*NoteOn)(int channel, int key, int velocity); 
@@ -71,6 +72,6 @@ public:
 	PitchBend pitchBendCallback;
 };
 #endif
-
 #endif
+
 
