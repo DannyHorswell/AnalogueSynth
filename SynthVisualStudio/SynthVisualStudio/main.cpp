@@ -75,6 +75,7 @@ float getNextTestValue()
 	return ret;
 }
 
+static int lrCount = 0;
 
  static PaError StreamCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData)
  {
@@ -88,25 +89,39 @@ float getNextTestValue()
 	 INT16 value = 0;
 #endif
 
+	struct stereo nextVal;
+
 	 for (unsigned int i = 0; i < framesPerBuffer; i++)
 	 {
-		 struct stereo nextVal;
-		 
-		 
-		 nextVal = theSynth.getnext(deltaT);
+		 if (lrCount %2 == 0)
+		 {
+			nextVal = theSynth.getnext(deltaT);
+		 }
 		 
 		 //nextVal.left = getNextTestValue();
 		 //nextVal.right = nextVal.left;
 
-		 int valleft = nextVal.left * FLOAT_TO_SIGNED_16_MULTIPLIER;
-		 int valright = nextVal.right * FLOAT_TO_SIGNED_16_MULTIPLIER;
-
-
 #ifdef __arm__
-		 * out++ = valleft;
-#else
-		 * out++ = valleft;
+		if (lrCount %2 == 0)
+		{
+				* out++ = nextVal.left;
+		}
+		else
+		{
+				* out++ = nextVal.right;  
+		}
+#else		 
+		if (lrCount %2 == 0)
+		{
+				* out++ = nextVal.left;
+		}
+		else
+		{
+				* out++ = nextVal.right;  
+		}
 #endif 
+
+		lrCount++;
 	 }
 
 	 return 0; 
@@ -167,7 +182,8 @@ void SocketCommand(const string& com)
 
 	//printf("%s\n",com.c_str()); // Print the command(s)
 
-	// Single characters are easy play notes from keyboard
+	// Single characters are easy play notes from keyboard		 
+
 	if (com.size() == 1)
 	{
 		switch(com[0])
@@ -342,7 +358,7 @@ void WriteTestToFile()
  
 
 
-void PrintValues()
+/*void PrintValues()
 {
 	stereo nextVal;
 
@@ -364,7 +380,7 @@ void PrintValues()
 		 printf("%f",nextVal.left);
 
 	}
-}
+}*/
 
 
 
@@ -373,13 +389,10 @@ int main(int argc,char** argv)
 	printf("main\n");
 	printf("Delta T %f\n", deltaT);
 
-	PrintValues();
-	return 0;
-
 	srand((unsigned) time(0));
 
-	WriteTestToFile();
-	return 0;
+	//WriteTestToFile();
+	//return 0;
 
 	ThePortAudio.Initalise(StreamCallback);
 	

@@ -33,11 +33,11 @@ WG[0].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
 WG[0].SampleSet.NSamples=0
 
-WG[1].Type=MUTE
+WG[1].Type=SQUARE
 WG[1].EnablePitchBend=true
 WG[1].PitchBendAmount=1.000000
 WG[1].VelocityVolumeAdjust=0.000000
-WG[1].KeyOffestSemitones=12.000000
+WG[1].KeyOffestSemitones=5.000000
 WG[1].FreqLFOid=0
 WG[1].FreqLFOLevel=0.000000
 WG[1].FreqLFODelay=0.000000
@@ -60,18 +60,18 @@ WG[0].SampleSet.NSamples=0
 #****************************************************************
 
 WG[0].TDP.L0=0.000000
-WG[0].TDP.T1=10.000000
-WG[0].TDP.L1=0.000000
-WG[0].TDP.T2=0.200000
-WG[0].TDP.L2=0.000000
+WG[0].TDP.T1=4.000000
+WG[0].TDP.L1=7.000000
+WG[0].TDP.T2=6.200000
+WG[0].TDP.L2=-12.000000
 WG[0].TDP.T3=0.000000
 WG[0].TDP.Sustain=0.000000
 WG[0].TDP.T4=3.000000
 WG[0].TDP.L4=0.000000
 
 WG[1].TDP.L0=0.000000
-WG[1].TDP.T1=9.000000
-WG[1].TDP.L1=0.000000
+WG[1].TDP.T1=4.000000
+WG[1].TDP.L1=-7.000000
 WG[1].TDP.T2=0.200000
 WG[1].TDP.L2=0.000000
 WG[1].TDP.T3=0.000000
@@ -84,31 +84,31 @@ WG[1].TDP.L4=0.000000
 # Levels in gain 0.0F to 1.0F
 #****************************************************************
 
-WG[0].TDA.L0=0.000000
-WG[0].TDA.T1=3.000000
+WG[0].TDA.L0=1.000000
+WG[0].TDA.T1=1.000000
 WG[0].TDA.L1=0.500000
-WG[0].TDA.T2=3.000000
+WG[0].TDA.T2=1.000000
 WG[0].TDA.L2=0.300000
 WG[0].TDA.T3=1.000000
-WG[0].TDA.Sustain=0.500000
-WG[0].TDA.T4=0.500000
+WG[0].TDA.Sustain=1.000000
+WG[0].TDA.T4=3.000000
 WG[0].TDA.L4=0.000000
 
-WG[1].TDA.L0=0.000000
-WG[1].TDA.T1=3.000000
+WG[1].TDA.L0=1.000000
+WG[1].TDA.T1=0.000000
 WG[1].TDA.L1=0.500000
 WG[1].TDA.T2=3.000000
 WG[1].TDA.L2=0.300000
 WG[1].TDA.T3=1.000000
-WG[1].TDA.Sustain=0.500000
-WG[1].TDA.T4=0.500000
+WG[1].TDA.Sustain=1.000000
+WG[1].TDA.T4=2.000000
 WG[1].TDA.L4=0.000000
 
 
 #****************** Voice Settings ****************************
 # 
 #****************************************************************
-WGMixMode=MIX
+WGMixMode=RING
 
 
 # ****** Reverb settings *******************

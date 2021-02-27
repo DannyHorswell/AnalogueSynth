@@ -1103,8 +1103,8 @@ void PopulateDefaultPatch(patch* pPatch)
 				break;
 				
 			case 1:
-				pPatch->WGs[count]._type = MUTE;
-				pPatch->WGs[count].keyOffestSemitones = 12.0F;
+				pPatch->WGs[count]._type = SQUARE;
+				pPatch->WGs[count].keyOffestSemitones = 5.0F;
 				break;
 				
 		}
@@ -1132,10 +1132,10 @@ void PopulateDefaultPatch(patch* pPatch)
 				//********************** TDPs *********************
 				// Pitch: Levels in semitones 
 				pPatch->WGs[count].TDP.L0 = 0.0F;
-				pPatch->WGs[count].TDP.T1 = 10.0F;
-				pPatch->WGs[count].TDP.L1 = 0.0F;
-				pPatch->WGs[count].TDP.T2 = 0.2F;
-				pPatch->WGs[count].TDP.L2 = 0.0F;
+				pPatch->WGs[count].TDP.T1 = 4.0F;
+				pPatch->WGs[count].TDP.L1 = 7.0F;
+				pPatch->WGs[count].TDP.T2 = 6.2F;
+				pPatch->WGs[count].TDP.L2 = -12.0F;
 				pPatch->WGs[count].TDP.T3 = 0.0F;
 				pPatch->WGs[count].TDP.Sustain = 0.0F;
 				pPatch->WGs[count].TDP.T4 = 3.0F;
@@ -1146,8 +1146,8 @@ void PopulateDefaultPatch(patch* pPatch)
 				//********************** TDPs *********************
 				// Pitch: Levels in semitones 
 				pPatch->WGs[count].TDP.L0 = 0.0F;
-				pPatch->WGs[count].TDP.T1 = 9.0F;
-				pPatch->WGs[count].TDP.L1 = 0.0F;
+				pPatch->WGs[count].TDP.T1 = 4.0F;
+				pPatch->WGs[count].TDP.L1 = -7.0F;
 				pPatch->WGs[count].TDP.T2 = 0.2F;
 				pPatch->WGs[count].TDP.L2 = 0.0F;
 				pPatch->WGs[count].TDP.T3 = 0.0F;
@@ -1162,17 +1162,39 @@ void PopulateDefaultPatch(patch* pPatch)
 #endif
 
 #ifdef ENABLE_TDA
-		// ********************* TDAs *********************
-		// Amplitude: Levels in gain 0.0F to 1.0F
-		pPatch->WGs[count].TDA.L0 = 0.0F;
-		pPatch->WGs[count].TDA.T1 = 3.0F;
-		pPatch->WGs[count].TDA.L1 = 0.5F;
-		pPatch->WGs[count].TDA.T2 = 3.0F;
-		pPatch->WGs[count].TDA.L2 = 0.3F;
-		pPatch->WGs[count].TDA.T3 = 1.0F;
-		pPatch->WGs[count].TDA.Sustain = 0.5F;
-		pPatch->WGs[count].TDA.T4 = 0.5F;
-		pPatch->WGs[count].TDA.L4 = 0.0F;
+
+		switch (count)
+		{
+			case 0:
+				// ********************* TDAs *********************
+				// Amplitude: Levels in gain 0.0F to 1.0F
+				pPatch->WGs[count].TDA.L0 = 1.0F;
+				pPatch->WGs[count].TDA.T1 = 1.0F;
+				pPatch->WGs[count].TDA.L1 = 0.5F;
+				pPatch->WGs[count].TDA.T2 = 1.0F;
+				pPatch->WGs[count].TDA.L2 = 0.3F;
+				pPatch->WGs[count].TDA.T3 = 1.0F;
+				pPatch->WGs[count].TDA.Sustain = 1.0F;
+				pPatch->WGs[count].TDA.T4 = 3.0F;
+				pPatch->WGs[count].TDA.L4 = 0.0F;
+				break;
+
+			case 1:
+				// ********************* TDAs *********************
+				// Amplitude: Levels in gain 0.0F to 1.0F
+				pPatch->WGs[count].TDA.L0 = 1.0F;
+				pPatch->WGs[count].TDA.T1 = 0.0F;
+				pPatch->WGs[count].TDA.L1 = 0.5F;
+				pPatch->WGs[count].TDA.T2 = 3.0F;
+				pPatch->WGs[count].TDA.L2 = 0.3F;
+				pPatch->WGs[count].TDA.T3 = 1.0F;
+				pPatch->WGs[count].TDA.Sustain = 1.0F;
+				pPatch->WGs[count].TDA.T4 = 2.0F;
+				pPatch->WGs[count].TDA.L4 = 0.0F;
+				break;
+		}
+
+
 #endif
 
 #ifdef ENABLE_TDF
@@ -1190,7 +1212,7 @@ void PopulateDefaultPatch(patch* pPatch)
 #endif
 	}
 
-	pPatch->WGMixMode = MIX;
+	pPatch->WGMixMode = RING;
 
 	// Reverb
 	pPatch->Reverb.feedback = 0.50F;
