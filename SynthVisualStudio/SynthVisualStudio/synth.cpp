@@ -140,8 +140,8 @@ stereo synth::getnext(float deltaT)
 		output.right += voiceOp.right;
 	}
 
-	//output.left /= NUMBER_OF_VOICES;
-	//output.right /= NUMBER_OF_VOICES;
+	output.left /= NUMBER_OF_VOICES;
+	output.right /= NUMBER_OF_VOICES;
 
 	// Apply reverb
 #ifdef ENABLE_REVERB
