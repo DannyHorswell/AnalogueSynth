@@ -1,0 +1,71 @@
+﻿<Window x:Class="SynthControl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SynthControl"
+        Title="MainWindow" Height="268" Width="820">
+    <StackPanel Orientation="Vertical" x:Name="root" >
+        <TabControl>
+            <TabItem Header="Edit Patch" >
+                <Grid Width="735" x:Name="patchEdit">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="LFO"></TextBlock>
+                    <Button Grid.Column="0" Grid.Row="1" x:Name="LFO1Button" Content="LFO0" Click="LFO1Button_Click" />
+                    <Button Grid.Column="0" Grid.Row="2" x:Name="LFO2Button" Content="LFO1" Click="LFO2Button_Click" />
+                    
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="WaveGenerators"></TextBlock>
+                    <Button Grid.Column="1" Grid.Row="1" x:Name="WG1Button" Content="WG0" Click="WG1Button_Click" />
+                    <Button Grid.Column="1" Grid.Row="2" x:Name="WG2Button" Content="WG1" Click="WG2Button_Click" />
+                    <Button Grid.Column="2" Grid.Row="1" x:Name="WG3Button" Content="WG2" Click="WG3Button_Click" />
+                    <Button Grid.Column="2" Grid.Row="2" x:Name="WG4Button" Content="WG3" Click="WG4Button_Click" />
+
+                    <TextBlock Grid.Column="3" Grid.Row="0" Text="WG Mix mode"/>
+                    <ListBox Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" x:Name="WGMixMode" Height="50" Width="100">
+                        <ListBoxItem Content="LTOR"></ListBoxItem>
+                        <ListBoxItem Content="MIX"></ListBoxItem>
+                        <ListBoxItem Content="RING"></ListBoxItem>
+                        <ListBoxItem Content="RING_MIX"></ListBoxItem>
+                        <ListBoxItem Content="WG0"></ListBoxItem>
+                        <ListBoxItem Content="WG1"></ListBoxItem>
+                        <ListBoxItem Content="WG2"></ListBoxItem>
+                        <ListBoxItem Content="WG3"></ListBoxItem>
+                        <ListBoxItem Content="WG4"></ListBoxItem>
+                        <ListBoxItem Content="WG5"></ListBoxItem>
+                        <ListBoxItem Content="WG6"></ListBoxItem>
+                        <ListBoxItem Content="WG7"></ListBoxItem>
+                    </ListBox>
+
+                    <TextBlock Grid.Column="4" Grid.Row="0" Text="Reverb"></TextBlock>
+                    <Button Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" x:Name="ReverbButton" Content="Reverb" Click="ReverbButton_Click" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Console" >
+                <StackPanel Orientation="Vertical">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="ConsoleOutput"></TextBlock>
+                    </ScrollViewer>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Command">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="SendCommand" />
+                    <TextBox x:Name="Command" Text="WG[0].SampleSet.Sample[0].LoopStartSample = 20000" />
+                    <Button x:Name="SendCommand" Content="Send" Click="SendCommand_Click" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        <local:Keyboard x:Name="keyboard"></local:Keyboard>
+        <TextBlock x:Name="LastCommand"></TextBlock>
+    </StackPanel>
+</Window>

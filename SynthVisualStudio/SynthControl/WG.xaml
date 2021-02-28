@@ -1,0 +1,121 @@
+﻿<Window x:Class="SynthControl.WG"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SynthControl"
+             mc:Ignorable="d" 
+             Height="530" Width="900" Title="Wave Generator">
+    <Grid x:Name="root">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="280"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Waveform"/>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Wave Type"/>
+            <ListBox Grid.Row="0" Grid.Column="1" x:Name="Type"  Width="100">
+                <ListBoxItem Content="MUTE"></ListBoxItem>
+                <ListBoxItem Content="SQUARE"></ListBoxItem>
+                <ListBoxItem Content="SAW"></ListBoxItem>
+                <ListBoxItem Content="SIN"></ListBoxItem>
+                <ListBoxItem Content="NOISE"></ListBoxItem>
+                <ListBoxItem Content="RND_SQ"></ListBoxItem>
+                <ListBoxItem Content="PCM"></ListBoxItem>
+            </ListBox>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="PWM LFO"/>
+            <ListBox Grid.Row="1" Grid.Column="1" x:Name="PWMLFOid" Height="20" Width="100">
+                <ListBoxItem Content="0"></ListBoxItem>
+                <ListBoxItem Content="1"></ListBoxItem>
+            </ListBox>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="PWM LFO Level" />
+            <Slider Grid.Row="2" Grid.Column="1" x:Name="PWMLFOLevel" Orientation="Horizontal"/>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Enable pitch bend" />
+            <CheckBox Grid.Row="0" Grid.Column="1" x:Name="EnablePitchBend" Content=""/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Pitch bend sensitivity" />
+            <Slider Grid.Row="1" Grid.Column="1" x:Name="PitchBendAmount" Orientation="Horizontal" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Key offset semitones" />
+            <Slider Grid.Row="2" Grid.Column="1" x:Name="KeyOffestSemitones" Orientation="Horizontal"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Freq LFO"/>
+            <ListBox Grid.Row="3" Grid.Column="1"  x:Name="FreqLFOid" Height="20" Width="100">
+                <ListBoxItem Content="0"></ListBoxItem>
+                <ListBoxItem Content="1"></ListBoxItem>
+            </ListBox>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Freq LFO Level" />
+            <Slider Grid.Row="4" Grid.Column="1" x:Name="FreqLFOLevel" Orientation="Horizontal" />
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Freq LFO Delay" />
+            <Slider Grid.Row="5" Grid.Column="1" x:Name="FreqLFODelay" Orientation="Horizontal"/>
+
+        </Grid>
+
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Pitch"/>
+        <local:TDL Grid.Row="2" Grid.Column="1" x:Name="TDP"></local:TDL>
+
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Velocity Vol" />
+            <Slider Grid.Row="0" Grid.Column="1" x:Name="VelocityVolumeAdjust" Orientation="Horizontal"/>
+        </Grid>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Volume"/>
+        <local:TDL Grid.Row="2" Grid.Column="2" x:Name="TDA"></local:TDL>
+
+        <TextBlock Grid.Row="0" Grid.Column="3" Text="Filter"/>
+        <local:Filter Grid.Row="1" Grid.Column="3" x:Name="TheFilter" />
+        <local:TDL Grid.Row="2" Grid.Column="3" x:Name="TDF"></local:TDL>
+    </Grid>
+</Window>

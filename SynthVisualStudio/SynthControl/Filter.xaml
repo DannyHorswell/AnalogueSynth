@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="SynthControl.Filter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="170" Width="200">
+    <Grid x:Name="root">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Filter Type"/>
+        <ListBox Grid.Row="0" Grid.Column="1" x:Name="FilterType" Height="80" Width="100">
+            <ListBoxItem Content="OFF"></ListBoxItem>
+            <ListBoxItem Content="LPF"></ListBoxItem>
+            <ListBoxItem Content="HPF"></ListBoxItem>
+            <ListBoxItem Content="BPF1"></ListBoxItem>
+            <ListBoxItem Content="BPF2"></ListBoxItem>
+            <ListBoxItem Content="NOTCH"></ListBoxItem>
+            <ListBoxItem Content="APF"></ListBoxItem>
+            <ListBoxItem Content="PEAKINGEQ"></ListBoxItem>
+            <ListBoxItem Content="LOWSHELF"></ListBoxItem>
+            <ListBoxItem Content="HIGHSHELF"></ListBoxItem>
+        </ListBox>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Q" />
+        <Slider Grid.Row="1" Grid.Column="1" x:Name="Q" Orientation="Horizontal"  />
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Frequency" />
+        <Slider Grid.Row="2" Grid.Column="1" x:Name="RelativeFrequency" Orientation="Horizontal"  />
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Velocity Factor" />
+        <Slider Grid.Row="3" Grid.Column="1" x:Name="VelocityFactor" Orientation="Horizontal"  />
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="DB Gain (Peaking + Shelf only)" TextWrapping="Wrap" />
+        <Slider Grid.Row="4" Grid.Column="1" x:Name="DBGain" Orientation="Horizontal"  />
+    </Grid>
+</UserControl>

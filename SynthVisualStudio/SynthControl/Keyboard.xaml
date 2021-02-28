@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="SynthControl.Keyboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SynthControl"
+        Height="110" Width="780">
+    <Grid x:Name="root">
+        <StackPanel Orientation="Horizontal">
+            <Slider Orientation="Vertical" x:Name="PitchBend" />
+            <local:Octive x:Name="Oct_0" NotePressed="Octive_NotePressed"></local:Octive>
+            <local:Octive x:Name="Oct_1" NotePressed="Octive_NotePressed"></local:Octive>
+            <local:Octive x:Name="Oct_2" NotePressed="Octive_NotePressed"></local:Octive>
+            <local:Octive x:Name="Oct_3" NotePressed="Octive_NotePressed"></local:Octive>
+            <local:Octive x:Name="Oct_4" NotePressed="Octive_NotePressed"></local:Octive>
+            <local:Octive x:Name="Oct_5" NotePressed="Octive_NotePressed"></local:Octive>
+            <local:Octive x:Name="Oct_6" NotePressed="Octive_NotePressed"></local:Octive>
+        </StackPanel>    
+    </Grid>
+</UserControl>

@@ -1,0 +1,34 @@
+﻿<Window x:Class="SynthControl.LFO"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="230" Width="400">
+    <Grid x:Name="root">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="LFO"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Wave Type"/>
+        <ListBox Grid.Row="1" Grid.Column="1" x:Name="Type" Height="100" Width="100">
+            <ListBoxItem Content="MUTE"></ListBoxItem>
+            <ListBoxItem Content="SQUARE"></ListBoxItem>
+            <ListBoxItem Content="SAW"></ListBoxItem>
+            <ListBoxItem Content="SIN"></ListBoxItem>
+            <ListBoxItem Content="NOISE"></ListBoxItem>
+            <ListBoxItem Content="RND_SQ"></ListBoxItem>
+        </ListBox>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Frequency" />
+        <Slider Grid.Row="2" Grid.Column="1" x:Name="Frequency" Orientation="Horizontal"  />
+    </Grid>
+</Window>

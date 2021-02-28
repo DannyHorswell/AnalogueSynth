@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="SynthControl.Octive"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="85" Width="105">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- White Keys -->
+        <Button x:Name="Key_0" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Click="Key_Click"></Button>
+        <Button x:Name="Key_2" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="2" Click="Key_Click"></Button>
+        <Button x:Name="Key_4" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Click="Key_Click"></Button>
+        <Button x:Name="Key_5" Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Click="Key_Click"></Button>
+        <Button x:Name="Key_7" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="2" Click="Key_Click"></Button>
+        <Button x:Name="Key_9" Grid.Column="12" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="2" Click="Key_Click"></Button>
+        <Button x:Name="Key_11" Grid.Column="15" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Click="Key_Click"></Button>
+
+        <!-- Black Keys -->
+        <Button x:Name="Key_1" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="1" Background="Black" Click="Key_Click"></Button>
+        <Button x:Name="Key_3" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="1" Background="Black" Click="Key_Click"></Button>
+        <Button x:Name="Key_6" Grid.Column="8" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="1" Background="Black" Click="Key_Click"></Button>
+        <Button x:Name="Key_8" Grid.Column="11" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="1" Background="Black" Click="Key_Click"></Button>
+        <Button x:Name="Key_10" Grid.Column="14" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="1" Background="Black" Click="Key_Click"></Button>
+    </Grid>
+</UserControl>
