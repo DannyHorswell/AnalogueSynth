@@ -73,11 +73,11 @@ WG[1].TDP.L0=0.000000
 WG[1].TDP.T1=4.000000
 WG[1].TDP.L1=-7.000000
 WG[1].TDP.T2=0.200000
-WG[1].TDP.L2=0.000000
-WG[1].TDP.T3=0.000000
-WG[1].TDP.Sustain=0.000000
+WG[1].TDP.L2=-24.000000
+WG[1].TDP.T3=2.000000
+WG[1].TDP.Sustain=-3.000000
 WG[1].TDP.T4=3.000000
-WG[1].TDP.L4=0.000000
+WG[1].TDP.L4=0.100000
 
 
 # ****************** Time dependant amplifier *******************
@@ -108,16 +108,16 @@ WG[1].TDA.L4=0.000000
 #****************** Voice Settings ****************************
 # 
 #****************************************************************
-WGMixMode=RING
+WGMixMode=MIX
 
 
 # ****** Reverb settings *******************
 # Feedback and Level should be less that 1.0 
 #****************************************************************
-Reverb.Enabled=0
-Reverb.Feedback=0.500000
-Reverb.SampleLength=30000
-Reverb.Level=0.200000
+Reverb.Enabled=1
+Reverb.Feedback=0.600000
+Reverb.SampleLength=3000
+Reverb.Level=0.400000
 
 
 # ************** END OF FILE *******************

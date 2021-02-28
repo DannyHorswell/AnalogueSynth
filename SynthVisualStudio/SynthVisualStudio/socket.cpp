@@ -50,7 +50,7 @@ void SocketClient::Disconnect()
 
 bool SocketClient::DiscoverEndpoint()
 {
-	printf("Game engine discovery\n");
+	printf("Discovery\n");
 
 	int iResult = 0;
 

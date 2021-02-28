@@ -33,7 +33,9 @@ const int CONSOLE_BUFFER_SIZE = 128;
 
 // Find device ids by cat /proc/asound/cards
 static char device[] = "plughw:0,0";                     /* playback device */
-static char mididevice[] = "hw:1,0";                     /* midi device */
+
+// Find midi device Id's by amidi -l
+static char mididevice[] = "hw:2,0";                     /* midi device */
 
 static int resample = 0;                                /* enable alsa-lib resampling */
 static int period_event = 0;                            /* produce poll event after each period */

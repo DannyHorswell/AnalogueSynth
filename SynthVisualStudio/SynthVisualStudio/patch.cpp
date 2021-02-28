@@ -1116,7 +1116,7 @@ void PopulateDefaultPatch(patch* pPatch)
 		pPatch->WGs[count].freqLFOLevel = 0.0F;
 		pPatch->WGs[count].freqLFODelay = 0.0F;
 		pPatch->WGs[count].pwmLFOid = 0;
-		pPatch->WGs[count].pwmLFOLevel = 0.0;
+		pPatch->WGs[count].pwmLFOLevel = 0.3;
 
 		// **************** Filter *******************
 		pPatch->WGs[count].Filter.FilterType = LPF;
@@ -1149,11 +1149,11 @@ void PopulateDefaultPatch(patch* pPatch)
 				pPatch->WGs[count].TDP.T1 = 4.0F;
 				pPatch->WGs[count].TDP.L1 = -7.0F;
 				pPatch->WGs[count].TDP.T2 = 0.2F;
-				pPatch->WGs[count].TDP.L2 = 0.0F;
-				pPatch->WGs[count].TDP.T3 = 0.0F;
-				pPatch->WGs[count].TDP.Sustain = 0.0F;
+				pPatch->WGs[count].TDP.L2 = -24.0F;
+				pPatch->WGs[count].TDP.T3 = 2.0F;
+				pPatch->WGs[count].TDP.Sustain = -3.0F;
 				pPatch->WGs[count].TDP.T4 = 3.0F;
-				pPatch->WGs[count].TDP.L4 = 0.0F;
+				pPatch->WGs[count].TDP.L4 = 0.1F;
 				break;
 				
 		}
@@ -1212,11 +1212,11 @@ void PopulateDefaultPatch(patch* pPatch)
 #endif
 	}
 
-	pPatch->WGMixMode = RING;
+	pPatch->WGMixMode = MIX;
 
 	// Reverb
-	pPatch->Reverb.feedback = 0.50F;
-	pPatch->Reverb.sampleLength = 30000;
-	pPatch->Reverb.level = 0.2F;
-	pPatch->Reverb.enabled = false;
+	pPatch->Reverb.feedback = 0.60F;
+	pPatch->Reverb.sampleLength = 3000;
+	pPatch->Reverb.level = 0.4F;
+	pPatch->Reverb.enabled = true;
 }
