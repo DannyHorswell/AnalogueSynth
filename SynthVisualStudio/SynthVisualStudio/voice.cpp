@@ -66,7 +66,7 @@ stereo voice::getnext(float deltaT)
 	// Recalculate TDLs
 	if (tvlRecalcCount++ == 0)
 	{
-		for (int count=0; count<NUMBER_OF_LFO_FOR_SYNTH; count++)
+		for (int count=0; count<NUMBER_OF_WAVE_GENERATORS_PER_VOICE; count++)
 		{
 
 #ifdef ENABLE_TDP
@@ -245,13 +245,12 @@ stereo voice::getnext(float deltaT)
 			for (int count=0; count<NUMBER_OF_WAVE_GENERATORS_PER_VOICE; count++)
 			{
 				#ifdef ENABLE_TDA
-					float next = waveGenerators[count].getnext(deltaT) * TDAs[count].output;
+					output.left += waveGenerators[count].getnext(deltaT) * TDAs[count].output;
 				#else
-					float next = waveGenerators[count].getnext(deltaT);
+					output.left += waveGenerators[count].getnext(deltaT);
 				#endif
-
-				output.left += next;
 			}
+			
 
 			output.left /= NUMBER_OF_WAVE_GENERATORS_PER_VOICE;
 			output.right = output.left;
