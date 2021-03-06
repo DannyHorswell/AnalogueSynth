@@ -1267,13 +1267,13 @@ void PopulateDefaultPatch(patch* pPatch)
 #ifdef ENABLE_TDF
 		// ********************* TDFs *********************
 		// Filter
-		pPatch->WGs[count].TDF.L0 = 10.0F;
-		pPatch->WGs[count].TDF.T1 = 5.0F;
+		pPatch->WGs[count].TDF.L0 = 30.0F;
+		pPatch->WGs[count].TDF.T1 = 0.5F;
 		pPatch->WGs[count].TDF.L1 = 0.0F;
-		pPatch->WGs[count].TDF.T2 = 5.0F;
-		pPatch->WGs[count].TDF.L2 = -10.0F;
+		pPatch->WGs[count].TDF.T2 = 0.5F;
+		pPatch->WGs[count].TDF.L2 = -30.0F;
 		pPatch->WGs[count].TDF.T3 = 0.0F;
-		pPatch->WGs[count].TDF.Sustain = 0.0F;
+		pPatch->WGs[count].TDF.Sustain = -20.0F;
 		pPatch->WGs[count].TDF.T4 = 0.0F;
 		pPatch->WGs[count].TDF.L4 = 0.0F;
 #endif

@@ -54,6 +54,13 @@ void LCRFilter::recalculateCoefficients()
     key += _pVoice->TDFs[_wgID].output;
 
 	float freq = _pWG->_pVoice->_pSynth->KeyNumberToFrequency(key) * pPatchFilter->RelativeFrequency;
+
+    if (freq > 12000.0F)
+    {
+        freq = 12000.0F;
+    }
+
+
 	float Q =  pPatchFilter->Q;
 
     RecalculateValues(freq, Q);
