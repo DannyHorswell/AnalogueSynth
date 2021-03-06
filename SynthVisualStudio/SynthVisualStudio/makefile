@@ -1,4 +1,4 @@
-synth : synth.o wavegenerator.o main.o voice.o patch.o lfo.o reverb.o midi.o tdl.o filter.o \
+synth : synth.o wavegenerator.o main.o voice.o patch.o lfo.o reverb.o midi.o tdl.o LCRFilter.o \
 wav.o socket.o benchmark.o noise.o sampleset.o portaudio.o
 	g++ -lasound -pthread -o synth main.o synth.o wavegenerator.o voice.o patch.o lfo.o \
 reverb.o tdl.o midi.o filter.o wav.o socket.o benchmark.o noise.o sampleset.o portaudio.o \
@@ -10,8 +10,8 @@ main.o : main.cpp main.h constants.h synth.h patch.h
 portaudio.o : portaudio.cpp portaudio.h constants.h
 	g++ -c -O2 portaudio.cpp
 
-filter.o : filter.cpp filter.h constants.h
-	g++ -c -O2 filter.cpp 
+LCRFilter.o : LCRFilter.cpp LCRFilter.h constants.h
+	g++ -c -O2 LCRFilter.cpp 
 
 patch.o : patch.cpp patch.h constants.h
 	g++ -c -O2 patch.cpp

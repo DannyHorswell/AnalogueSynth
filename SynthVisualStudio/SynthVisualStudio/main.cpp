@@ -14,7 +14,7 @@ using namespace std;
 #include "constants.h"
 #include "midi.h"
 #include "patch.h"
-#include "filter.h"
+#include "LCRFilter.h"
 #include "wavegenerator.h"
 #include "tdl.h"
 #include "voice.h"

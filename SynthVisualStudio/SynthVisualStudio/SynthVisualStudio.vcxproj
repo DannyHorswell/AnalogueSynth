@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="benchmark.cpp" />
     <ClCompile Include="filter.cpp" />
+    <ClCompile Include="LCRFilter.cpp" />
     <ClCompile Include="lfo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="midi.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="benchmark.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="filter.h" />
+    <ClInclude Include="LCRFilter.h" />
     <ClInclude Include="lfo.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="midi.h" />
