@@ -1,30 +1,50 @@
 #pragma once
+
+#ifndef LCHFILTER_H
+#define LCHFILTER_H
+
+#include "patch.h"
+
+
 class LCRFilter
 {
 
 private:
+    synth* _pSynth;
+    voice* _pVoice;
+	wavegenerator* _pWG;
+	int _wgID;
+
+    float _deltaT;
+
+
     // Inductor, capacitor and resistor values
-    float L = 1.0F;
-    float C;
-    float R;
+    double L = 1.0F;
+    double C;
+    double R;
 
     // Reverse laplace transform coeffiecnts
-    float Alpha;
-    float Beta;
+    double Alpha;
+    double Beta;
 
     // Sin and cosine components
-    float VzeroComponent;
-    float IzeroComponent;
+    double VzeroComponent;
+    double IzeroComponent;
 
     // Initial conditions
     float Vc;
     float I;
 
-    void CalculateComponents(float t);
-
-public:
     void RecalculateValues(float frequency, float q);
+public:
+    
 
-    float NextSample(float detlaT, float inputV);
+    void init(synth* pSynth, voice* pVoice, int wgID, wavegenerator* pWG, float deltaT);
+
+	void recalculateCoefficients();
+
+    float getNext(float x);
 };
+
+#endif
 

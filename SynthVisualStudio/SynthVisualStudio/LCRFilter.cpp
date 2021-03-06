@@ -1,8 +1,26 @@
-#include "LCRFilter.h"
-#include "constants.h"
 
 #include <math.h>
 
+#include "constants.h"
+#include "patch.h"
+#include "LCRFilter.h"
+#include "wavegenerator.h"
+#include "tdl.h"
+#include "voice.h"
+#include "lfo.h"
+#include "reverb.h"
+#include "synth.h"
+
+
+void LCRFilter::init(synth* pSynth, voice* pVoice, int wgID, wavegenerator* pWG, float deltaT)
+{
+	_pSynth = pSynth;
+    _pVoice = pVoice;
+	_wgID = wgID;
+	_pWG = pWG;
+
+    _deltaT = deltaT;
+}
 
 /// <summary>
 /// These need recalculating when f and q change
@@ -11,39 +29,79 @@
 /// <param name="q"></param>
 void LCRFilter::RecalculateValues(float frequency, float q)
 {
-    C = 1 / (2 * PI * frequency);
+    C = 1.0F / (TWO_PI * frequency);
     C = C * C;
 
-    R = sqrt(1 / C) / q;
+    R = sqrt(1.0F / (C * q));
 
-    Alpha = R / 2;
-    Beta = sqrt((1 / C) + (R * R) / 4);
-}
+    Alpha = R / 2.0F;
+    Beta = sqrt((1.0F / C) + (R * R) / 4.0F);
 
-/// <summary>
-/// These need calculating once when sample rate is known
-/// </summary>
-/// <param name="t"></param>
-void LCRFilter::CalculateComponents(float t)
-{
-    float exponentBit = exp(-Alpha * t);
-    float sinBit = sin(Beta * t);
-    float cosBit = cos(Beta * t);
+    double exponentBit = exp(-Alpha * _deltaT);
+    double sinBit = sin(Beta * _deltaT);
+    double cosBit = cos(Beta * _deltaT);
 
     VzeroComponent = (exponentBit * sinBit) / Beta;
     IzeroComponent = exponentBit * cosBit;
 }
 
 
-/// <summary>
-/// Get teh next sample
-/// </summary>
-/// <param name="detlaT"></param>
-/// <param name="inputV"></param>
-/// <returns></returns>
-float LCRFilter::NextSample(float detlaT, float inputV)
+void LCRFilter::recalculateCoefficients()
 {
-    float vdiff = inputV - Vc;
+    patchFilter* pPatchFilter = &_pSynth->_pSelectedPatch->WGs[_wgID].Filter;
+
+	float key = _pWG->_pVoice->key + ((_pWG->_pVoice->velocity) / 64.0F) * pPatchFilter->VelocityFactor;
+    key += _pVoice->TDFs[_wgID].output;
+
+	float freq = _pWG->_pVoice->_pSynth->KeyNumberToFrequency(key) * pPatchFilter->RelativeFrequency;
+	float Q =  pPatchFilter->Q;
+
+    RecalculateValues(freq, Q);
+
+	/*switch (pPatchFilter->FilterType)
+	{
+		case OFF:
+			break;
+
+		case LPF:
+			break;
+
+		case HPF:
+			break;
+
+		case BPF1:
+			break;
+			
+		case BPF2:
+			break;
+
+		case NOTCH:
+			break;
+
+		case APF:
+			break;
+
+		case PEAKINGEQ:
+			break;
+
+		case LOWSHELF:
+			break;
+
+		case HIGHSHELF:
+			break;
+	}
+    */
+}
+
+
+/// <summary>
+/// Get the next sample
+/// </summary>
+/// <param name="x">input</param>
+/// <returns>output</returns>
+float LCRFilter::getNext(float x)
+{
+    float vdiff = x - Vc;
 
     float i = vdiff * VzeroComponent + I * IzeroComponent;
 
@@ -51,10 +109,15 @@ float LCRFilter::NextSample(float detlaT, float inputV)
     I = i;
 
     // Calculate diference in Vc
-    float dv = (I * detlaT) / C;
+    float dv = (I * _deltaT) / C;
 
     // Store Vc for next iteration
     Vc += dv;
 
     return Vc;
+    
 }
+
+
+
+

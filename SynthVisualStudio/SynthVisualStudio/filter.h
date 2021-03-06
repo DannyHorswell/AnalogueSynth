@@ -4,6 +4,9 @@
 
 #include "patch.h"
 
+
+NOT USED - THIS IS FOR A BIQUAD FILTER - THIS WAS UNSTABLE
+
 const float FILTER_PEAK_THRESHOLD = 20.0F;
 const float FILTER_NEG_PEAK_THRESHOLD = -20.0F;
 
@@ -43,8 +46,6 @@ public:
 	void init(synth* pSynth, int wgID, wavegenerator* pWG);
 
 	void recalculateCoefficients();
-
-	inline float getNext(float x)
 	{
 		// y[n] = (b0/a0)*x[n] + (b1/a0)*x[n-1] + (b2/a0)*x[n-2]
 		//                    - (a1/a0)*y[n-1] - (a2/a0)*y[n-2]

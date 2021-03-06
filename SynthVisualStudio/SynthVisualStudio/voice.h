@@ -38,7 +38,7 @@ public:
 	voice();
 	~voice();
 
-	void init(synth* pSynth);
+	void init(synth* pSynth, float deltaT);
 
 	stereo getnext(float deltaT);
 

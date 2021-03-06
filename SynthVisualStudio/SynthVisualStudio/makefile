@@ -1,7 +1,7 @@
 synth : synth.o wavegenerator.o main.o voice.o patch.o lfo.o reverb.o midi.o tdl.o LCRFilter.o \
 wav.o socket.o benchmark.o noise.o sampleset.o portaudio.o
 	g++ -lasound -pthread -o synth main.o synth.o wavegenerator.o voice.o patch.o lfo.o \
-reverb.o tdl.o midi.o filter.o wav.o socket.o benchmark.o noise.o sampleset.o portaudio.o \
+reverb.o tdl.o midi.o LCRFilter.o wav.o socket.o benchmark.o noise.o sampleset.o portaudio.o \
  -L libasound /usr/local/lib/libportaudio.so
 
 main.o : main.cpp main.h constants.h synth.h patch.h

@@ -4,9 +4,9 @@
 
 #define ENABLE_TDP	// Enable time dependant pitch
 #define ENABLE_TDA	// Enable time dependant amplitude
-//#define ENABLE_TDF	// Enable time dependant filter
+#define ENABLE_TDF	// Enable time dependant filter
 
-//#define ENABLE_FILTERS
+#define ENABLE_FILTERS
 //#define ENABLE_OUTPUT_COMPRESSION
 #define ENABLE_REVERB
 #define NORMALSE_SAMPLES
@@ -83,7 +83,7 @@ class voice;
 class wavegenerator;
 class lfo;
 class reverb;
-class filter;
+class LCRFilter;
 class noise;
 class tdl;
 

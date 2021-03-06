@@ -24,7 +24,7 @@ voice::~voice()
 
 }
 
-void voice::init(synth* pSynth)
+void voice::init(synth* pSynth, float deltaT)
 {
 	fprintf(stderr, "voice init\n");
 
@@ -32,7 +32,7 @@ void voice::init(synth* pSynth)
 
 	for (int count=0; count<NUMBER_OF_WAVE_GENERATORS_PER_VOICE; count++)
 	{
-		waveGenerators[count].init(pSynth, this, count);
+		waveGenerators[count].init(pSynth, this, count, deltaT);
 
 #ifdef ENABLE_TDP
 		TDPs[count].init(pSynth, this, count, P);

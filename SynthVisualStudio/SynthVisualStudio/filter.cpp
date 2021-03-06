@@ -14,6 +14,8 @@
 #include "reverb.h"
 #include "synth.h"
 
+NOT USED - THIS IS FOR A BIQUAD FILTER - THIS WAS UNSTABLE
+
 // Biquad filter (see http://en.wikipedia.org/wiki/Digital_biquad_filter)
 // Maths here (http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt)
 	

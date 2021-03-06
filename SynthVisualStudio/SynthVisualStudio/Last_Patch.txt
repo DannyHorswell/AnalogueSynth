@@ -26,8 +26,8 @@ WG[0].PWMLFOLevel=0.000000
 
 # ****************** Filter *******************
 WG[0].Filter.FilterType=LPF
-WG[0].Filter.Q=1.000000
-WG[0].Filter.RelativeFrequency=1.000000
+WG[0].Filter.Q=20.000000
+WG[0].Filter.RelativeFrequency=8.000000
 WG[0].Filter.DBGain=0.000000
 WG[0].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
@@ -37,7 +37,7 @@ WG[1].Type=SQUARE
 WG[1].EnablePitchBend=true
 WG[1].PitchBendAmount=1.000000
 WG[1].VelocityVolumeAdjust=0.000000
-WG[1].KeyOffestSemitones=5.000000
+WG[1].KeyOffestSemitones=0.000000
 WG[1].FreqLFOid=0
 WG[1].FreqLFOLevel=0.000000
 WG[1].FreqLFODelay=0.000000
@@ -47,14 +47,14 @@ WG[1].PWMLFOLevel=0.000000
 
 # ****************** Filter *******************
 WG[1].Filter.FilterType=LPF
-WG[1].Filter.Q=1.000000
-WG[1].Filter.RelativeFrequency=1.000000
+WG[1].Filter.Q=20.000000
+WG[1].Filter.RelativeFrequency=8.000000
 WG[1].Filter.DBGain=0.000000
 WG[1].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
 WG[0].SampleSet.NSamples=0
 
-WG[2].Type=SIN
+WG[2].Type=MUTE
 WG[2].EnablePitchBend=true
 WG[2].PitchBendAmount=1.000000
 WG[2].VelocityVolumeAdjust=0.000000
@@ -68,14 +68,14 @@ WG[2].PWMLFOLevel=0.000000
 
 # ****************** Filter *******************
 WG[2].Filter.FilterType=LPF
-WG[2].Filter.Q=1.000000
-WG[2].Filter.RelativeFrequency=1.000000
+WG[2].Filter.Q=20.000000
+WG[2].Filter.RelativeFrequency=8.000000
 WG[2].Filter.DBGain=0.000000
 WG[2].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
 WG[0].SampleSet.NSamples=0
 
-WG[3].Type=SIN
+WG[3].Type=MUTE
 WG[3].EnablePitchBend=true
 WG[3].PitchBendAmount=1.000000
 WG[3].VelocityVolumeAdjust=0.000000
@@ -89,8 +89,8 @@ WG[3].PWMLFOLevel=0.000000
 
 # ****************** Filter *******************
 WG[3].Filter.FilterType=LPF
-WG[3].Filter.Q=1.000000
-WG[3].Filter.RelativeFrequency=1.000000
+WG[3].Filter.Q=20.000000
+WG[3].Filter.RelativeFrequency=8.000000
 WG[3].Filter.DBGain=0.000000
 WG[3].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
@@ -102,27 +102,27 @@ WG[0].SampleSet.NSamples=0
 #****************************************************************
 
 WG[0].TDP.L0=0.000000
-WG[0].TDP.T1=4.000000
-WG[0].TDP.L1=7.000000
-WG[0].TDP.T2=6.200000
-WG[0].TDP.L2=-12.000000
+WG[0].TDP.T1=0.000000
+WG[0].TDP.L1=0.000000
+WG[0].TDP.T2=0.000000
+WG[0].TDP.L2=0.000000
 WG[0].TDP.T3=0.000000
 WG[0].TDP.Sustain=0.000000
-WG[0].TDP.T4=3.000000
+WG[0].TDP.T4=0.000000
 WG[0].TDP.L4=0.000000
 
 WG[1].TDP.L0=0.000000
-WG[1].TDP.T1=4.000000
-WG[1].TDP.L1=-7.000000
-WG[1].TDP.T2=0.200000
-WG[1].TDP.L2=-24.000000
-WG[1].TDP.T3=2.000000
-WG[1].TDP.Sustain=-3.000000
-WG[1].TDP.T4=3.000000
-WG[1].TDP.L4=0.100000
+WG[1].TDP.T1=0.000000
+WG[1].TDP.L1=0.000000
+WG[1].TDP.T2=0.000000
+WG[1].TDP.L2=0.000000
+WG[1].TDP.T3=0.000000
+WG[1].TDP.Sustain=0.000000
+WG[1].TDP.T4=0.000000
+WG[1].TDP.L4=0.000000
 
 WG[2].TDP.L0=0.000000
-WG[2].TDP.T1=5.010000
+WG[2].TDP.T1=0.000000
 WG[2].TDP.L1=0.000000
 WG[2].TDP.T2=0.000000
 WG[2].TDP.L2=0.000000
@@ -132,13 +132,13 @@ WG[2].TDP.T4=0.000000
 WG[2].TDP.L4=0.000000
 
 WG[3].TDP.L0=0.000000
-WG[3].TDP.T1=4.000000
+WG[3].TDP.T1=0.000000
 WG[3].TDP.L1=0.000000
-WG[3].TDP.T2=0.200000
+WG[3].TDP.T2=0.000000
 WG[3].TDP.L2=0.000000
-WG[3].TDP.T3=2.000000
+WG[3].TDP.T3=0.000000
 WG[3].TDP.Sustain=0.000000
-WG[3].TDP.T4=3.000000
+WG[3].TDP.T4=0.000000
 WG[3].TDP.L4=0.000000
 
 
@@ -147,13 +147,13 @@ WG[3].TDP.L4=0.000000
 #****************************************************************
 
 WG[0].TDA.L0=0.000000
-WG[0].TDA.T1=6.000000
+WG[0].TDA.T1=0.200000
 WG[0].TDA.L1=0.800000
 WG[0].TDA.T2=1.000000
 WG[0].TDA.L2=0.300000
 WG[0].TDA.T3=1.000000
 WG[0].TDA.Sustain=1.000000
-WG[0].TDA.T4=3.000000
+WG[0].TDA.T4=1.000000
 WG[0].TDA.L4=0.000000
 
 WG[1].TDA.L0=0.300000
@@ -163,7 +163,7 @@ WG[1].TDA.T2=3.000000
 WG[1].TDA.L2=0.300000
 WG[1].TDA.T3=1.000000
 WG[1].TDA.Sustain=1.000000
-WG[1].TDA.T4=2.000000
+WG[1].TDA.T4=1.000000
 WG[1].TDA.L4=0.000000
 
 WG[2].TDA.L0=1.000000
@@ -183,14 +183,59 @@ WG[3].TDA.T2=3.000000
 WG[3].TDA.L2=0.300000
 WG[3].TDA.T3=1.000000
 WG[3].TDA.Sustain=1.000000
-WG[3].TDA.T4=8.000000
+WG[3].TDA.T4=0.000000
 WG[3].TDA.L4=0.000000
+
+
+# ****** Time dependant filter adjustment *******************
+# Levels in semitines
+#****************************************************************
+
+WG[0].TDF.L0=0.000000
+WG[0].TDF.T1=0.000000
+WG[0].TDF.L1=0.000000
+WG[0].TDF.T2=0.000000
+WG[0].TDF.L2=0.000000
+WG[0].TDF.T3=0.000000
+WG[0].TDF.Sustain=0.000000
+WG[0].TDF.T4=0.000000
+WG[0].TDF.L4=0.000000
+
+WG[1].TDF.L0=0.000000
+WG[1].TDF.T1=0.000000
+WG[1].TDF.L1=0.000000
+WG[1].TDF.T2=0.000000
+WG[1].TDF.L2=0.000000
+WG[1].TDF.T3=0.000000
+WG[1].TDF.Sustain=0.000000
+WG[1].TDF.T4=0.000000
+WG[1].TDF.L4=0.000000
+
+WG[2].TDF.L0=0.000000
+WG[2].TDF.T1=0.000000
+WG[2].TDF.L1=0.000000
+WG[2].TDF.T2=0.000000
+WG[2].TDF.L2=0.000000
+WG[2].TDF.T3=0.000000
+WG[2].TDF.Sustain=0.000000
+WG[2].TDF.T4=0.000000
+WG[2].TDF.L4=0.000000
+
+WG[3].TDF.L0=0.000000
+WG[3].TDF.T1=0.000000
+WG[3].TDF.L1=0.000000
+WG[3].TDF.T2=0.000000
+WG[3].TDF.L2=0.000000
+WG[3].TDF.T3=0.000000
+WG[3].TDF.Sustain=0.000000
+WG[3].TDF.T4=0.000000
+WG[3].TDF.L4=0.000000
 
 
 #****************** Voice Settings ****************************
 # 
 #****************************************************************
-WGMixMode=RING
+WGMixMode=MIX
 
 
 # ****** Reverb settings *******************

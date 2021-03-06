@@ -7,7 +7,7 @@
 
 #include "constants.h"
 #include "patch.h"
-#include "filter.h"
+#include "LCRFilter.h"
 #include "wavegenerator.h"
 #include "tdl.h"
 #include "voice.h"
@@ -29,7 +29,7 @@ wavegenerator::~wavegenerator()
 {
 }
 
-void wavegenerator::init(synth* pSynth, voice* pVoice, int wgID)
+void wavegenerator::init(synth* pSynth, voice* pVoice, int wgID, float deltaT)
 {
 	fprintf(stderr, "wavegenerator init\n");
 
@@ -39,7 +39,7 @@ void wavegenerator::init(synth* pSynth, voice* pVoice, int wgID)
 
 	_part_period=0.0F;
 
-	theFilter.init(pSynth, wgID, this);
+	theFilter.init(pSynth, pVoice, wgID, this, deltaT);
 }
 
 void wavegenerator::keyPress(float velocity)
@@ -101,15 +101,15 @@ float wavegenerator::getnext(float deltaT)
 #endif
  		_full_period = _pVoice->_pSynth->KeyToPeriod(calcKey);
 
-		#ifdef ENABLE_FILTERS
+#ifdef ENABLE_FILTERS
 
 		//if (_pVoice->key != lastKey)
 		//{
+			
 			theFilter.recalculateCoefficients(); // In case things have changed
 			lastKey = _pVoice->key;
 		//}
-
-	#endif
+#endif
 	}
 
 	if (relcalcPeriodCount >= RECALC_COUNT)

@@ -1,7 +1,7 @@
 #ifndef WAVEGENERATOR_H
 #define WAVEGENERATOR_H
 
-#include "filter.h"
+#include "LCRFilter.h"
 
 /*******************************************************
 * wavegeneratorclass
@@ -39,13 +39,13 @@ class wavegenerator
 
 public:
 	voice* _pVoice;
-	filter theFilter;
+	LCRFilter theFilter;
 	float keyFreq; // Picth the key plays (befor modification from pitch bend, LFO etc)
 
 	wavegenerator();
 	~wavegenerator();
 
-	void init(synth* pSynth, voice* pVoice, int WGID);
+	void init(synth* pSynth, voice* pVoice, int WGID,float deltaT);
 	
 	// Gets the next output value for the amount of time passed
 	float getnext(float deltaT);

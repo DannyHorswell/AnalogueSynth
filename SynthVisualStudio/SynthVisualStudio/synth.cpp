@@ -19,7 +19,7 @@ using namespace std;
 const int LFO_RECALC_NUM = 256;
 
 
-synth::synth()
+synth::synth(float deltaT)
 {
 	fprintf(stderr, "synth ctor\n");
 
@@ -32,7 +32,7 @@ synth::synth()
 	// Initalise the voices
 	for (int count=0; count<NUMBER_OF_VOICES; count++)
 	{
-		_voices[count].init(this);
+		_voices[count].init(this, deltaT);
 	}
 
 	// Initalise the LFOs

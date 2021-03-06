@@ -15,6 +15,8 @@ benchmark::benchmark()
 {
 	deltaT = 1.0 / SAMPLE_FREQUENCY;
 
+	pTheSynth = new synth(deltaT);
+
 	start = 0;
 	stop = 0;
 	result = 0;
@@ -24,22 +26,22 @@ benchmark::benchmark()
 
 benchmark::~benchmark()
 {
-
+	delete pTheSynth;
 }
 
 float benchmark::testsynth()
 {
 	stereo out;
 
-	printf("WG type = %i\n", theSynth._pSelectedPatch->WGs[0]._type);
+	printf("WG type = %i\n", pTheSynth->_pSelectedPatch->WGs[0]._type);
 
 	localtime(&start);
 
-	theSynth.getnext(deltaT);
+	pTheSynth->getnext(deltaT);
 
 	for (int count=0; count<nOps; count++)
 	{
-		out = theSynth.getnext(deltaT);
+		out = pTheSynth->getnext(deltaT);
 	}
 
 	localtime(&stop);
@@ -57,7 +59,7 @@ float benchmark::testfilterspeed()
 
 	localtime(&start);
 
-	theSynth._voices[0].setkey(64, 64);
+	pTheSynth->_voices[0].setkey(64, 64);
 
 	float in = 0.0;
 
@@ -78,7 +80,7 @@ float benchmark::testfilterspeed()
 			}
 		}
 
-		out = theSynth._voices[0].waveGenerators[0].theFilter.getNext(in);
+		out = pTheSynth->_voices[0].waveGenerators[0].theFilter.getNext(in);
 
 		if (out > maxOut)
 		{
@@ -108,13 +110,13 @@ float benchmark::testfiltercoefficentcalculation()
 
 	localtime(&start);
 
-	theSynth._voices[0].setkey(64, 64);
+	pTheSynth->_voices[0].setkey(64, 64);
 
 	for (int count=0; count<nOps; count++)
 	{
 		// Change something that forces recalculation
-		theSynth._pSelectedPatch->WGs[0].Filter.Q = count & 0x0F; 
-		theSynth._voices[0].waveGenerators[0].theFilter.recalculateCoefficients();
+		pTheSynth->_pSelectedPatch->WGs[0].Filter.Q = count & 0x0F; 
+		pTheSynth->_voices[0].waveGenerators[0].theFilter.recalculateCoefficients();
 	}
 
 	localtime(&stop);
@@ -130,15 +132,15 @@ float benchmark::testwavegenerator()
 {
 	float out;
 
-	printf("WG type = %i\n", theSynth._pSelectedPatch->WGs[0]._type);
+	printf("WG type = %i\n", pTheSynth->_pSelectedPatch->WGs[0]._type);
 
 	localtime(&start);
 
-	theSynth._voices[0].setkey(64, 64);
+	pTheSynth->_voices[0].setkey(64, 64);
 
 	for (int count=0; count<nOps; count++)
 	{
-		out = theSynth._voices[0].waveGenerators[0].getnext(deltaT);
+		out = pTheSynth->_voices[0].waveGenerators[0].getnext(deltaT);
 	}
 
 	localtime(&stop);
@@ -154,34 +156,34 @@ void benchmark::run()
 {
 	float opsPerSecond;
 
-	theSynth.keyPressed(64, 64);
+	pTheSynth->keyPressed(64, 64);
 
 	//******  Test the speed of diferent wave types **************
-	theSynth._pSelectedPatch->WGs[0]._type = MUTE;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = MUTE;
 	opsPerSecond = testwavegenerator();
 	printf("WG MUTE Wave %f per second\n", opsPerSecond);
 
-	theSynth._pSelectedPatch->WGs[0]._type = SQUARE;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = SQUARE;
 	opsPerSecond = testwavegenerator();
 	printf("WG SQUARE Wave %f per second\n", opsPerSecond);
 
-	theSynth._pSelectedPatch->WGs[0]._type = SAW;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = SAW;
 	opsPerSecond = testwavegenerator();
 	printf("WG SAW Wave %f per second\n", opsPerSecond);
 
-	theSynth._pSelectedPatch->WGs[0]._type = SIN;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = SIN;
 	opsPerSecond = testwavegenerator();
 	printf("WG SIN Wave %f permsecond\n", opsPerSecond);
 
-	theSynth._pSelectedPatch->WGs[0]._type = NOISE;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = NOISE;
 	opsPerSecond = testwavegenerator();
 	printf("WG NOISE Wave %f per second\n", opsPerSecond);
 
-	theSynth._pSelectedPatch->WGs[0]._type = RND_SQ;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = RND_SQ;
 	opsPerSecond = testwavegenerator();
 	printf("WG RND_SQ Wave %f per second\n", opsPerSecond);
 
-	theSynth._pSelectedPatch->WGs[0]._type = PCM;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = PCM;
 	opsPerSecond = testwavegenerator();
 	printf("WG PCM Wave %f per second\n", opsPerSecond);
 
@@ -194,8 +196,8 @@ void benchmark::run()
 	printf("Filter speed %f per second\n", opsPerSecond);
 
 	// Test synth
-	theSynth._pSelectedPatch->WGs[0]._type = SQUARE;
-	theSynth._pSelectedPatch->WGs[1]._type = SQUARE;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = SQUARE;
+	pTheSynth->_pSelectedPatch->WGs[1]._type = SQUARE;
 
 	opsPerSecond = testsynth();
 	printf("Whole synth %f per second\n", opsPerSecond);

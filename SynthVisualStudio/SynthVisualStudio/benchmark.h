@@ -4,10 +4,9 @@
 
 using namespace std;
 
-
 class benchmark
 {
-	synth theSynth;
+	synth* pTheSynth;
 
 	float deltaT;
 

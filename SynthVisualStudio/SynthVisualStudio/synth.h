@@ -35,7 +35,7 @@ public:
 
 	stereo output;
 
-	synth();
+	synth(float deltaT);
 	~synth();
 
 	void setMasterTune(float freq);
