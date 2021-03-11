@@ -62,7 +62,7 @@ synth theSynth(deltaT);
 int bufferpos = 0;
 
 
-float lastTestPhase = 0.0F;
+float lastTestPhase = 0.0F;C
 
 float getNextTestValue()
 {

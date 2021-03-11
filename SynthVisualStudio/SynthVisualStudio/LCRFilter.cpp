@@ -50,54 +50,22 @@ void LCRFilter::recalculateCoefficients()
 {
     patchFilter* pPatchFilter = &_pSynth->_pSelectedPatch->WGs[_wgID].Filter;
 
-	float key = _pWG->_pVoice->key + ((_pWG->_pVoice->velocity) / 64.0F) * pPatchFilter->VelocityFactor;
+    float key = _pWG->_pVoice->key + ((_pWG->_pVoice->velocity) / 64.0F) * pPatchFilter->VelocityFactor;
     key += _pVoice->TDFs[_wgID].output;
 
-	float freq = _pWG->_pVoice->_pSynth->KeyNumberToFrequency(key) * pPatchFilter->RelativeFrequency;
+    float freq = _pWG->_pVoice->_pSynth->KeyNumberToFrequency(key) * pPatchFilter->RelativeFrequency;
 
     if (freq > 12000.0F)
     {
         freq = 12000.0F;
     }
 
-
-	float Q =  pPatchFilter->Q;
+    float Q =  pPatchFilter->Q;
 
     RecalculateValues(freq, Q);
 
-	/*switch (pPatchFilter->FilterType)
-	{
-		case OFF:
-			break;
 
-		case LPF:
-			break;
-
-		case HPF:
-			break;
-
-		case BPF1:
-			break;
-			
-		case BPF2:
-			break;
-
-		case NOTCH:
-			break;
-
-		case APF:
-			break;
-
-		case PEAKINGEQ:
-			break;
-
-		case LOWSHELF:
-			break;
-
-		case HIGHSHELF:
-			break;
-	}
-    */
+    
 }
 
 
@@ -108,20 +76,65 @@ void LCRFilter::recalculateCoefficients()
 /// <returns>output</returns>
 float LCRFilter::getNext(float x)
 {
-    float vdiff = x - Vc;
+    float vdiff;
+    float i;
+    float dv;
 
-    float i = vdiff * VzeroComponent + I * IzeroComponent;
+    patchFilter* pPatchFilter = &_pSynth->_pSelectedPatch->WGs[_wgID].Filter;
 
-    // Store I for next iteration
-    I = i;
+    switch (pPatchFilter->FilterType)
+	{
+		case OFF:
+            return x;
+            break;
 
-    // Calculate diference in Vc
-    float dv = (I * _deltaT) / C;
+		case LPF:
 
-    // Store Vc for next iteration
-    Vc += dv;
+            vdiff = x - Vc;
 
-    return Vc;
+            i = vdiff * VzeroComponent + I * IzeroComponent;
+
+            // Store I for next iteration
+            I = i;
+
+            // Calculate diference in Vc
+            dv = (I * _deltaT) / C;
+
+            // Store Vc for next iteration
+            Vc += dv;
+
+            return Vc;
+            break;
+
+		case HPF:
+            return x;
+            break;
+
+		case BPF1:
+                    return x;
+            break;
+		case BPF2:
+                    return x;
+            break;
+		case NOTCH:
+                    return x;
+            break;
+		case APF:
+                    return x;
+            break;
+		case PEAKINGEQ:
+             return x;
+            break;
+		case LOWSHELF:
+            return x;
+            break;
+
+		case HIGHSHELF:
+			return x;
+            break;
+	}
+
+    
     
 }
 

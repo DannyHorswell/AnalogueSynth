@@ -103,7 +103,6 @@ float tdl::getnext()
 		{
 			// Key just release, record output level
 			releaseLevel = output;
-			printf("Released %f\n", releaseLevel);
 		}
 
 		if (_pVoice->timeSinceReleased < ppatchTDL->T4)

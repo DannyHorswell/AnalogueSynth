@@ -19,7 +19,7 @@ Features
 Multi voice (configurable, I have 12 set in constants.h)
 
 Wave generators
-	Multi wave generators per voice (configurable, I have 2 set in config file)
+	Multi wave generators per voice (configurable, I have 4 set in config file)
 	Sin, Square (PWM LFO controlled), Saw, Triangle, Noise (Gaussian) and WAV sample wave generators
 	Mix or ring wave generator mixing
 
@@ -30,7 +30,7 @@ Low frequency oscillators
 	Random level square
 
 Time dependent levels
-	Can controll WG amplitude, frequencies etc
+	Can controll WG amplitude, frequencie, filter etc
 
 Reverb
 	Stereo cross over, adjustable delay and feedback etc
@@ -45,13 +45,15 @@ MIDI
 	Note off
 	Control change
 	Pitch bend
+
+Filter
+	LCR Resonant LP Filterfilter
+
+MIDI Conrolled
 	
 
 
-Anti-features
 
-For filters I implemented a bi-quad filter, this tooka while to understand and code and in he end proved to be rubbish.
-My next plan for this project it to abandon the biquad filter and simulate a LC passive filter and see how that goes. 
 
 
 
@@ -59,8 +61,18 @@ Getting working
 
 RPI.
 
-You should be able to run 'make' in the visual studio folder containing teh make file.
+You should be able to run 'make' in the visual studio folder containing the make file.
 You will need to install PortAudio from http://portaudio.com/
+
+MIDI - If you don't have a midi controlled, disable midi in the Constants.h file by commenting out this line #define ENABLE_MIDI
+If you do have midi, you need to ensure this setting is correct for your environment in main.cpp file
+
+static char mididevice[] = "hw:1,0";   
+
+you can find teh correct midi device value bu running
+
+amidi -l
+
 
 
 

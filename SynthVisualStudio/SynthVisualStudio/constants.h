@@ -39,7 +39,7 @@
 
 #define NUMBER_OF_OP_CHANNELS 2						/* number of output channels 1 or 2 */
 #define NUMBER_OF_WAVE_GENERATORS_PER_VOICE 4
-#define NUMBER_OF_LFO_FOR_SYNTH 2
+#define NUMBER_OF_LFO_FOR_SYNTH 8
 #define NUMBER_OF_VOICES 12
 #define DIVEDER_PER_VOICE 3.5 // SQRT OF ABOVE
 
