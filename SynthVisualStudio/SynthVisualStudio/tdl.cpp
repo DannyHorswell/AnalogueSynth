@@ -67,13 +67,17 @@ float tdl::getnext()
 
 	if (_pVoice->keyPressed)
 	{
+		if (lastKeystate == false)
+		{
+			pressLevel = output;
+		}
 		// In pressed phase
 
 		// Is it between 0 and 1
 		if (_pVoice->timeSincePressed <= ppatchTDL->T1)
 		{
 			amountThrough = _pVoice->timeSincePressed / ppatchTDL->T1;
-			output = ppatchTDL->L0 +  (ppatchTDL->L1 -  ppatchTDL->L0) * amountThrough;
+			output = pressLevel +  (ppatchTDL->L1 -  pressLevel) * amountThrough;
 		}
 
 		// Is it between 1 and 2

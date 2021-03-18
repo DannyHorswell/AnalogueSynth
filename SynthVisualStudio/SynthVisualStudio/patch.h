@@ -19,7 +19,6 @@ enum waveformtype
 
 struct patchTDL // Time dependany level
 {
-	float L0;
 	float T1;
 	float L1;
 	float T2;

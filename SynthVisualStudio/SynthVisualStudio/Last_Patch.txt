@@ -45,7 +45,7 @@ WG[0].PWMLFOLevel=0.000000
 # ****************** Filter *******************
 WG[0].Filter.FilterType=LPF
 WG[0].Filter.Q=10.000000
-WG[0].Filter.RelativeFrequency=18.000000
+WG[0].Filter.RelativeFrequency=20.000000
 WG[0].Filter.DBGain=0.000000
 WG[0].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
@@ -66,7 +66,7 @@ WG[1].PWMLFOLevel=0.000000
 # ****************** Filter *******************
 WG[1].Filter.FilterType=LPF
 WG[1].Filter.Q=10.000000
-WG[1].Filter.RelativeFrequency=18.000000
+WG[1].Filter.RelativeFrequency=20.000000
 WG[1].Filter.DBGain=0.000000
 WG[1].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
@@ -76,7 +76,7 @@ WG[2].Type=SAW
 WG[2].EnablePitchBend=true
 WG[2].PitchBendAmount=1.000000
 WG[2].VelocityVolumeAdjust=0.000000
-WG[2].KeyOffestSemitones=0.000000
+WG[2].KeyOffestSemitones=-12.100000
 WG[2].FreqLFOid=2
 WG[2].FreqLFOLevel=0.050000
 WG[2].FreqLFODelay=0.000000
@@ -87,7 +87,7 @@ WG[2].PWMLFOLevel=0.000000
 # ****************** Filter *******************
 WG[2].Filter.FilterType=LPF
 WG[2].Filter.Q=10.000000
-WG[2].Filter.RelativeFrequency=18.000000
+WG[2].Filter.RelativeFrequency=20.000000
 WG[2].Filter.DBGain=0.000000
 WG[2].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
@@ -97,7 +97,7 @@ WG[3].Type=SAW
 WG[3].EnablePitchBend=true
 WG[3].PitchBendAmount=1.000000
 WG[3].VelocityVolumeAdjust=0.000000
-WG[3].KeyOffestSemitones=0.000000
+WG[3].KeyOffestSemitones=-12.000000
 WG[3].FreqLFOid=3
 WG[3].FreqLFOLevel=0.050000
 WG[3].FreqLFODelay=0.000000
@@ -108,7 +108,7 @@ WG[3].PWMLFOLevel=0.000000
 # ****************** Filter *******************
 WG[3].Filter.FilterType=LPF
 WG[3].Filter.Q=10.000000
-WG[3].Filter.RelativeFrequency=18.000000
+WG[3].Filter.RelativeFrequency=20.000000
 WG[3].Filter.DBGain=0.000000
 WG[3].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
@@ -119,7 +119,6 @@ WG[0].SampleSet.NSamples=0
 # Levels in semitones
 #****************************************************************
 
-WG[0].TDP.L0=0.000000
 WG[0].TDP.T1=0.000000
 WG[0].TDP.L1=0.000000
 WG[0].TDP.T2=0.000000
@@ -129,7 +128,6 @@ WG[0].TDP.Sustain=0.000000
 WG[0].TDP.T4=0.000000
 WG[0].TDP.L4=0.000000
 
-WG[1].TDP.L0=0.000000
 WG[1].TDP.T1=0.000000
 WG[1].TDP.L1=0.000000
 WG[1].TDP.T2=0.000000
@@ -139,7 +137,6 @@ WG[1].TDP.Sustain=0.000000
 WG[1].TDP.T4=0.000000
 WG[1].TDP.L4=0.000000
 
-WG[2].TDP.L0=0.000000
 WG[2].TDP.T1=0.000000
 WG[2].TDP.L1=0.000000
 WG[2].TDP.T2=0.000000
@@ -149,7 +146,6 @@ WG[2].TDP.Sustain=0.000000
 WG[2].TDP.T4=0.000000
 WG[2].TDP.L4=0.000000
 
-WG[3].TDP.L0=0.000000
 WG[3].TDP.T1=0.000000
 WG[3].TDP.L1=0.000000
 WG[3].TDP.T2=0.000000
@@ -164,8 +160,7 @@ WG[3].TDP.L4=0.000000
 # Levels in gain 0.0F to 1.0F
 #****************************************************************
 
-WG[0].TDA.L0=0.000000
-WG[0].TDA.T1=0.200000
+WG[0].TDA.T1=0.800000
 WG[0].TDA.L1=0.800000
 WG[0].TDA.T2=1.000000
 WG[0].TDA.L2=0.900000
@@ -174,8 +169,7 @@ WG[0].TDA.Sustain=1.000000
 WG[0].TDA.T4=1.000000
 WG[0].TDA.L4=0.000000
 
-WG[1].TDA.L0=0.000000
-WG[1].TDA.T1=0.200000
+WG[1].TDA.T1=0.800000
 WG[1].TDA.L1=0.800000
 WG[1].TDA.T2=1.000000
 WG[1].TDA.L2=0.900000
@@ -184,8 +178,7 @@ WG[1].TDA.Sustain=1.000000
 WG[1].TDA.T4=1.000000
 WG[1].TDA.L4=0.000000
 
-WG[2].TDA.L0=0.000000
-WG[2].TDA.T1=0.200000
+WG[2].TDA.T1=0.800000
 WG[2].TDA.L1=0.800000
 WG[2].TDA.T2=1.000000
 WG[2].TDA.L2=0.900000
@@ -194,8 +187,7 @@ WG[2].TDA.Sustain=1.000000
 WG[2].TDA.T4=1.000000
 WG[2].TDA.L4=0.000000
 
-WG[3].TDA.L0=0.000000
-WG[3].TDA.T1=0.200000
+WG[3].TDA.T1=0.800000
 WG[3].TDA.L1=0.800000
 WG[3].TDA.T2=1.000000
 WG[3].TDA.L2=0.900000
@@ -209,7 +201,6 @@ WG[3].TDA.L4=0.000000
 # Levels in semitines
 #****************************************************************
 
-WG[0].TDF.L0=0.000000
 WG[0].TDF.T1=0.000000
 WG[0].TDF.L1=0.000000
 WG[0].TDF.T2=0.000000
@@ -219,7 +210,6 @@ WG[0].TDF.Sustain=0.000000
 WG[0].TDF.T4=0.000000
 WG[0].TDF.L4=0.000000
 
-WG[1].TDF.L0=0.000000
 WG[1].TDF.T1=0.000000
 WG[1].TDF.L1=0.000000
 WG[1].TDF.T2=0.000000
@@ -229,7 +219,6 @@ WG[1].TDF.Sustain=0.000000
 WG[1].TDF.T4=0.000000
 WG[1].TDF.L4=0.000000
 
-WG[2].TDF.L0=0.000000
 WG[2].TDF.T1=0.000000
 WG[2].TDF.L1=0.000000
 WG[2].TDF.T2=0.000000
@@ -239,7 +228,6 @@ WG[2].TDF.Sustain=0.000000
 WG[2].TDF.T4=0.000000
 WG[2].TDF.L4=0.000000
 
-WG[3].TDF.L0=0.000000
 WG[3].TDF.T1=0.000000
 WG[3].TDF.L1=0.000000
 WG[3].TDF.T2=0.000000

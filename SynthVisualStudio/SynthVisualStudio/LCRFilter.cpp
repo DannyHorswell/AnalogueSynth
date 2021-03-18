@@ -133,9 +133,7 @@ float LCRFilter::getNext(float x)
 			return x;
             break;
 	}
-
-    
-    
+    return x;
 }
 
 

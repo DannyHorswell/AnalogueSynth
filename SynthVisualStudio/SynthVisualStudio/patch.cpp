@@ -67,11 +67,6 @@ struct NameIndexer
 
 bool ProcessTDL(patchTDL* pTDL, vector<NameIndexer> nixers, string value)
 {
-	if (nixers[2].name == "L0")
-	{
-		pTDL->L0 = atof(value.c_str());
-		return true;
-	}
 
 	if (nixers[2].name == "L1")
 	{
@@ -952,7 +947,6 @@ void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 
 			patchWG wg = pPatch->WGs[count];
 
-			fprintf (file, "WG[%i].TDP.L0=%f\r\n", count, wg.TDP.L0);
 			fprintf (file, "WG[%i].TDP.T1=%f\r\n", count, wg.TDP.T1);
 			fprintf (file, "WG[%i].TDP.L1=%f\r\n", count, wg.TDP.L1);
 			fprintf (file, "WG[%i].TDP.T2=%f\r\n", count, wg.TDP.T2);
@@ -977,7 +971,6 @@ void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 
 			patchWG wg = pPatch->WGs[count];
 
-			fprintf (file, "WG[%i].TDA.L0=%f\r\n", count, wg.TDA.L0);
 			fprintf (file, "WG[%i].TDA.T1=%f\r\n", count, wg.TDA.T1);
 			fprintf (file, "WG[%i].TDA.L1=%f\r\n", count, wg.TDA.L1);
 			fprintf (file, "WG[%i].TDA.T2=%f\r\n", count, wg.TDA.T2);
@@ -1002,7 +995,6 @@ void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 
 			patchWG wg = pPatch->WGs[count];
 
-			fprintf (file, "WG[%i].TDF.L0=%f\r\n", count, wg.TDP.L0);
 			fprintf (file, "WG[%i].TDF.T1=%f\r\n", count, wg.TDP.T1);
 			fprintf (file, "WG[%i].TDF.L1=%f\r\n", count, wg.TDP.L1);
 			fprintf (file, "WG[%i].TDF.T2=%f\r\n", count, wg.TDP.T2);
@@ -1167,7 +1159,7 @@ void PopulateDefaultPatch(patch* pPatch)
 
 			case 2:
 				pPatch->WGs[count]._type = SAW;
-				pPatch->WGs[count].keyOffestSemitones = 0.0F;
+				pPatch->WGs[count].keyOffestSemitones = -12.1F;
 
 				pPatch->WGs[count].freqLFOid = count;
 				pPatch->WGs[count].freqLFOLevel = freqdev;
@@ -1176,7 +1168,7 @@ void PopulateDefaultPatch(patch* pPatch)
 
 			case 3:
 				pPatch->WGs[count]._type = SAW;
-				pPatch->WGs[count].keyOffestSemitones = 0.0F;
+				pPatch->WGs[count].keyOffestSemitones = -12.0F;
 
 				pPatch->WGs[count].freqLFOid = count;
 				pPatch->WGs[count].freqLFOLevel = freqdev;
@@ -1196,7 +1188,7 @@ void PopulateDefaultPatch(patch* pPatch)
 		// **************** Filter *******************
 		pPatch->WGs[count].Filter.FilterType = LPF;
 		pPatch->WGs[count].Filter.Q = 10;
-		pPatch->WGs[count].Filter.RelativeFrequency = 18.0F;
+		pPatch->WGs[count].Filter.RelativeFrequency = 20.0F;
 		pPatch->WGs[count].Filter.DBGain = 0.0F;
 	
 
@@ -1206,7 +1198,6 @@ void PopulateDefaultPatch(patch* pPatch)
 			case 0:
 				//********************** TDPs *********************
 				// Pitch: Levels in semitones 
-				pPatch->WGs[count].TDP.L0 = 0.0F;
 				pPatch->WGs[count].TDP.T1 = 0.0F;
 				pPatch->WGs[count].TDP.L1 = 0.0F;
 				pPatch->WGs[count].TDP.T2 = 0.0F;
@@ -1220,7 +1211,6 @@ void PopulateDefaultPatch(patch* pPatch)
 			case 1:
 				//********************** TDPs *********************
 				// Pitch: Levels in semitones 
-				pPatch->WGs[count].TDP.L0 = 0.0F;
 				pPatch->WGs[count].TDP.T1 = 0.0F;
 				pPatch->WGs[count].TDP.L1 = 0.0F;
 				pPatch->WGs[count].TDP.T2 = 0.0F;
@@ -1233,8 +1223,7 @@ void PopulateDefaultPatch(patch* pPatch)
 
 			case 2:
 				//********************** TDPs *********************
-				// Pitch: Levels in semitones 
-				pPatch->WGs[count].TDP.L0 = 0.0F;
+				// Pitch: Levels in semitones amidi -l
 				pPatch->WGs[count].TDP.T1 = 0.0F;
 				pPatch->WGs[count].TDP.L1 = 0.0F;
 				pPatch->WGs[count].TDP.T2 = 0.0F;
@@ -1249,7 +1238,6 @@ void PopulateDefaultPatch(patch* pPatch)
 			case 3:
 				//********************** TDPs *********************
 				// Pitch: Levels in semitones 
-				pPatch->WGs[count].TDP.L0 = 0.0F;
 				pPatch->WGs[count].TDP.T1 = 0.0F;
 				pPatch->WGs[count].TDP.L1 = 0.0F;
 				pPatch->WGs[count].TDP.T2 = 0.0F;
@@ -1272,8 +1260,7 @@ void PopulateDefaultPatch(patch* pPatch)
 			case 0:
 				// ********************* TDAs *********************
 				// Amplitude: Levels in gain 0.0F to 1.0F
-				pPatch->WGs[count].TDA.L0 = 0.0F;
-				pPatch->WGs[count].TDA.T1 = 0.2F;
+				pPatch->WGs[count].TDA.T1 = 0.8F;
 				pPatch->WGs[count].TDA.L1 = 0.8F;
 				pPatch->WGs[count].TDA.T2 = 1.0F;
 				pPatch->WGs[count].TDA.L2 = 0.9;
@@ -1287,8 +1274,7 @@ void PopulateDefaultPatch(patch* pPatch)
 			case 1:
 				// ********************* TDAs *********************
 				// Amplitude: Levels in gain 0.0F to 1.0F
-				pPatch->WGs[count].TDA.L0 = 0.0F;
-				pPatch->WGs[count].TDA.T1 = 0.2F;
+				pPatch->WGs[count].TDA.T1 = 0.8;
 				pPatch->WGs[count].TDA.L1 = 0.8F;
 				pPatch->WGs[count].TDA.T2 = 1.0F;
 				pPatch->WGs[count].TDA.L2 = 0.9;
@@ -1301,8 +1287,7 @@ void PopulateDefaultPatch(patch* pPatch)
 			case 2:
 				// ********************* TDAs *********************
 				// Amplitude: Levels in gain 0.0F to 1.0F
-				pPatch->WGs[count].TDA.L0 = 0.0F;
-				pPatch->WGs[count].TDA.T1 = 0.2F;
+				pPatch->WGs[count].TDA.T1 = 0.8F;
 				pPatch->WGs[count].TDA.L1 = 0.8F;
 				pPatch->WGs[count].TDA.T2 = 1.0F;
 				pPatch->WGs[count].TDA.L2 = 0.9;
@@ -1315,8 +1300,7 @@ void PopulateDefaultPatch(patch* pPatch)
 			case 3:
 				// ********************* TDAs *********************
 				// Amplitude: Levels in gain 0.0F to 1.0F
-				pPatch->WGs[count].TDA.L0 = 0.0F;
-				pPatch->WGs[count].TDA.T1 = 0.2F;
+				pPatch->WGs[count].TDA.T1 = 0.8F;
 				pPatch->WGs[count].TDA.L1 = 0.8F;
 				pPatch->WGs[count].TDA.T2 = 1.0F;
 				pPatch->WGs[count].TDA.L2 = 0.9;
@@ -1333,7 +1317,6 @@ void PopulateDefaultPatch(patch* pPatch)
 #ifdef ENABLE_TDF
 		// ********************* TDFs *********************
 		// Filter
-		pPatch->WGs[count].TDF.L0 = 0.0F;
 		pPatch->WGs[count].TDF.T1 = 0.0;
 		pPatch->WGs[count].TDF.L1 = 0.0F;
 		pPatch->WGs[count].TDF.T2 = 0.0F;
