@@ -82,6 +82,20 @@ float LCRFilter::getNext(float x)
 
     patchFilter* pPatchFilter = &_pSynth->_pSelectedPatch->WGs[_wgID].Filter;
 
+    vdiff = x - Vc;
+
+    i = vdiff * VzeroComponent + I * IzeroComponent;
+
+    // Store I for next iteration
+    I = i;
+
+    // Calculate diference in Vc
+    dv = (I * _deltaT) / C;
+
+    // Store Vc for next iteration
+    Vc += dv;
+
+
     switch (pPatchFilter->FilterType)
 	{
 		case OFF:
@@ -89,48 +103,27 @@ float LCRFilter::getNext(float x)
             break;
 
 		case LPF:
-
-            vdiff = x - Vc;
-
-            i = vdiff * VzeroComponent + I * IzeroComponent;
-
-            // Store I for next iteration
-            I = i;
-
-            // Calculate diference in Vc
-            dv = (I * _deltaT) / C;
-
-            // Store Vc for next iteration
-            Vc += dv;
-
+        case HIGHSHELF:
             return Vc;
             break;
 
 		case HPF:
-            return x;
+        case LOWSHELF:
+            return x - Vc - (i * R);
             break;
 
 		case BPF1:
-                    return x;
-            break;
 		case BPF2:
-                    return x;
-            break;
-		case NOTCH:
-                    return x;
-            break;
-		case APF:
-                    return x;
-            break;
-		case PEAKINGEQ:
-             return x;
-            break;
-		case LOWSHELF:
-            return x;
+        case PEAKINGEQ:
+            return i * R;
             break;
 
-		case HIGHSHELF:
-			return x;
+		case NOTCH: // Band stop filter
+            return x - (i * R);
+            break;
+
+		case APF:
+            return x;
             break;
 	}
     return x;

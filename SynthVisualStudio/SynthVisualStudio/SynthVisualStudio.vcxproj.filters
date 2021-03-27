@@ -18,9 +18,6 @@
     <ClCompile Include="benchmark.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="filter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -75,9 +72,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lfo.h">

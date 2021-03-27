@@ -148,7 +148,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="benchmark.cpp" />
-    <ClCompile Include="filter.cpp" />
     <ClCompile Include="LCRFilter.cpp" />
     <ClCompile Include="lfo.cpp" />
     <ClCompile Include="main.cpp" />
@@ -169,7 +168,6 @@
   <ItemGroup>
     <ClInclude Include="benchmark.h" />
     <ClInclude Include="constants.h" />
-    <ClInclude Include="filter.h" />
     <ClInclude Include="LCRFilter.h" />
     <ClInclude Include="lfo.h" />
     <ClInclude Include="main.h" />
