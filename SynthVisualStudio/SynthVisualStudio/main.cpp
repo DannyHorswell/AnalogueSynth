@@ -5,8 +5,13 @@
 #include <vector>
 #include <thread>
 
+
 #ifdef __arm__
 #include <alsa/asoundlib.h>
+#include <chrono>
+
+uint64_t lastStart;
+float percent;
 #endif
 
 using namespace std;
@@ -82,6 +87,10 @@ static int lrCount = 0;
  static PaError StreamCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData)
  {
 #ifdef __arm__
+	 uint64_t start = micros();
+#endif
+
+#ifdef __arm__
 	 /* Cast data passed through stream to our structure type. */
 	 float* out = (float*)outputBuffer;
 	 float value = 0.0f;
@@ -125,6 +134,14 @@ static int lrCount = 0;
 
 		lrCount++;
 	 }
+
+#ifdef __arm__
+	 uint64_t end = micros();
+
+	 percent = ((float) (start - end)), * 100.0F / ((float) start - lastStart);
+
+	 lastStart = start;
+#endif
 
 	 return 0; 
 }
@@ -226,6 +243,11 @@ void SocketCommand(const string& com)
 				keyNo = 0;
 				break;
 
+#ifdef __arm__
+			case '%':
+				printf("Percent load %d", precent);
+				break;
+#endif
 		}
 
 		// press the new one
