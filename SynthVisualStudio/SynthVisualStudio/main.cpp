@@ -142,11 +142,12 @@ static int lrCount = 0;
 
 		lrCount++;
 	 }
+	 
 
 #ifdef __arm__
 	 uint64_t end = micros();
 
-	 percent = ((float) (start - end)), * 100.0F / ((float) start - lastStart);
+	 percent = ((float) (end - start)) * 100.0F / ((float) (start - lastStart));
 
 	 lastStart = start;
 #endif
@@ -253,7 +254,7 @@ void SocketCommand(const string& com)
 
 #ifdef __arm__
 			case '%':
-				printf("Percent load %d", precent);
+				printf("Percent load %.2f\n", percent);
 				break;
 #endif
 		}
