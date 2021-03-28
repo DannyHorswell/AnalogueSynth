@@ -12,6 +12,14 @@
 
 uint64_t lastStart;
 float percent;
+
+// Get time stamp in microseconds.
+uint64_t micros()
+{
+	uint64_t us = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::
+		now().time_since_epoch()).count();
+	return us;
+}
 #endif
 
 using namespace std;
