@@ -2,7 +2,7 @@
 #define WAVEGENERATOR_H
 
 #include "constants.h"
-#include "filter.h"
+#include "LCRfilter.h"
 #include "pan.h"
 
 /*******************************************************
@@ -59,6 +59,7 @@ public:
 
 };
 
+// Fast approximation for sin
 inline float wg_sin(float x)
 	{
 		if (x > PI)

@@ -6,6 +6,9 @@
 class pan
 {
 public:
+	pan() {};
+	~pan() {};
+
 	inline stereo GetStereoMultipliers(float panValue)
 	{
 		stereo ret;

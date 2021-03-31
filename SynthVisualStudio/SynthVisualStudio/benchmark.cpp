@@ -130,7 +130,7 @@ float benchmark::testfiltercoefficentcalculation()
 
 float benchmark::testwavegenerator()
 {
-	float out;
+	stereo out;
 
 	printf("WG type = %i\n", pTheSynth->_pSelectedPatch->WGs[0]._type);
 
