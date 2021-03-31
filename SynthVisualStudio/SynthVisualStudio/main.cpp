@@ -48,7 +48,7 @@ const int CONSOLE_BUFFER_SIZE = 128;
 static char device[] = "plughw:0,0";                     /* playback device */
 
 // Find midi device Id's by amidi -l
-static char mididevice[] = "hw:1,0";                     /* midi device */
+static char mididevice[] = "hw:2,0";                     /* midi device */
 
 static int resample = 0;                                /* enable alsa-lib resampling */
 static int period_event = 0;                            /* produce poll event after each period */
@@ -142,11 +142,12 @@ static int lrCount = 0;
 
 		lrCount++;
 	 }
+	 
 
 #ifdef __arm__
 	 uint64_t end = micros();
 
-	 percent = ((float) (start - end)), * 100.0F / ((float) start - lastStart);
+	 percent = ((float) (end - start)) * 100.0F / ((float) (start - lastStart));
 
 	 lastStart = start;
 #endif
@@ -253,7 +254,7 @@ void SocketCommand(const string& com)
 
 #ifdef __arm__
 			case '%':
-				printf("Percent load %d", precent);
+				printf("Percent load %.2f\n", percent);
 				break;
 #endif
 		}

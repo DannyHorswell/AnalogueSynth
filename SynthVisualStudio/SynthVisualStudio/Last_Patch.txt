@@ -36,15 +36,15 @@ WG[0].PitchBendAmount=1.000000
 WG[0].VelocityVolumeAdjust=0.000000
 WG[0].KeyOffestSemitones=0.010000
 WG[0].FreqLFOid=0
-WG[0].FreqLFOLevel=0.050000
+WG[0].FreqLFOLevel=0.100000
 WG[0].FreqLFODelay=0.000000
 WG[0].PWMLFOid=0
 WG[0].PWMLFOLevel=0.000000
 
 
 # ****************** Filter *******************
-WG[0].Filter.FilterType=LPF
-WG[0].Filter.Q=10.000000
+WG[0].Filter.FilterType=BPF1
+WG[0].Filter.Q=20.000000
 WG[0].Filter.RelativeFrequency=20.000000
 WG[0].Filter.DBGain=0.000000
 WG[0].Filter.VelocityFactor=0.000000
@@ -57,15 +57,15 @@ WG[1].PitchBendAmount=1.000000
 WG[1].VelocityVolumeAdjust=0.000000
 WG[1].KeyOffestSemitones=-0.100000
 WG[1].FreqLFOid=1
-WG[1].FreqLFOLevel=0.050000
+WG[1].FreqLFOLevel=0.100000
 WG[1].FreqLFODelay=0.000000
 WG[1].PWMLFOid=0
 WG[1].PWMLFOLevel=0.000000
 
 
 # ****************** Filter *******************
-WG[1].Filter.FilterType=LPF
-WG[1].Filter.Q=10.000000
+WG[1].Filter.FilterType=BPF1
+WG[1].Filter.Q=20.000000
 WG[1].Filter.RelativeFrequency=20.000000
 WG[1].Filter.DBGain=0.000000
 WG[1].Filter.VelocityFactor=0.000000
@@ -76,17 +76,17 @@ WG[2].Type=SAW
 WG[2].EnablePitchBend=true
 WG[2].PitchBendAmount=1.000000
 WG[2].VelocityVolumeAdjust=0.000000
-WG[2].KeyOffestSemitones=-12.100000
+WG[2].KeyOffestSemitones=12.100000
 WG[2].FreqLFOid=2
-WG[2].FreqLFOLevel=0.050000
+WG[2].FreqLFOLevel=0.100000
 WG[2].FreqLFODelay=0.000000
 WG[2].PWMLFOid=0
 WG[2].PWMLFOLevel=0.000000
 
 
 # ****************** Filter *******************
-WG[2].Filter.FilterType=LPF
-WG[2].Filter.Q=10.000000
+WG[2].Filter.FilterType=BPF1
+WG[2].Filter.Q=20.000000
 WG[2].Filter.RelativeFrequency=20.000000
 WG[2].Filter.DBGain=0.000000
 WG[2].Filter.VelocityFactor=0.000000
@@ -99,18 +99,60 @@ WG[3].PitchBendAmount=1.000000
 WG[3].VelocityVolumeAdjust=0.000000
 WG[3].KeyOffestSemitones=-12.000000
 WG[3].FreqLFOid=3
-WG[3].FreqLFOLevel=0.050000
+WG[3].FreqLFOLevel=0.100000
 WG[3].FreqLFODelay=0.000000
 WG[3].PWMLFOid=0
 WG[3].PWMLFOLevel=0.000000
 
 
 # ****************** Filter *******************
-WG[3].Filter.FilterType=LPF
-WG[3].Filter.Q=10.000000
+WG[3].Filter.FilterType=BPF1
+WG[3].Filter.Q=20.000000
 WG[3].Filter.RelativeFrequency=20.000000
 WG[3].Filter.DBGain=0.000000
 WG[3].Filter.VelocityFactor=0.000000
+# ****************** Sampleset *******************
+WG[0].SampleSet.NSamples=0
+
+WG[4].Type=MUTE
+WG[4].EnablePitchBend=true
+WG[4].PitchBendAmount=1.000000
+WG[4].VelocityVolumeAdjust=0.000000
+WG[4].KeyOffestSemitones=0.000000
+WG[4].FreqLFOid=0
+WG[4].FreqLFOLevel=0.000000
+WG[4].FreqLFODelay=0.000000
+WG[4].PWMLFOid=0
+WG[4].PWMLFOLevel=0.000000
+
+
+# ****************** Filter *******************
+WG[4].Filter.FilterType=BPF1
+WG[4].Filter.Q=20.000000
+WG[4].Filter.RelativeFrequency=20.000000
+WG[4].Filter.DBGain=0.000000
+WG[4].Filter.VelocityFactor=0.000000
+# ****************** Sampleset *******************
+WG[0].SampleSet.NSamples=0
+
+WG[5].Type=MUTE
+WG[5].EnablePitchBend=true
+WG[5].PitchBendAmount=1.000000
+WG[5].VelocityVolumeAdjust=0.000000
+WG[5].KeyOffestSemitones=0.000000
+WG[5].FreqLFOid=0
+WG[5].FreqLFOLevel=0.000000
+WG[5].FreqLFODelay=0.000000
+WG[5].PWMLFOid=0
+WG[5].PWMLFOLevel=0.000000
+
+
+# ****************** Filter *******************
+WG[5].Filter.FilterType=BPF1
+WG[5].Filter.Q=20.000000
+WG[5].Filter.RelativeFrequency=20.000000
+WG[5].Filter.DBGain=0.000000
+WG[5].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
 WG[0].SampleSet.NSamples=0
 
@@ -155,6 +197,24 @@ WG[3].TDP.Sustain=0.000000
 WG[3].TDP.T4=0.000000
 WG[3].TDP.L4=0.000000
 
+WG[4].TDP.T1=0.000000
+WG[4].TDP.L1=0.000000
+WG[4].TDP.T2=0.000000
+WG[4].TDP.L2=0.000000
+WG[4].TDP.T3=0.000000
+WG[4].TDP.Sustain=0.000000
+WG[4].TDP.T4=0.000000
+WG[4].TDP.L4=0.000000
+
+WG[5].TDP.T1=0.000000
+WG[5].TDP.L1=0.000000
+WG[5].TDP.T2=0.000000
+WG[5].TDP.L2=0.000000
+WG[5].TDP.T3=0.000000
+WG[5].TDP.Sustain=0.000000
+WG[5].TDP.T4=0.000000
+WG[5].TDP.L4=0.000000
+
 
 # ****************** Time dependant amplifier *******************
 # Levels in gain 0.0F to 1.0F
@@ -196,6 +256,24 @@ WG[3].TDA.Sustain=1.000000
 WG[3].TDA.T4=1.000000
 WG[3].TDA.L4=0.000000
 
+WG[4].TDA.T1=0.000000
+WG[4].TDA.L1=0.000000
+WG[4].TDA.T2=0.000000
+WG[4].TDA.L2=0.000000
+WG[4].TDA.T3=0.000000
+WG[4].TDA.Sustain=0.000000
+WG[4].TDA.T4=0.000000
+WG[4].TDA.L4=0.000000
+
+WG[5].TDA.T1=0.000000
+WG[5].TDA.L1=0.000000
+WG[5].TDA.T2=0.000000
+WG[5].TDA.L2=0.000000
+WG[5].TDA.T3=0.000000
+WG[5].TDA.Sustain=0.000000
+WG[5].TDA.T4=0.000000
+WG[5].TDA.L4=0.000000
+
 
 # ****** Time dependant filter adjustment *******************
 # Levels in semitines
@@ -236,6 +314,24 @@ WG[3].TDF.T3=0.000000
 WG[3].TDF.Sustain=0.000000
 WG[3].TDF.T4=0.000000
 WG[3].TDF.L4=0.000000
+
+WG[4].TDF.T1=0.000000
+WG[4].TDF.L1=0.000000
+WG[4].TDF.T2=0.000000
+WG[4].TDF.L2=0.000000
+WG[4].TDF.T3=0.000000
+WG[4].TDF.Sustain=0.000000
+WG[4].TDF.T4=0.000000
+WG[4].TDF.L4=0.000000
+
+WG[5].TDF.T1=0.000000
+WG[5].TDF.L1=0.000000
+WG[5].TDF.T2=0.000000
+WG[5].TDF.L2=0.000000
+WG[5].TDF.T3=0.000000
+WG[5].TDF.Sustain=0.000000
+WG[5].TDF.T4=0.000000
+WG[5].TDF.L4=0.000000
 
 
 #****************** Voice Settings ****************************

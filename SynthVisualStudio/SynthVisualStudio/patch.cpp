@@ -205,9 +205,9 @@ bool ProcessFilter(patchFilter* pFilter, vector<NameIndexer> nixers, string valu
 			return true;
 		}
 
-		if (value == "BPF1")
+		if (value == "BPF")
 		{
-			pFilter->FilterType=BPF1;
+			pFilter->FilterType=BPF;
 			return true;
 		}
 
@@ -901,7 +901,7 @@ void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 					fprintf (file, "WG[%i].Filter.FilterType=HPF\r\n", count);
 					break;
 
-				case BPF1:
+				case BPF:
 					fprintf (file, "WG[%i].Filter.FilterType=BPF1\r\n", count);
 					break;
 
@@ -1141,7 +1141,7 @@ void PopulateDefaultPatch(patch* pPatch)
 		}
 	}
 
-	float freqdev = 0.05F;
+	float freqdev = 0.1F;
 
 	for (int count=0; count<NUMBER_OF_WAVE_GENERATORS_PER_VOICE; count++)
 	{
@@ -1218,8 +1218,8 @@ void PopulateDefaultPatch(patch* pPatch)
 		pPatch->WGs[count].pwmLFOLevel = 0.8;
 
 		// **************** Filter *******************
-		pPatch->WGs[count].Filter.FilterType = LPF;
-		pPatch->WGs[count].Filter.Q = 10;
+		pPatch->WGs[count].Filter.FilterType = BPF;
+		pPatch->WGs[count].Filter.Q = 20;
 		pPatch->WGs[count].Filter.RelativeFrequency = 20.0F;
 		pPatch->WGs[count].Filter.DBGain = 0.0F;
 	
@@ -1349,13 +1349,13 @@ void PopulateDefaultPatch(patch* pPatch)
 #ifdef ENABLE_TDF
 		// ********************* TDFs *********************
 		// Filter
-		pPatch->WGs[count].TDF.T1 = 0.0;
-		pPatch->WGs[count].TDF.L1 = 0.0F;
+		pPatch->WGs[count].TDF.T1 = 2.0;
+		pPatch->WGs[count].TDF.L1 = -40.0F;
 		pPatch->WGs[count].TDF.T2 = 0.0F;
 		pPatch->WGs[count].TDF.L2 = 0.0F;
 		pPatch->WGs[count].TDF.T3 = 0.0F;
-		pPatch->WGs[count].TDF.Sustain = 0.0F;
-		pPatch->WGs[count].TDF.T4 = 0.0F;
+		pPatch->WGs[count].TDF.Sustain = -40.0F;
+		pPatch->WGs[count].TDF.T4 = 2.0F;
 		pPatch->WGs[count].TDF.L4 = 0.0F;
 #endif
 	}

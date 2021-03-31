@@ -112,7 +112,7 @@ float LCRFilter::getNext(float x)
             return x - Vc - (i * R);
             break;
 
-		case BPF1:
+		case BPF:
 		case BPF2:
         case PEAKINGEQ:
             return i * R;
