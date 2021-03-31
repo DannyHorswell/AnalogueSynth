@@ -33,13 +33,16 @@ LFO[7].Type=RND_SQ
 WG[0].Type=SAW
 WG[0].EnablePitchBend=true
 WG[0].PitchBendAmount=1.000000
-WG[0].VelocityVolumeAdjust=0.000000
+WG[0].VelocityVolumeAdjust=0.500000
+WG[0].VelocityPanAdjust=0.000000
+WG[0].FixedPanAdjustment=-0.300000
+WG[0].KeyPanAdjustment=1.000000
 WG[0].KeyOffestSemitones=0.010000
 WG[0].FreqLFOid=0
-WG[0].FreqLFOLevel=0.100000
+WG[0].FreqLFOLevel=0.010000
 WG[0].FreqLFODelay=0.000000
 WG[0].PWMLFOid=0
-WG[0].PWMLFOLevel=0.000000
+WG[0].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
@@ -54,13 +57,16 @@ WG[0].SampleSet.NSamples=0
 WG[1].Type=SAW
 WG[1].EnablePitchBend=true
 WG[1].PitchBendAmount=1.000000
-WG[1].VelocityVolumeAdjust=0.000000
+WG[1].VelocityVolumeAdjust=0.500000
+WG[1].VelocityPanAdjust=0.000000
+WG[1].FixedPanAdjustment=-0.200000
+WG[1].KeyPanAdjustment=1.000000
 WG[1].KeyOffestSemitones=-0.100000
 WG[1].FreqLFOid=1
-WG[1].FreqLFOLevel=0.100000
+WG[1].FreqLFOLevel=0.010000
 WG[1].FreqLFODelay=0.000000
 WG[1].PWMLFOid=0
-WG[1].PWMLFOLevel=0.000000
+WG[1].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
@@ -75,13 +81,16 @@ WG[0].SampleSet.NSamples=0
 WG[2].Type=SAW
 WG[2].EnablePitchBend=true
 WG[2].PitchBendAmount=1.000000
-WG[2].VelocityVolumeAdjust=0.000000
-WG[2].KeyOffestSemitones=12.100000
+WG[2].VelocityVolumeAdjust=0.500000
+WG[2].VelocityPanAdjust=0.000000
+WG[2].FixedPanAdjustment=-0.100000
+WG[2].KeyPanAdjustment=1.000000
+WG[2].KeyOffestSemitones=-8.100000
 WG[2].FreqLFOid=2
-WG[2].FreqLFOLevel=0.100000
+WG[2].FreqLFOLevel=0.010000
 WG[2].FreqLFODelay=0.000000
 WG[2].PWMLFOid=0
-WG[2].PWMLFOLevel=0.000000
+WG[2].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
@@ -96,13 +105,16 @@ WG[0].SampleSet.NSamples=0
 WG[3].Type=SAW
 WG[3].EnablePitchBend=true
 WG[3].PitchBendAmount=1.000000
-WG[3].VelocityVolumeAdjust=0.000000
+WG[3].VelocityVolumeAdjust=0.500000
+WG[3].VelocityPanAdjust=0.000000
+WG[3].FixedPanAdjustment=0.000000
+WG[3].KeyPanAdjustment=1.000000
 WG[3].KeyOffestSemitones=-12.000000
 WG[3].FreqLFOid=3
-WG[3].FreqLFOLevel=0.100000
+WG[3].FreqLFOLevel=0.010000
 WG[3].FreqLFODelay=0.000000
 WG[3].PWMLFOid=0
-WG[3].PWMLFOLevel=0.000000
+WG[3].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
@@ -114,16 +126,19 @@ WG[3].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
 WG[0].SampleSet.NSamples=0
 
-WG[4].Type=MUTE
+WG[4].Type=SAW
 WG[4].EnablePitchBend=true
 WG[4].PitchBendAmount=1.000000
-WG[4].VelocityVolumeAdjust=0.000000
-WG[4].KeyOffestSemitones=0.000000
-WG[4].FreqLFOid=0
-WG[4].FreqLFOLevel=0.000000
+WG[4].VelocityVolumeAdjust=0.500000
+WG[4].VelocityPanAdjust=0.000000
+WG[4].FixedPanAdjustment=0.100000
+WG[4].KeyPanAdjustment=1.000000
+WG[4].KeyOffestSemitones=-12.010000
+WG[4].FreqLFOid=4
+WG[4].FreqLFOLevel=0.010000
 WG[4].FreqLFODelay=0.000000
 WG[4].PWMLFOid=0
-WG[4].PWMLFOLevel=0.000000
+WG[4].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
@@ -135,16 +150,19 @@ WG[4].Filter.VelocityFactor=0.000000
 # ****************** Sampleset *******************
 WG[0].SampleSet.NSamples=0
 
-WG[5].Type=MUTE
+WG[5].Type=SAW
 WG[5].EnablePitchBend=true
 WG[5].PitchBendAmount=1.000000
-WG[5].VelocityVolumeAdjust=0.000000
-WG[5].KeyOffestSemitones=0.000000
-WG[5].FreqLFOid=0
-WG[5].FreqLFOLevel=0.000000
+WG[5].VelocityVolumeAdjust=0.500000
+WG[5].VelocityPanAdjust=0.000000
+WG[5].FixedPanAdjustment=0.200000
+WG[5].KeyPanAdjustment=1.000000
+WG[5].KeyOffestSemitones=-11.080000
+WG[5].FreqLFOid=5
+WG[5].FreqLFOLevel=0.010000
 WG[5].FreqLFODelay=0.000000
 WG[5].PWMLFOid=0
-WG[5].PWMLFOLevel=0.000000
+WG[5].PWMLFOLevel=0
 
 
 # ****************** Filter *******************

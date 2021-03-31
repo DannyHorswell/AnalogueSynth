@@ -48,7 +48,7 @@ void wavegenerator::keyPress(float midiVelocity, float midiKey)
 
 	patchWG* patchWG = &_pSynth->_pSelectedPatch->WGs[_wgID];
 	float velocityNegHalftoHalf = (midiVelocity - 64.0F) / 128.0F;
-	float keyNegHalftoHalf = (midiKey - 64.0F) / 128.0F;
+	float keyNegOnetoOne = (midiKey - 64.0F) / 64.0F;
 
 	waveformLevel = 0.5F + (patchWG->velocityVolumeAdjust) * velocityNegHalftoHalf;
 
@@ -64,12 +64,12 @@ void wavegenerator::keyPress(float midiVelocity, float midiKey)
 
 	float panLevel = 0.0;
 
-	panLevel = patchWG->fixedPanAdjustment;
-	panLevel += 0.5F + (patchWG->velocityPanAdjust) * velocityNegHalftoHalf;
-	panLevel += 0.5F + (patchWG->keyPanAdjustment) * keyNegHalftoHalf;
+	panLevel += patchWG->fixedPanAdjustment;
+	//panLevel += 0.5F + (patchWG->velocityPanAdjust) * velocityNegHalftoHalf;
+	panLevel += (patchWG->keyPanAdjustment) * keyNegOnetoOne;
 
 	panMultipliers = thePan.GetStereoMultipliers(panLevel);
-	//printf("waveform level%f\n", waveformLevel);
+	printf("keyNegHalftoHalf %f, pan level %f\n", keyNegOnetoOne, panLevel);
 }
 
 stereo wavegenerator::getnext(float deltaT)

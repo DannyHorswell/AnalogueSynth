@@ -54,7 +54,7 @@ PaError PortAudio::Initalise(PaStreamCallback* pBufferCallback)
 #endif
 
 
-    outParams.channelCount = 1;
+    outParams.channelCount = 2;
 
     outParams.hostApiSpecificStreamInfo = NULL;
     outParams.suggestedLatency = Pa_GetDeviceInfo(outParams.device)->defaultHighOutputLatency;

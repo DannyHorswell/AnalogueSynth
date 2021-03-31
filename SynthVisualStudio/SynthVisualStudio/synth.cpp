@@ -7,6 +7,7 @@
 #include "constants.h"
 #include "patch.h"
 #include "LCRFilter.h"
+#include "pan.h"
 #include "wavegenerator.h"
 #include "tdl.h"
 #include "voice.h"

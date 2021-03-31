@@ -35,7 +35,7 @@
 #define SAMPLE_FREQUENCY (48000)
 #endif
 
-#define FRAMES_PER_BUFFER  (128)
+#define FRAMES_PER_BUFFER  (64)
 
 #define NUMBER_OF_OP_CHANNELS 2						/* number of output channels 1 or 2 */
 #define NUMBER_OF_WAVE_GENERATORS_PER_VOICE 6
@@ -97,6 +97,22 @@ class tdl;
 #define purple_consolecolour	printf("\033[1;35m");
 #define cyan_consolecolour		printf("\033[1;36m");
 #define white_consolecolour		printf("\033[1;37m");
+
+
+
+#define B_ 1.2732395447 //B = 4.0 / PI;
+#define C_ -0.405284735 //C = -4.0 /(PI_SQUARED);
+
+// Fast approximation for sin
+inline float wg_sin(float x)
+	{
+		if (x > PI)
+		{
+			x -= TWO_PI;
+		}
+
+		return -(B_ * x + C_ * x * ((x < 0) ? -x : x));
+	}
 
 #endif
 

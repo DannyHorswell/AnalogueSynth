@@ -112,32 +112,17 @@ static int lrCount = 0;
 
 	 for (unsigned int i = 0; i < framesPerBuffer; i++)
 	 {
-		 if (lrCount %2 == 0)
-		 {
-			nextVal = theSynth.getnext(deltaT);
-		 }
-		 
-		 //nextVal.left = getNextTestValue();
-		 //nextVal.right = nextVal.left;
+		nextVal = theSynth.getnext(deltaT);
+	 
 
 #ifdef __arm__
-		if (lrCount %2 == 0)
-		{
-				* out++ = nextVal.left;
-		}
-		else
-		{
-				* out++ = nextVal.right;  
-		}
+* out++ = nextVal.left;
+		//* out++ = 0.0F;  
+		* out++ = nextVal.right;
+		
 #else		 
-		if (lrCount %2 == 0)
-		{
-				* out++ = nextVal.left;
-		}
-		else
-		{
-				* out++ = nextVal.right;  
-		}
+		* out++ = nextVal.left;
+		* out++ = nextVal.right; 
 #endif 
 
 		lrCount++;

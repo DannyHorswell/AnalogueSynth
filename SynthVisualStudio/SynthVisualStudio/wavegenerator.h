@@ -2,7 +2,7 @@
 #define WAVEGENERATOR_H
 
 #include "constants.h"
-#include "LCRfilter.h"
+#include "LCRFilter.h"
 #include "pan.h"
 
 /*******************************************************
@@ -15,8 +15,6 @@
 
 class voice;
 
-#define B_ 1.2732395447 //B = 4.0 / PI;
-#define C_ -0.405284735 //C = -4.0 /(PI_SQUARED);
 
 class wavegenerator
 {
@@ -59,16 +57,7 @@ public:
 
 };
 
-// Fast approximation for sin
-inline float wg_sin(float x)
-	{
-		if (x > PI)
-		{
-			x -= TWO_PI;
-		}
 
-		return -(B_ * x + C_ * x * ((x < 0) ? -x : x));
-	}
 
 
 

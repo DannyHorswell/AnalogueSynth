@@ -1,7 +1,6 @@
 #pragma once
 
 #include "constants.h"
-#include "wavegenerator.h"
 
 class pan
 {

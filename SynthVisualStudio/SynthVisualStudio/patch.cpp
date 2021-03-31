@@ -1141,7 +1141,7 @@ void PopulateDefaultPatch(patch* pPatch)
 		}
 	}
 
-	float freqdev = 0.1F;
+	float freqdev = 0.01F;
 
 	for (int count=0; count<NUMBER_OF_WAVE_GENERATORS_PER_VOICE; count++)
 	{
@@ -1155,8 +1155,8 @@ void PopulateDefaultPatch(patch* pPatch)
 				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
 
 				pPatch->WGs[count].velocityPanAdjust = 0.0F;
-				pPatch->WGs[count].fixedPanAdjustment = 0.1F;
-				pPatch->WGs[count].keyPanAdjustment = 0.25F;
+				pPatch->WGs[count].fixedPanAdjustment = -0.3F;
+				pPatch->WGs[count].keyPanAdjustment = 1.0F;
 
 				pPatch->WGs[count].keyOffestSemitones = 0.01F;
 
@@ -1167,10 +1167,13 @@ void PopulateDefaultPatch(patch* pPatch)
 				
 			case 1:
 				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count].enablePitchBend = true;
+				pPatch->WGs[count].pitchBendAmount = 1.0F;
+				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
 
 				pPatch->WGs[count].velocityPanAdjust = 0.0F;
-				pPatch->WGs[count].fixedPanAdjustment = 0.0F;
-				pPatch->WGs[count].keyPanAdjustment = 0.25F;
+				pPatch->WGs[count].fixedPanAdjustment = -0.2F;
+				pPatch->WGs[count].keyPanAdjustment = 1.0F;
 
 				pPatch->WGs[count].keyOffestSemitones = -0.1F;
 
@@ -1181,10 +1184,13 @@ void PopulateDefaultPatch(patch* pPatch)
 
 			case 2:
 				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count].enablePitchBend = true;
+				pPatch->WGs[count].pitchBendAmount = 1.0F;
+				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
 
 				pPatch->WGs[count].velocityPanAdjust = 0.0F;
 				pPatch->WGs[count].fixedPanAdjustment = -0.1F;
-				pPatch->WGs[count].keyPanAdjustment = -0.25F;
+				pPatch->WGs[count].keyPanAdjustment = 1.0F;
 
 				pPatch->WGs[count].keyOffestSemitones = -12.1F;
 
@@ -1195,10 +1201,13 @@ void PopulateDefaultPatch(patch* pPatch)
 
 			case 3:
 				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count].enablePitchBend = true;
+				pPatch->WGs[count].pitchBendAmount = 1.0F;
+				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
 
 				pPatch->WGs[count].velocityPanAdjust = 0.0F;
-				pPatch->WGs[count].fixedPanAdjustment = -0.2F;
-				pPatch->WGs[count].keyPanAdjustment = -0.25F;
+				pPatch->WGs[count].fixedPanAdjustment = 0.0F;
+				pPatch->WGs[count].keyPanAdjustment = 1.0F;
 
 				pPatch->WGs[count].keyOffestSemitones = -12.0F;
 
@@ -1206,6 +1215,41 @@ void PopulateDefaultPatch(patch* pPatch)
 				pPatch->WGs[count].freqLFOLevel = freqdev;
 				pPatch->WGs[count].freqLFODelay = 0.0F;
 				break;
+
+			case 4:
+				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count].enablePitchBend = true;
+				pPatch->WGs[count].pitchBendAmount = 1.0F;
+				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
+
+				pPatch->WGs[count].velocityPanAdjust = 0.0F;
+				pPatch->WGs[count].fixedPanAdjustment = 0.1F;
+				pPatch->WGs[count].keyPanAdjustment = 1.0F;
+
+				pPatch->WGs[count].keyOffestSemitones = -12.01F;
+
+				pPatch->WGs[count].freqLFOid = count;
+				pPatch->WGs[count].freqLFOLevel = freqdev;
+				pPatch->WGs[count].freqLFODelay = 0.0F;
+				break;
+
+			case 5:
+				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count].enablePitchBend = true;
+				pPatch->WGs[count].pitchBendAmount = 1.0F;
+				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
+
+				pPatch->WGs[count].velocityPanAdjust = 0.0F;
+				pPatch->WGs[count].fixedPanAdjustment = 0.2F;
+				pPatch->WGs[count].keyPanAdjustment = 1.0F;
+
+				pPatch->WGs[count].keyOffestSemitones = -11.08F;
+
+				pPatch->WGs[count].freqLFOid = count;
+				pPatch->WGs[count].freqLFOLevel = freqdev;
+				pPatch->WGs[count].freqLFODelay = 0.0F;
+				break;
+
 				
 		}
 		pPatch->WGs[count].enablePitchBend = true;
