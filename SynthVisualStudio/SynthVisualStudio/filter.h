@@ -4,7 +4,7 @@
 
 #include "patch.h"
 
-
+/*
 NOT USED - THIS IS FOR A BIQUAD FILTER - THIS WAS UNSTABLE
 
 const float FILTER_PEAK_THRESHOLD = 20.0F;
@@ -81,5 +81,7 @@ public:
         return (float) y;
 	}
 };
+
+*/
 
 #endif

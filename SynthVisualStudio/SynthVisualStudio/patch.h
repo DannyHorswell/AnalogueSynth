@@ -41,7 +41,6 @@ enum WGMIX
 	WG6		 = 6,	// WG 6 only
 	WG7		 = 7,	// WG 7 only
 
-	LTOR	 = 64,   // Wave generators are spread from left to right
 	MIX		 = 65,	 // Outputs are mixed equally left and right
 	RING 	 = 66,   // WG pairs fed into ring modulator, outputs equal left and right
 	RING_MIX = 67,   // WGs fed into ring modulator and mixed with first WG, outputs equal left and right
@@ -90,6 +89,9 @@ struct patchWG
 	float pitchBendAmount;		// Amount of pitch bend scale
 	
 	float velocityVolumeAdjust; // 0 = No adjust 1.0 = full. -1.0 = full negative
+	float velocityPanAdjust;    // 0 = No adjust 1.0 = full. -1.0 = full negative
+	float fixedPanAdjustment;   // 0 = No adjust 1.0 = full. -1.0 = full negative
+	float keyPanAdjustment;     // 0 = No adjust 1.0 = full. -1.0 = full negative
 
 	// LFO Frequency change
 	int freqLFOid;				// The ID of the pitch LFO

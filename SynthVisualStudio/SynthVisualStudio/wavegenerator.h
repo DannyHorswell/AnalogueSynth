@@ -1,7 +1,9 @@
 #ifndef WAVEGENERATOR_H
 #define WAVEGENERATOR_H
 
-#include "LCRFilter.h"
+#include "constants.h"
+#include "filter.h"
+#include "pan.h"
 
 /*******************************************************
 * wavegeneratorclass
@@ -37,6 +39,9 @@ class wavegenerator
 
 	float pcmTime;
 
+	pan thePan;
+	stereo panMultipliers;
+
 public:
 	voice* _pVoice;
 	LCRFilter theFilter;
@@ -48,9 +53,9 @@ public:
 	void init(synth* pSynth, voice* pVoice, int WGID,float deltaT);
 	
 	// Gets the next output value for the amount of time passed
-	float getnext(float deltaT);
+	stereo getnext(float deltaT);
 
-	void keyPress(float velocity);
+	void keyPress(float midiVelocity, float midiKey);
 
 };
 

@@ -363,6 +363,24 @@ bool ProcessWG(patch* pPatch, int WGIndex, vector<NameIndexer> nixers, string va
 		pWG->velocityVolumeAdjust = atof(value.c_str());
 		return true;
 	}
+
+	if (nixers[1].name == "VelocityPanAdjust")
+	{
+		pWG->velocityPanAdjust = atof(value.c_str());
+		return true;
+	}
+
+	if (nixers[1].name == "FixedPanAdjustment")
+	{
+		pWG->fixedPanAdjustment = atof(value.c_str());
+		return true;
+	}
+
+	if (nixers[1].name == "KeyPanAdjustment")
+	{
+		pWG->keyPanAdjustment = atof(value.c_str());
+		return true;
+	}
 	
 	if (nixers[1].name == "KeyOffestSemitones")
 	{
@@ -599,12 +617,6 @@ bool ProcessSetting(patch* pPatch, vector<NameIndexer> nixers, string value, boo
 		if (value == "WG7")
 		{
 			pPatch->WGMixMode = WG7;
-			return true;
-		}
-
-		if (value == "LTOR")
-		{
-			pPatch->WGMixMode = LTOR;
 			return true;
 		}
 
@@ -860,13 +872,17 @@ void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 			fprintf (file, "WG[%i].PitchBendAmount=%f\r\n", count, wg.pitchBendAmount);
 			fprintf (file, "WG[%i].VelocityVolumeAdjust=%f\r\n", count, wg.velocityVolumeAdjust);
 
+			// Pan settings
+			fprintf(file, "WG[%i].VelocityPanAdjust=%f\r\n", count, wg.velocityPanAdjust);
+			fprintf(file, "WG[%i].FixedPanAdjustment=%f\r\n", count, wg.fixedPanAdjustment);
+			fprintf(file, "WG[%i].KeyPanAdjustment=%f\r\n", count, wg.keyPanAdjustment);
 			
 			fprintf (file, "WG[%i].KeyOffestSemitones=%f\r\n", count, wg.keyOffestSemitones);
 			fprintf (file, "WG[%i].FreqLFOid=%i\r\n", count, wg.freqLFOid);
 			fprintf (file, "WG[%i].FreqLFOLevel=%f\r\n", count, wg.freqLFOLevel);
 			fprintf (file, "WG[%i].FreqLFODelay=%f\r\n", count, wg.freqLFODelay);
 			fprintf (file, "WG[%i].PWMLFOid=%i\r\n", count, wg.pwmLFOid);
-			fprintf (file, "WG[%i].PWMLFOLevel=%f\r\n", count, wg.pwmLFOid);
+			fprintf (file, "WG[%i].PWMLFOLevel=%i\r\n", count, wg.pwmLFOid);
 
 			fprintf (file, "\r\n\r\n");
 
@@ -1025,10 +1041,6 @@ void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 				fprintf (file, "WGMixMode=WG%i\r\n", (int) pPatch->WGMixMode);
 				break;
 			
-			case LTOR:
-				fprintf (file, "WGMixMode=LTOR\r\n");
-				break;
-
 			case MIX:
 				fprintf (file, "WGMixMode=MIX\r\n");
 				break;
@@ -1127,9 +1139,6 @@ void PopulateDefaultPatch(patch* pPatch)
 				break;
 
 		}
-
-
-		
 	}
 
 	float freqdev = 0.05F;
@@ -1141,6 +1150,14 @@ void PopulateDefaultPatch(patch* pPatch)
 		{
 			case 0:
 				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count].enablePitchBend = true;
+				pPatch->WGs[count].pitchBendAmount = 1.0F;
+				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
+
+				pPatch->WGs[count].velocityPanAdjust = 0.0F;
+				pPatch->WGs[count].fixedPanAdjustment = 0.1F;
+				pPatch->WGs[count].keyPanAdjustment = 0.25F;
+
 				pPatch->WGs[count].keyOffestSemitones = 0.01F;
 
 				pPatch->WGs[count].freqLFOid = count;
@@ -1150,6 +1167,11 @@ void PopulateDefaultPatch(patch* pPatch)
 				
 			case 1:
 				pPatch->WGs[count]._type = SAW;
+
+				pPatch->WGs[count].velocityPanAdjust = 0.0F;
+				pPatch->WGs[count].fixedPanAdjustment = 0.0F;
+				pPatch->WGs[count].keyPanAdjustment = 0.25F;
+
 				pPatch->WGs[count].keyOffestSemitones = -0.1F;
 
 				pPatch->WGs[count].freqLFOid = count;
@@ -1159,6 +1181,11 @@ void PopulateDefaultPatch(patch* pPatch)
 
 			case 2:
 				pPatch->WGs[count]._type = SAW;
+
+				pPatch->WGs[count].velocityPanAdjust = 0.0F;
+				pPatch->WGs[count].fixedPanAdjustment = -0.1F;
+				pPatch->WGs[count].keyPanAdjustment = -0.25F;
+
 				pPatch->WGs[count].keyOffestSemitones = -12.1F;
 
 				pPatch->WGs[count].freqLFOid = count;
@@ -1168,6 +1195,11 @@ void PopulateDefaultPatch(patch* pPatch)
 
 			case 3:
 				pPatch->WGs[count]._type = SAW;
+
+				pPatch->WGs[count].velocityPanAdjust = 0.0F;
+				pPatch->WGs[count].fixedPanAdjustment = -0.2F;
+				pPatch->WGs[count].keyPanAdjustment = -0.25F;
+
 				pPatch->WGs[count].keyOffestSemitones = -12.0F;
 
 				pPatch->WGs[count].freqLFOid = count;

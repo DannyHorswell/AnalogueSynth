@@ -42,13 +42,15 @@ void wavegenerator::init(synth* pSynth, voice* pVoice, int wgID, float deltaT)
 	theFilter.init(pSynth, pVoice, wgID, this, deltaT);
 }
 
-void wavegenerator::keyPress(float velocity)
+void wavegenerator::keyPress(float midiVelocity, float midiKey)
 {
 	pcmTime = 0.0F;
 
 	patchWG* patchWG = &_pSynth->_pSelectedPatch->WGs[_wgID];
+	float velocityNegHalftoHalf = (midiVelocity - 64.0F) / 128.0F;
+	float keyNegHalftoHalf = (midiKey - 64.0F) / 128.0F;
 
-	waveformLevel = 0.5F + (velocity - 64.0F) * (patchWG->velocityVolumeAdjust) / 128.0F;
+	waveformLevel = 0.5F + (patchWG->velocityVolumeAdjust) * velocityNegHalftoHalf;
 
 	if (waveformLevel < 0.0F)
 	{
@@ -60,24 +62,32 @@ void wavegenerator::keyPress(float velocity)
 		waveformLevel = 1.0F;
 	}
 
+	float panLevel = 0.0;
+
+	panLevel = patchWG->fixedPanAdjustment;
+	panLevel += 0.5F + (patchWG->velocityPanAdjust) * velocityNegHalftoHalf;
+	panLevel += 0.5F + (patchWG->keyPanAdjustment) * keyNegHalftoHalf;
+
+	panMultipliers = thePan.GetStereoMultipliers(panLevel);
 	//printf("waveform level%f\n", waveformLevel);
 }
 
-float wavegenerator::getnext(float deltaT)
+stereo wavegenerator::getnext(float deltaT)
 {
 #ifdef PRINT_GETNEXT
 	printf("wavegenerator::getnext\n");
 #endif
 
+	stereo ret;
+
 	patchWG* patchWG = &_pSynth->_pSelectedPatch->WGs[_wgID];
 
 	if (_pVoice->key == 0.0 || patchWG->_type == MUTE)
 	{
-		//printf("key mute\n");
-		return 0.0F;
+		ret.left = 0.0F;
+		ret.right = 0.0F;
+		return ret;
 	}
-
-	//printf("no mute\n");
 
 	if (relcalcPeriodCount++ == 0)
 	{	
@@ -117,7 +127,7 @@ float wavegenerator::getnext(float deltaT)
 		relcalcPeriodCount = 0; // Recalc next time
 	}
 
-	float ret = 0.0F;
+	float mono = 0.0F;
 
 	float mid = _full_period / 2.0F;
 
@@ -132,31 +142,31 @@ float wavegenerator::getnext(float deltaT)
 	switch (patchWG->_type)
 	{
 		case MUTE:
-			ret = 0.0F;
+			mono = 0.0F;
 			break;
 
 		case SQUARE:
 			if (_part_period < mid)
 			{
-				ret = -waveformLevel;
+				mono = -waveformLevel;
 			}
 			else
 			{
-				ret = waveformLevel;
+				mono = waveformLevel;
 			}
 			break;
 	
 		case SIN:
-			ret = waveformLevel * wg_sin(TWO_PI * _part_period / _full_period);
+			mono = waveformLevel * wg_sin(TWO_PI * _part_period / _full_period);
 			//ret = waveformLevel * sin(TWO_PI * _part_period / _full_period);
 			break;
 
 		case SAW:
-			ret = waveformLevel * (-1.0F + _part_period * 2.0F / _full_period) ;
+			mono = waveformLevel * (-1.0F + _part_period * 2.0F / _full_period) ;
 			break;
 
 		case NOISE:
-			ret = waveformLevel * theNoiseGenerator.getnext();
+			mono = waveformLevel * theNoiseGenerator.getnext();
 			break;
 
 		case RND_SQ:
@@ -167,7 +177,7 @@ float wavegenerator::getnext(float deltaT)
 					lastValue = -1.0F + ((float) rand() / (float) RAND_MAX) * 2.0F;
 				}
 	
-				ret = lastValue;
+				mono = lastValue;
 				sqLastPhase = false;
 			}
 			else
@@ -177,13 +187,13 @@ float wavegenerator::getnext(float deltaT)
 					lastValue = -lastValue;
 				}
 
-				ret = lastValue * waveformLevel;
+				mono = lastValue * waveformLevel;
 				sqLastPhase = true;
 			}
 			break;
 
 		case PCM:
-			ret = waveformLevel * _pSynth->sampleSets[_wgID].getWav(_pSynth->KeyNumberToFrequency(keyFreq))->getNext(pcmTime, deltaT, _full_period, _pVoice->keyPressed);
+			mono = waveformLevel * _pSynth->sampleSets[_wgID].getWav(_pSynth->KeyNumberToFrequency(keyFreq))->getNext(pcmTime, deltaT, _full_period, _pVoice->keyPressed);
 			break;
 	}
 
@@ -195,12 +205,15 @@ float wavegenerator::getnext(float deltaT)
 	}
 
 #ifdef ENABLE_FILTERS
-	ret = theFilter.getNext(ret); // Apply the filter
+	mono = theFilter.getNext(mono); // Apply the filter
 #endif
 
 #ifdef PRINT_GETNEXT
-	printf("%f\n", ret);
+	printf("%f\n", mono);
 #endif
+
+	ret.left = mono * panMultipliers.left;
+	ret.right = mono * panMultipliers.right;
 
 	return ret;
 }

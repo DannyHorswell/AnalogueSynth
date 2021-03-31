@@ -153,6 +153,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="midi.cpp" />
     <ClCompile Include="noise.cpp" />
+    <ClCompile Include="pan.cpp" />
     <ClCompile Include="patch.cpp" />
     <ClCompile Include="portaudio.cpp" />
     <ClCompile Include="reverb.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="midi.h" />
     <ClInclude Include="noise.h" />
+    <ClInclude Include="pan.h" />
     <ClInclude Include="patch.h" />
     <ClInclude Include="portaudio.h" />
     <ClInclude Include="reverb.h" />
