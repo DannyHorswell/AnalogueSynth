@@ -26,6 +26,9 @@
 #define GAME_ENGINE_DISCOVERY_RESPONSE_START "??GameEngine:"
 
 
+
+
+
 // Options
 #ifdef _WIN32
 #define SAMPLE_FREQUENCY (44100)
@@ -102,6 +105,9 @@ class tdl;
 
 #define B_ 1.2732395447 //B = 4.0 / PI;
 #define C_ -0.405284735 //C = -4.0 /(PI_SQUARED);
+
+#define VOLUME_MAPPING_STEPS 4096
+
 
 // Fast approximation for sin
 inline float wg_sin(float x)

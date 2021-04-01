@@ -25,6 +25,8 @@ tdl::~tdl()
 
 }
 
+
+
 void tdl::init(synth* pSynth, voice* pVoice, int wgID, tdlType type)
 {
 	_pSynth = pSynth;
@@ -124,5 +126,31 @@ float tdl::getnext()
 		lastKeystate = false;
 	}
 
+	if (_type == A)
+	{
+		// We want logarythmic for volume
+		int index = (int) (output * VOLUME_MAPPING_STEPS);
+
+		// Limit to 0 - 1 range
+		index < 0 ? index = 0 : index;
+		index > VOLUME_MAPPING_STEPS ? index = VOLUME_MAPPING_STEPS : index;
+
+		output = pVolummeMapping[index];
+	}
+
 	return output;
+}
+
+void tdl::InitVolumnMapping()
+{
+	tdl::pVolummeMapping = new float[VOLUME_MAPPING_STEPS];
+
+	float input = 0.0F;
+	float output;
+
+	for (int count = 0; count < VOLUME_MAPPING_STEPS; count++)
+	{
+		output = powf(input, 0.5F);
+		tdl::pVolummeMapping[count] = output;
+	}
 }

@@ -409,6 +409,9 @@ int main(int argc,char** argv)
 
 	srand((unsigned) time(0));
 
+	// Initalise TDL volume mappings
+	tdl::InitVolumnMapping();
+
 	//WriteTestToFile();
 	//return 0;
 

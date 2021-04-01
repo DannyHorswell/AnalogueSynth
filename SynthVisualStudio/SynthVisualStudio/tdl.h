@@ -8,6 +8,8 @@ enum tdlType
 	F = 2
 };
 
+
+
 class tdl
 {
 	tdlType _type;
@@ -27,6 +29,9 @@ public:
 	void init(synth* pSynth, voice* pVoice, int wgID, tdlType type);
 
 	float getnext();
+
+	static float* pVolummeMapping;
+	static void InitVolumnMapping();
 };
 
 #endif
