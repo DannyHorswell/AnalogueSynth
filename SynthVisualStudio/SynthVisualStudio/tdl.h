@@ -9,6 +9,7 @@ enum tdlType
 };
 
 
+void InitVolumnMapping();
 
 class tdl
 {
@@ -30,8 +31,7 @@ public:
 
 	float getnext();
 
-	static float* pVolummeMapping;
-	static void InitVolumnMapping();
+	
 };
 
 #endif

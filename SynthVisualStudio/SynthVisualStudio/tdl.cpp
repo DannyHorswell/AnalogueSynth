@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <math.h>
 
 #include "constants.h"
 #include "patch.h"
@@ -14,6 +15,8 @@
 
 
 const int TDL_RECALC_NUM = 512;
+
+float* pVolummeMapping;
 
 tdl::tdl()
 {
@@ -133,7 +136,7 @@ float tdl::getnext()
 
 		// Limit to 0 - 1 range
 		index < 0 ? index = 0 : index;
-		index > VOLUME_MAPPING_STEPS ? index = VOLUME_MAPPING_STEPS : index;
+		index >= VOLUME_MAPPING_STEPS ? index = VOLUME_MAPPING_STEPS - 1 : index;
 
 		output = pVolummeMapping[index];
 	}
@@ -141,16 +144,17 @@ float tdl::getnext()
 	return output;
 }
 
-void tdl::InitVolumnMapping()
+void InitVolumnMapping()
 {
-	tdl::pVolummeMapping = new float[VOLUME_MAPPING_STEPS];
+	pVolummeMapping = new float[VOLUME_MAPPING_STEPS];
 
 	float input = 0.0F;
 	float output;
+	float step = 1.0F / VOLUME_MAPPING_STEPS;
 
 	for (int count = 0; count < VOLUME_MAPPING_STEPS; count++)
 	{
-		output = powf(input, 0.5F);
-		tdl::pVolummeMapping[count] = output;
+		output = powf(step * count, 2.0F);
+		pVolummeMapping[count] = output;
 	}
 }
