@@ -15,7 +15,7 @@ public:
 		panValue < -1.0F ? -1.0F : panValue;
 		panValue > 1.0F ? 1.0F : panValue;
 
-		panValue = panValue + 1.0; // Moves range from 0 to + 2
+		panValue = panValue + 1.0F; // Moves range from 0 to + 2
 		panValue = panValue * QUATER_PI; //Moves range to 0 to PI/2
 
 		ret.left = wg_sin(panValue);

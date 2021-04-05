@@ -19,17 +19,17 @@ private:
 
 
     // Inductor, capacitor and resistor values
-    double L = 1.0F;
-    double C;
-    double R;
+    float L = 1.0F;
+    float C;
+    float R;
 
     // Reverse laplace transform coeffiecnts
-    double Alpha;
-    double Beta;
+    float Alpha;
+    float Beta;
 
     // Sin and cosine components
-    double VzeroComponent;
-    double IzeroComponent;
+    float VzeroComponent;
+    float IzeroComponent;
 
     // Initial conditions
     float Vc;

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynthControl", "SynthContro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilterTest", "FilterTest\FilterTest\FilterTest.csproj", "{28FAC305-18C1-44F9-BFB4-1779802553F9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SynthWebsockets", "SynthWebsockets\SynthWebsockets.vcxitems", "{0E717FBE-A88C-4887-ACFC-AE124A5CD78E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

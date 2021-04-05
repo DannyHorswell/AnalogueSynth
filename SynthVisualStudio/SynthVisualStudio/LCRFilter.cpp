@@ -37,9 +37,9 @@ void LCRFilter::RecalculateValues(float frequency, float q)
     Alpha = R / 2.0F;
     Beta = sqrt((1.0F / C) + (R * R) / 4.0F);
 
-    double exponentBit = exp(-Alpha * _deltaT);
-    double sinBit = sin(Beta * _deltaT);
-    double cosBit = cos(Beta * _deltaT);
+    float exponentBit = expf(-Alpha * _deltaT);
+    float sinBit = sinf(Beta * _deltaT);
+    float cosBit = cosf(Beta * _deltaT);
 
     VzeroComponent = (exponentBit * sinBit) / Beta;
     IzeroComponent = exponentBit * cosBit;

@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script type="text/javascript">
+        function WebSocketTest() {
+
+            if ("WebSocket" in window) {
+                alert("WebSocket is supported by your Browser!");
+
+                // Let us open a web socket
+                var ws = new WebSocket("ws://localhost:1234/echo");
+
+                ws.onopen = function () {
+
+                    // Web Socket is connected, send data using send()
+                    ws.send("Message to send");
+                    alert("Message is sent...");
+                };
+
+                ws.onmessage = function (evt) {
+                    var received_msg = evt.data;
+                    alert("Message is received...");
+                };
+
+                ws.onclose = function () {
+
+                    // websocket is closed.
+                    alert("Connection is closed...");
+                };
+            } else {
+
+                // The browser doesn't support WebSocket
+                alert("WebSocket NOT supported by your Browser!");
+            }
+        }
+
+        
+    </script>
+
+</head>
+
+<body>
+    <div id="sse">
+        <a href="javascript:WebSocketTest()">Run WebSocket</a>
+    </div>
+
+    <div id="app-7">
+
+        <p>Waveform type</p>
+        <select name="waveformType" class="form-control" v-model="selectedWaveformType">
+            <option v-for="item in waveformtype">{{item.text}}</option>
+        </select>
+
+        <p>PWM LFO ID</p>
+        <select name="pwmLFOId" class="form-control" v-model="pwmLFOId">
+            <option v-for="item in lfoID">{{item.text}}</option>
+        </select>
+
+        <p>PWM LFO Level</p>
+        <input type="range" min="0" max="1" step="0.01" v-model="pwmLFOLevel">
+        <input type="number" step="0.01" v-model="pwmLFOLevel">
+
+        <p>Pitch bend</p>
+        <input type="checkbox" v-model="enablePitchBend" />
+
+        <p>Pitch bend semitones</p>
+        <input type="range" min="-12" max="12" step="0.01" v-model="pitchBendSemitones">
+        <input type="number" step="0.25" v-model="pitchBendSemitones">
+
+        <p>Pitch offest semitones</p>
+        <input type="range" min="-12" max="12" step="0.01" v-model="pitchOffestSemitones">
+        <input type="number" step="0.25" v-model="pitchOffestSemitones">
+
+        <p>Pitch LFO ID</p>
+        <select name="pwmLFOId" class="form-control" v-model="pitchLFOId">
+            <option v-for="item in lfoID">{{item.text}}</option>
+        </select>
+
+        <p>Pitch LFO Level</p>
+        <input type="range" min="0" max="1" step="0.01" v-model="pitchLFOLevel">
+        <input type="number" step="0.01" v-model="pitchLFOLevel">
+
+        <p>Pitch LFO Delay</p>
+        <input type="range" min="0" max="10" step="0.1" v-model="pitchLFODelay">
+        <input type="number" step="0.1" v-model="pitchLFODelay">
+
+    </div>
+    
+    <script>
+
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        })
+
+        var app7 = new Vue({
+            el: '#app-7',
+            data: {
+                waveformtype: [
+                    { id: 0, text: 'MUTE' },
+                    { id: 1, text: 'SQUARE' },
+                    { id: 2, text: 'SIN' },
+                    { id: 3, text: 'SAW' },
+                    { id: 4, text: 'NOISE' },
+                    { id: 5, text: 'RND_SQ' },
+                    { id: 6, text: 'PCM' },
+                ],
+                lfoID: [
+                    { id: 0, text: '0' },
+                    { id: 1, text: '1' },
+                    { id: 2, text: '2' },
+                    { id: 3, text: '3' },
+                    { id: 4, text: '4' },
+                    { id: 5, text: '5' },
+                    { id: 6, text: '6' },
+                    { id: 7, text: '7' },
+                    { id: 8, text: '8' },
+                ],
+                selectedWaveformType: "MUTE",
+                pwmLFOId: "0",
+                pwmLFOLevel: "0",
+                enablePitchBend: false,
+                pitchBendSemitones: 0,
+                pitchOffestSemitones: 0,
+                pitchLFOId: "0",
+                pitchLFOLevel: 0,
+                pitchLFODelay: 0
+
+            }
+        })
+    </script>
+
+
+</body>
+
+
+
+
+</html>

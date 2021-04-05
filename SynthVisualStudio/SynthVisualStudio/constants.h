@@ -103,8 +103,8 @@ class tdl;
 
 
 
-#define B_ 1.2732395447 //B = 4.0 / PI;
-#define C_ -0.405284735 //C = -4.0 /(PI_SQUARED);
+#define B_ 1.2732395447F //B = 4.0 / PI;
+#define C_ -0.405284735F //C = -4.0 /(PI_SQUARED);
 
 #define VOLUME_MAPPING_STEPS 4096
 
