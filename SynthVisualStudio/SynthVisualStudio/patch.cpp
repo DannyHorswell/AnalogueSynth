@@ -334,6 +334,18 @@ bool ProcessWG(patch* pPatch, int WGIndex, vector<NameIndexer> nixers, string va
 		return false;
 	}
 
+	if (nixers[1].name == "PWMLFOid")
+	{
+		pWG->pwmLFOid = atoi(value.c_str());
+		return true;
+	}
+
+	if (nixers[1].name == "PWMLFOLevel")
+	{
+		pWG->pwmLFOLevel = atof(value.c_str());
+		return true;
+	}
+
 	if (nixers[1].name == "EnablePitchBend")
 	{
 		if (value == "true")
@@ -358,15 +370,21 @@ bool ProcessWG(patch* pPatch, int WGIndex, vector<NameIndexer> nixers, string va
 		return true;
 	}
 
-	if (nixers[1].name == "VelocityVolumeAdjust")
+	if (nixers[1].name == "FreqLFOid")
 	{
-		pWG->velocityVolumeAdjust = atof(value.c_str());
+		pWG->freqLFOid = atoi(value.c_str());
 		return true;
 	}
 
-	if (nixers[1].name == "VelocityPanAdjust")
+	if (nixers[1].name == "FreqLFOLevel")
 	{
-		pWG->velocityPanAdjust = atof(value.c_str());
+		pWG->freqLFOLevel = atof(value.c_str());
+		return true;
+	}
+
+	if (nixers[1].name == "FreqLFODelay")
+	{
+		pWG->freqLFODelay = atof(value.c_str());
 		return true;
 	}
 
@@ -388,35 +406,9 @@ bool ProcessWG(patch* pPatch, int WGIndex, vector<NameIndexer> nixers, string va
 		return true;
 	}
 
-	if (nixers[1].name == "FreqLFOid")
-	{
-		pWG->freqLFOid = atoi(value.c_str());
-		return true;
-	}
 
-	if (nixers[1].name == "FreqLFOLevel")
-	{
-		pWG->freqLFOLevel = atof(value.c_str());
-		return true;
-	}
 
-	if (nixers[1].name == "FreqLFODelay")
-	{
-		pWG->freqLFODelay = atof(value.c_str());
-		return true;
-	}
 
-	if (nixers[1].name == "PWMLFOid")
-	{
-		pWG->pwmLFOid = atoi(value.c_str());
-		return true;
-	}
-
-	if (nixers[1].name == "PWMLFOLevel")
-	{
-		pWG->pwmLFOLevel = atof(value.c_str());
-		return true;
-	}
 
 #ifdef ENABLE_TDP
 	if (nixers[1].name == "TDP")
@@ -424,6 +416,18 @@ bool ProcessWG(patch* pPatch, int WGIndex, vector<NameIndexer> nixers, string va
 		return ProcessTDL(&pWG->TDP, nixers, value);
 	}
 #endif
+
+	if (nixers[1].name == "VelocityVolumeAdjust")
+	{
+		pWG->velocityVolumeAdjust = atof(value.c_str());
+		return true;
+	}
+
+	if (nixers[1].name == "VelocityPanAdjust")
+	{
+		pWG->velocityPanAdjust = atof(value.c_str());
+		return true;
+	}
 
 #ifdef ENABLE_TDA
 	if (nixers[1].name == "TDA")

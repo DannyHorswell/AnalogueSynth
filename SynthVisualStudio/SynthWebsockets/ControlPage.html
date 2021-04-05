@@ -3,15 +3,259 @@
 <html>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
 
-    <script type="text/javascript">
-        function WebSocketTest() {
+<body>
+
+    <div id="app-7">
+
+        <div v-for="(lfo, index) in lfos">
+            <p><b>Low frequency oscillator {{index}}</b></p>
+
+            <p>Waveform type</p>
+            <select :data-synthId="'LFO[' + index + '].Type'" class="form-control" v-model="lfo.selectedWaveformType" @change="signalChange">
+                <option v-for="item in enumerations.waveformtype">{{item.text}}</option>
+            </select>
+
+            <p>Frequency</p>
+            <input :data-synthId="'LFO[' + index + '].Frequency'" class="form-control" type="range" min="0" max="10" step="0.01" v-model="lfo.frequency" @change="signalChange">
+            <input :data-synthId="'LFO[' + index + '].Frequency'" class="form-control" type="number" step="0.01" v-model="lfo.frequency" @change="signalChange">
+
+        </div>
+
+
+        <div v-for="(wg, index) in wavegenerators">
+
+            <p><b>Wave generator {{index}}</b></p>
+
+            <div> <!-- Wave generator type parametrers-->
+                <p>Waveform type</p>
+                <select :data-synthId="'WG[' + index + '].Type'" name="waveformType" class="form-control" v-model="wg.waveform.selectedWaveformType">
+                    <option v-for="item in enumerations.lfowaveformtype">{{item.text}}</option>
+                </select>
+
+                <p>PWM LFO ID</p>
+                <select :data-synthId="'WG[' + index + '].PWMLFOid'" name="pwmLFOId" class="form-control" v-model="wg.waveform.pwmLFOId">
+                    <option v-for="item in enumerations.lfoID">{{item.text}}</option>
+                </select>
+
+                <p>PWM LFO Level</p>
+                <input :data-synthId="'WG[' + index + '].PWMLFOLevel'" type="range" min="0" max="1" step="0.01" v-model="wg.waveform.pwmLFOLevel">
+                <input :data-synthId="'WG[' + index + '].PWMLFOLevel'" type="number" step="0.01" v-model="wg.pwmLFOLevel">
+            </div>
+            <div>
+                <!-- Pitch parameters -->
+                <p>Pitch bend</p>
+                <input :data-synthId="'WG[' + index + '].EnablePitchBend'" type="checkbox" v-model="wg.pitch.enablePitchBend" />
+
+                <p>Pitch bend semitones</p>
+                <input :data-synthId="'WG[' + index + '].PitchBendAmount'" type="range" min="-12" max="12" step="0.01" v-model="wg.pitch.pitchBendSemitones">
+                <input :data-synthId="'WG[' + index + '].PitchBendAmount'" type="number" step="0.25" v-model="wg.pitch.pitchBendSemitones">
+
+                <p>Pitch offest semitones</p>
+                <input :data-synthId="'WG[' + index + '].KeyOffestSemitones'" type="range" min="-12" max="12" step="0.01" v-model="wg.pitch.pitchOffestSemitones">
+                <input :data-synthId="'WG[' + index + '].KeyOffestSemitones'" type="number" step="0.25" v-model="wg.pitch.pitchOffestSemitones">
+
+                <p>Pitch LFO ID</p>
+                <select :data-synthId="'WG[' + index + '].FreqLFOid'" name="pwmLFOId" class="form-control" v-model="wg.pitch.pitchLFOId">
+                    <option v-for="item in enumerations.lfoID">{{item.text}}</option>
+                </select>
+
+                <p>Pitch LFO Level</p>
+                <input :data-synthId="'WG[' + index + '].FreqLFOLevel'" type="range" min="0" max="1" step="0.01" v-model="wg.pitch.pitchLFOLevel">
+                <input type="number" step="0.01" v-model="wg.pitchLFOLevel">
+
+                <p>Pitch LFO Delay</p>
+                <input :data-synthId="'WG[' + index + '].FreqLFODelay'" type="range" min="0" max="10" step="0.1" v-model="wg.pitch.pitchLFODelay">
+                <input :data-synthId="'WG[' + index + '].FreqLFODelay'" type="number" step="0.1" v-model="wg.pitchLFODelay">
+
+                <div>
+                    <!-- Pitch envelope-->
+                    <p>Pitch Envelope</p>
+
+                    <p>T1</p>
+                    <input :data-synthId="'WG[' + index + '].TDP.T1'" type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T1">
+                    <input :data-synthId="'WG[' + index + '].TDP.T1'" type="number" step="0.1" v-model="wg.pitch.tdp.T1">
+
+                    <p>L1</p>
+                    <input :data-synthId="'WG[' + index + '].TDP.L1'" type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.L1">
+                    <input :data-synthId="'WG[' + index + '].TDP.L1'" type="number" step="0.1" v-model="wg.pitch.tdp.L1">
+
+                    <p>T2</p>
+                    <input :data-synthId="'WG[' + index + '].TDP.T2'" type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T2">
+                    <input :data-synthId="'WG[' + index + '].TDP.T2'" type="number" step="0.1" v-model="wg.pitch.tdp.T2">
+
+                    <p>L2</p>
+                    <input :data-synthId="'WG[' + index + '].TDP.L2'" type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.L2">
+                    <input :data-synthId="'WG[' + index + '].TDP.L2'" type="number" step="0.1" v-model="wg.pitch.tdp.L2">
+
+                    <p>T3</p>
+                    <input :data-synthId="'WG[' + index + '].TDP.T3'" type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T3">
+                    <input :data-synthId="'WG[' + index + '].TDP.T3'" type="number" step="0.1" v-model="wg.pitch.tdp.T3">
+
+                    <p>Sustain</p>
+                    <input :data-synthId="'WG[' + index + '].TDP.Sustain'" type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.Sustain">
+                    <input :data-synthId="'WG[' + index + '].TDP.Sustain'" type="number" step="0.1" v-model="wg.pitch.tdp.Sustain">
+
+                    <p>T4</p>
+                    <input :data-synthId="'WG[' + index + '].TDP.T4'" type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T4">
+                    <input :data-synthId="'WG[' + index + '].TDP.T4'" type="number" step="0.1" v-model="wg.pitch.tdp.T4">
+
+                    <p>L4</p>
+                    <input :data-synthId="'WG[' + index + '].TDP.L4'" type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.L4">
+                    <input :data-synthId="'WG[' + index + '].TDP.L4'" type="number" step="0.1" v-model="wg.pitch.tdp.L4">
+
+                </div>
+
+            </div>
+            <div>
+                <!-- Amplitude parameters-->
+                <p>Velocity volume adjust</p>
+                <input :data-synthId="'WG[' + index + '].VelocityVolumeAdjust'" type="range" min="0" max="1" step="0.1" v-model="wg.amplitude.velocityVolumeAdjust">
+                <input :data-synthId="'WG[' + index + '].VelocityVolumeAdjust'" type="number" step="0.1" v-model="wg.amplitude.velocityVolumeAdjust">
+
+                <p>Velocity pan adjust</p>
+                <input :data-synthId="'WG[' + index + '].VelocityPanAdjust'" type="range" min="0" max="1" step="0.1" v-model="wg.amplitude.velocityPanAdjust">
+                <input :data-synthId="'WG[' + index + '].VelocityPanAdjust'" type="number" step="0.1" v-model="wg.amplitude.velocityPanAdjust">
+
+                <div>
+                    <!-- Pitch envelope-->
+                    <p>Amplitude Envelope</p>
+
+                    <p>T1</p>
+                    <input :data-synthId="'WG[' + index + '].TDA.T1'" type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T1">
+                    <input :data-synthId="'WG[' + index + '].TDA.T1'" type="number" step="0.1" v-model="wg.amplitude.tda.T1">
+
+                    <p>L1</p>
+                    <input :data-synthId="'WG[' + index + '].TDA.L1'" type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.L1">
+                    <input :data-synthId="'WG[' + index + '].TDA.L1'" type="number" step="0.1" v-model="wg.amplitude.tda.L1">
+
+                    <p>T2</p>
+                    <input :data-synthId="'WG[' + index + '].TDA.T2'" type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T2">
+                    <input :data-synthId="'WG[' + index + '].TDA.T2'" type="number" step="0.1" v-model="wg.amplitude.tda.T2">
+
+                    <p>L2</p>
+                    <input :data-synthId="'WG[' + index + '].TDA.L2'" type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.L2">
+                    <input :data-synthId="'WG[' + index + '].TDA.L2'" type="number" step="0.1" v-model="wg.amplitude.tda.L2">
+
+                    <p>T3</p>
+                    <input :data-synthId="'WG[' + index + '].TDA.T3'" type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T3">
+                    <input :data-synthId="'WG[' + index + '].TDA.T3'" type="number" step="0.1" v-model="wg.amplitude.tda.T3">
+
+                    <p>Sustain</p>
+                    <input :data-synthId="'WG[' + index + '].TDA.Sustain'" type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.Sustain">
+                    <input :data-synthId="'WG[' + index + '].TDA.Sustain'" type="number" step="0.1" v-model="wg.amplitude.tda.Sustain">
+
+                    <p>T4</p>
+                    <input :data-synthId="'WG[' + index + '].TDA.T4'" type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T4">
+                    <input :data-synthId="'WG[' + index + '].TDA.T4'" type="number" step="0.1" v-model="wg.amplitude.tda.T4">
+
+                    <p>L4</p>
+                    <input :data-synthId="'WG[' + index + '].TDA.L4'" type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.L4">
+                    <input :data-synthId="'WG[' + index + '].TDA.L4'" type="number" step="0.1" v-model="wg.amplitude.tda.L4">
+
+                </div>
+            </div>
+            <div>
+                <!-- Filter parameters -->
+                <p>Filter type</p>
+                <select :data-synthId="'WG[' + index + '].Filter.FilterType'" name="filterType" class="form-control" v-model="wg.filter.filterType">
+                    <option v-for="item in enumerations.filterType">{{item.text}}</option>
+                </select>
+
+                <p>Q</p>
+                <input :data-synthId="'WG[' + index + '].Filter.Q'" type="range" min="0" max="100" step="1" v-model="wg.filter.Q">
+                <input :data-synthId="'WG[' + index + '].Filter.Q'" type="number" step="1" v-model="wg.filter.Q">
+
+                <p>Relative freq</p>
+                <input :data-synthId="'WG[' + index + '].Filter.RelativeFrequency'" type="range" min="0.1" max="10" step="1" v-model="wg.filter.RelativeFrequency">
+                <input :data-synthId="'WG[' + index + '].Filter.RelativeFrequency'" type="number" step="1" v-model="wg.filter.RelativeFrequency">
+
+                <p>Velocity freq</p>
+                <input :data-synthId="'WG[' + index + '].Filter.VelocityFactor'" type="range" min="-1.0" max="1.0" step="0.1" v-model="wg.filter.Velocity">
+                <input :data-synthId="'WG[' + index + '].Filter.VelocityFactor'" type="number" step="0.1" v-model="wg.filter.Velocity">
+
+                <div>
+                    <!-- Filter envelope-->
+                    <p>Filter Envelope</p>
+
+                    <p>T1</p>
+                    <input :data-synthId="'WG[' + index + '].TDF.T1'" type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T1">
+                    <input :data-synthId="'WG[' + index + '].TDF.T1'" type="number" step="0.1" v-model="wg.filter.tdf.T1">
+
+                    <p>L1</p>
+                    <input :data-synthId="'WG[' + index + '].TDF.L1'" type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.L1">
+                    <input :data-synthId="'WG[' + index + '].TDF.L1'" type="number" step="0.1" v-model="wg.filter.tdf.L1">
+
+                    <p>T2</p>
+                    <input :data-synthId="'WG[' + index + '].TDF.T2'" type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T2">
+                    <input :data-synthId="'WG[' + index + '].TDF.T2'" type="number" step="0.1" v-model="wg.filter.tdf.T2">
+
+                    <p>L2</p>
+                    <input :data-synthId="'WG[' + index + '].TDF.L2'" type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.L2">
+                    <input :data-synthId="'WG[' + index + '].TDF.L2'" type="number" step="0.1" v-model="wg.filter.tdf.L2">
+
+                    <p>T3</p>
+                    <input :data-synthId="'WG[' + index + '].TDF.T3'" type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T3">
+                    <input :data-synthId="'WG[' + index + '].TDF.T3'" type="number" step="0.1" v-model="wg.filter.tdf.T3">
+
+                    <p>Sustain</p>
+                    <input :data-synthId="'WG[' + index + '].TDF.Sustain'" type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.Sustain">
+                    <input :data-synthId="'WG[' + index + '].TDF.Sustain'" type="number" step="0.1" v-model="wg.filter.tdf.Sustain">
+
+                    <p>T4</p>
+                    <input :data-synthId="'WG[' + index + '].TDF.T4'" type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T4">
+                    <input :data-synthId="'WG[' + index + '].TDF.T4'" type="number" step="0.1" v-model="wg.filter.tdf.T4">
+
+                    <p>L4</p>
+                    <input :data-synthId="'WG[' + index + '].TDF.L4'" type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.L4">
+                    <input :data-synthId="'WG[' + index + '].TDF.L4'" type="number" step="0.1" v-model="wg.filter.tdf.L4">
+
+                </div>
+            </div>
+        </div>
+    
+        <div>
+            <!-- Globals -->
+            <p><b>Global</b></p>
+
+            <p>Mix mode</p>
+            <select :data-synthId="'WGMixMode'" name="mixmode" class="form-control" v-model="global.mixmode">
+                <option v-for="item in enumerations.mixmodes">{{item.text}}</option>
+            </select>
+        </div>
+
+        <div>
+            <!-- Reverb -->
+            <p><b>Reverb</b></p>
+
+            <input :data-synthId="'Reverb.Enabled'" type="checkbox" v-model="reverb.enable" />
+
+            <p>Delay samples</p>
+            <input :data-synthId="'Reverb.SampleLength'" type="range" min="1" max="100000" step="100" v-model="reverb.delay">
+            <input :data-synthId="'Reverb.SampleLength'" type="number" step="100" v-model="reverb.delay">
+
+            <p>Feedback</p>
+            <input :data-synthId="'Reverb.Feedback'" type="range" min="0.01" max="1" step="0.01" v-model="reverb.feedback">
+            <input :data-synthId="'Reverb.Feedback'" type="number" step="0.01" v-model="reverb.feedback">
+
+            <p>Level</p>
+            <input :data-synthId="'Reverb.Level'" type="range" min="0.01" max="1" step="0.01" v-model="reverb.level">
+            <input :data-synthId="'Reverb.Level'" type="number" step="0.01" v-model="reverb.level">
+        </div>
+    
+    </div>
+    
+    <script>
+
+        var ws;
+
+        function WebSocketConnect() {
 
             if ("WebSocket" in window) {
-                alert("WebSocket is supported by your Browser!");
 
                 // Let us open a web socket
-                var ws = new WebSocket("ws://localhost:1234/echo");
+                ws = new WebSocket("ws://localhost:1234");
 
                 ws.onopen = function () {
 
@@ -37,204 +281,7 @@
             }
         }
 
-        
-    </script>
-
-</head>
-
-<body>
-    <div id="sse">
-        <a href="javascript:WebSocketTest()">Run WebSocket</a>
-    </div>
-
-    <div id="app-7">
-        <div v-for="(wg, index) in wavegenerators">
-
-            <p><b>Wave generator {{index}}</b></p>
-
-            <div> <!-- Wave generator type parametrers-->
-                <p>Waveform type</p>
-                <select name="waveformType" class="form-control" v-model="wg.waveform.selectedWaveformType">
-                    <option v-for="item in enumerations.waveformtype">{{item.text}}</option>
-                </select>
-
-                <p>PWM LFO ID</p>
-                <select name="pwmLFOId" class="form-control" v-model="wg.waveform.pwmLFOId">
-                    <option v-for="item in enumerations.lfoID">{{item.text}}</option>
-                </select>
-
-                <p>PWM LFO Level</p>
-                <input type="range" min="0" max="1" step="0.01" v-model="wg.waveform.pwmLFOLevel">
-                <input type="number" step="0.01" v-model="wg.pwmLFOLevel">
-            </div>
-            <div> <!-- Pitch parameters -->
-                <p>Pitch bend</p>
-                <input type="checkbox" v-model="enablePitchBend" />
-
-                <p>Pitch bend semitones</p>
-                <input type="range" min="-12" max="12" step="0.01" v-model="wg.pitch.pitchBendSemitones">
-                <input type="number" step="0.25" v-model="wg.pitch.pitchBendSemitones">
-
-                <p>Pitch offest semitones</p>
-                <input type="range" min="-12" max="12" step="0.01" v-model="wg.pitch.pitchOffestSemitones">
-                <input type="number" step="0.25" v-model="wg.pitch.pitchOffestSemitones">
-
-                <p>Pitch LFO ID</p>
-                <select name="pwmLFOId" class="form-control" v-model="wg.pitch.pitchLFOId">
-                    <option v-for="item in enumerations.lfoID">{{item.text}}</option>
-                </select>
-
-                <p>Pitch LFO Level</p>
-                <input type="range" min="0" max="1" step="0.01" v-model="wg.pitch.pitchLFOLevel">
-                <input type="number" step="0.01" v-model="wg.pitchLFOLevel">
-
-                <p>Pitch LFO Delay</p>
-                <input type="range" min="0" max="10" step="0.1" v-model="wg.pitch.pitchLFODelay">
-                <input type="number" step="0.1" v-model="wg.pitchLFODelay">
-
-                <div>
-                    <!-- Pitch envelope-->
-                    <p>Pitch Envelope</p>
-
-                    <p>T1</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T1">
-                    <input type="number" step="0.1" v-model="wg.pitch.tdp.T1">
-
-                    <p>L1</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.L1">
-                    <input type="number" step="0.1" v-model="wg.pitch.tdp.L1">
-
-                    <p>T2</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T2">
-                    <input type="number" step="0.1" v-model="wg.pitch.tdp.T2">
-
-                    <p>L2</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.L2">
-                    <input type="number" step="0.1" v-model="wg.pitch.tdp.L2">
-
-                    <p>T3</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T3">
-                    <input type="number" step="0.1" v-model="wg.pitch.tdp.T3">
-
-                    <p>Sustain</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.Sustain">
-                    <input type="number" step="0.1" v-model="wg.pitch.tdp.Sustain">
-
-                    <p>T4</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T4">
-                    <input type="number" step="0.1" v-model="wg.pitch.tdp.T4">
-
-                    <p>L4</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.L4">
-                    <input type="number" step="0.1" v-model="wg.pitch.tdp.L4">
-
-                </div>
-                
-            </div>
-            <div> <!-- Amplitude parameters-->
-                <p>Velocity volume adjust</p>
-                <input type="range" min="0" max="1" step="0.1" v-model="wg.amplitude.velocityVolumeAdjust">
-                <input type="number" step="0.1" v-model="wg.amplitude.velocityVolumeAdjust">
-
-                <div>
-                    <!-- Pitch envelope-->
-                    <p>Amplitude Envelope</p>
-
-                    <p>T1</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T1">
-                    <input type="number" step="0.1" v-model="wg.amplitude.tda.T1">
-
-                    <p>L1</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.L1">
-                    <input type="number" step="0.1" v-model="wg.amplitude.tda.L1">
-
-                    <p>T2</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T2">
-                    <input type="number" step="0.1" v-model="wg.amplitude.tda.T2">
-
-                    <p>L2</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.L2">
-                    <input type="number" step="0.1" v-model="wg.amplitude.tda.L2">
-
-                    <p>T3</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T3">
-                    <input type="number" step="0.1" v-model="wg.amplitude.tda.T3">
-
-                    <p>Sustain</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.Sustain">
-                    <input type="number" step="0.1" v-model="wg.amplitude.tda.Sustain">
-
-                    <p>T4</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T4">
-                    <input type="number" step="0.1" v-model="wg.amplitude.tda.T4">
-
-                    <p>L4</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.L4">
-                    <input type="number" step="0.1" v-model="wg.amplitude.tda.L4">
-
-                </div>
-            </div>
-            <div>
-                <!-- Filter parameters -->
-                <p>Filter type</p>
-                <select name="filterType" class="form-control" v-model="wg.filter.filterType">
-                    <option v-for="item in enumerations.filterType">{{item.text}}</option>
-                </select>
-
-                <p>Q</p>
-                <input type="range" min="0" max="100" step="1" v-model="wg.filter.Q">
-                <input type="number" step="1" v-model="wg.filter.Q">
-
-                <p>Relative freq</p>
-                <input type="range" min="0.1" max="10" step="1" v-model="wg.filter.RelativeFrequency">
-                <input type="number" step="1" v-model="wg.filter.RelativeFrequency">
-
-                <p>Velocity freq</p>
-                <input type="range" min="-1.0" max="1.0" step="0.1" v-model="wg.filter.Velocity">
-                <input type="number" step="0.1" v-model="wg.filter.Velocity">
-
-                <div>
-                    <!-- Filter envelope-->
-                    <p>Filter Envelope</p>
-
-                    <p>T1</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T1">
-                    <input type="number" step="0.1" v-model="wg.filter.tdf.T1">
-
-                    <p>L1</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.L1">
-                    <input type="number" step="0.1" v-model="wg.filter.tdf.L1">
-
-                    <p>T2</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T2">
-                    <input type="number" step="0.1" v-model="wg.filter.tdf.T2">
-
-                    <p>L2</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.L2">
-                    <input type="number" step="0.1" v-model="wg.filter.tdf.L2">
-
-                    <p>T3</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T3">
-                    <input type="number" step="0.1" v-model="wg.filter.tdf.T3">
-
-                    <p>Sustain</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.Sustain">
-                    <input type="number" step="0.1" v-model="wg.filter.tdf.Sustain">
-
-                    <p>T4</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T4">
-                    <input type="number" step="0.1" v-model="wg.filter.tdf.T4">
-
-                    <p>L4</p>
-                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.L4">
-                    <input type="number" step="0.1" v-model="wg.filter.tdf.L4">
-
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <script>
+        WebSocketConnect();
 
         Vue.component('todo-item', {
             props: ['todo'],
@@ -253,6 +300,14 @@
                         { id: 4, text: 'NOISE' },
                         { id: 5, text: 'RND_SQ' },
                         { id: 6, text: 'PCM' },
+                    ],
+                    lfowaveformtype: [
+                        { id: 0, text: 'MUTE' },
+                        { id: 1, text: 'SQUARE' },
+                        { id: 2, text: 'SIN' },
+                        { id: 3, text: 'SAW' },
+                        { id: 4, text: 'NOISE' },
+                        { id: 5, text: 'RND_SQ' }
                     ],
                     lfoID: [
                         { id: 0, text: '0' },
@@ -276,8 +331,56 @@
                         { id: 7, text: 'PEAKINGEQ' },
                         { id: 8, text: 'LOWSHELF' },
                         { id: 8, text: 'HIGHSHELF' },*/
+                    ],
+                    mixmodes: [
+                        { id: 65, text: 'MIX' },
+                        { id: 66, text: 'RING' },
+                        { id: 61, text: 'RING_MIX' },
+
+                        { id: 0, text: 'WG0' },
+                        { id: 1, text: 'WG0' },
+                        { id: 2, text: 'WG0' },
+                        { id: 3, text: 'WG0' },
+                        { id: 4, text: 'WG0' },
+                        { id: 5, text: 'WG0' },
+                        { id: 6, text: 'WG0' },
+                        { id: 7, text: 'WG0' }
                     ]
                 },
+                lfos: [
+                    {
+                        selectedWaveformType: "SIN",
+                        frequency:0.2
+                    },
+                    {
+                        selectedWaveformType: "SQUARE",
+                        frequency: 1.0
+                    },
+                    {
+                        selectedWaveformType: "SAW",
+                        frequency: 1.0
+                    },
+                    {
+                        selectedWaveformType: "NOISE",
+                        frequency: 1.0
+                    },
+                    {
+                        selectedWaveformType: "RND_SQ",
+                        frequency: 1.0
+                    },
+                    {
+                        selectedWaveformType: "MUTE",
+                        frequency: 1.0
+                    },
+                    {
+                        selectedWaveformType: "MUTE",
+                        frequency: 1.0
+                    },
+                    {
+                        selectedWaveformType: "MUTE",
+                        frequency: 1.0
+                    }
+                ],
                 wavegenerators: [
                     {
                         waveform: {
@@ -306,6 +409,7 @@
                         amplitude:
                         {
                             velocityVolumeAdjust: 0,
+                            velocityPanAdjust:0,
                             tda: {
                                 T1: 0,
                                 L1: 0,
@@ -362,6 +466,7 @@
                         amplitude:
                         {
                             velocityVolumeAdjust: 0,
+                            velocityPanAdjust: 0,
                             tda: {
                                 T1: 0,
                                 L1: 0,
@@ -391,10 +496,29 @@
                             }
                         }
                     },
-                ]
-
+                ],
+                global:
+                {
+                    mixmode:"MIX"
+                },
+                reverb:
+                {
+                    enable:true,
+                    delay: 1000,
+                    feedback: 0.1,
+                    level: 0.1
+                }
+            },
+            methods: {
+                signalChange: function (evt) {
+                    ws.send(evt.target.id + ":" + evt.target.value);
+                }
             }
+            
         })
+
+        
+
     </script>
 
 
