@@ -159,31 +159,31 @@ void benchmark::run()
 	pTheSynth->keyPressed(64, 64);
 
 	//******  Test the speed of diferent wave types **************
-	pTheSynth->_pSelectedPatch->WGs[0]._type = MUTE;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = waveformtype::MUTE;
 	opsPerSecond = testwavegenerator();
 	printf("WG MUTE Wave %f per second\n", opsPerSecond);
 
-	pTheSynth->_pSelectedPatch->WGs[0]._type = SQUARE;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = waveformtype::SQUARE;
 	opsPerSecond = testwavegenerator();
 	printf("WG SQUARE Wave %f per second\n", opsPerSecond);
 
-	pTheSynth->_pSelectedPatch->WGs[0]._type = SAW;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = waveformtype::SAW;
 	opsPerSecond = testwavegenerator();
 	printf("WG SAW Wave %f per second\n", opsPerSecond);
 
-	pTheSynth->_pSelectedPatch->WGs[0]._type = SIN;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = waveformtype::SIN;
 	opsPerSecond = testwavegenerator();
 	printf("WG SIN Wave %f permsecond\n", opsPerSecond);
 
-	pTheSynth->_pSelectedPatch->WGs[0]._type = NOISE;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = waveformtype::NOISE;
 	opsPerSecond = testwavegenerator();
 	printf("WG NOISE Wave %f per second\n", opsPerSecond);
 
-	pTheSynth->_pSelectedPatch->WGs[0]._type = RND_SQ;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = waveformtype::RND_SQ;
 	opsPerSecond = testwavegenerator();
 	printf("WG RND_SQ Wave %f per second\n", opsPerSecond);
 
-	pTheSynth->_pSelectedPatch->WGs[0]._type = PCM;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = waveformtype::PCM;
 	opsPerSecond = testwavegenerator();
 	printf("WG PCM Wave %f per second\n", opsPerSecond);
 
@@ -196,8 +196,8 @@ void benchmark::run()
 	printf("Filter speed %f per second\n", opsPerSecond);
 
 	// Test synth
-	pTheSynth->_pSelectedPatch->WGs[0]._type = SQUARE;
-	pTheSynth->_pSelectedPatch->WGs[1]._type = SQUARE;
+	pTheSynth->_pSelectedPatch->WGs[0]._type = waveformtype::SQUARE;
+	pTheSynth->_pSelectedPatch->WGs[1]._type = waveformtype::SQUARE;
 
 	opsPerSecond = testsynth();
 	printf("Whole synth %f per second\n", opsPerSecond);

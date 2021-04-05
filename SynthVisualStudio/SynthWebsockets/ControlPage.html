@@ -510,7 +510,10 @@
             },
             methods: {
                 signalChange: function (evt) {
-                    ws.send(evt.target.id + ":" + evt.target.value);
+                    var message = evt.target.getAttribute("data-synthId") + ":" + evt.target.value;
+
+                    alert(message);
+                    ws.send(message);
                 }
             }
             

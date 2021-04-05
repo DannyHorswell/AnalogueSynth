@@ -15,8 +15,6 @@
 #define ENABLE_MIDI
 #endif
 
-//#define ENABLE_SOCKET
-
 //#define PRINT_GETNEXT // Used for debuging generation loop issues, under runs will occur, but can tell how far it gets if getting seg faults
 
 
