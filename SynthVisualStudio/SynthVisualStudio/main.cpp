@@ -54,6 +54,7 @@ static int resample = 0;                                /* enable alsa-lib resam
 static int period_event = 0;                            /* produce poll event after each period */
 
 PortAudio ThePortAudio;
+SocketServer TheSocket;
 
 #ifdef ENABLE_MIDI
 	static midi theMidi;
@@ -66,6 +67,7 @@ PortAudio ThePortAudio;
 bool running = true;
 
 std::thread* pConsoleLoopThread = NULL;
+std::thread* pSocketReadThread = NULL;
 
 
 float deltaT = 1.0F / (float) SAMPLE_FREQUENCY; // Time between samples
@@ -328,6 +330,11 @@ void ConsoleLoop()
 	running = false;
 }
 
+void SocketReadingLoop()
+{
+	TheSocket.Open();
+}
+
 void MainProcessingLoop()
 {
     printf("Entering MainProcessingLoop\n");
@@ -376,32 +383,6 @@ void WriteTestToFile()
  
 
 
-/*void PrintValues()
-{
-	stereo nextVal;
-
-	for (long sample=0; sample<48000 * 20; sample++)
-	{
-			if (sample == 20)
-			{
-				theSynth.keyPressed(60, 64);
-			}
-
-			if (sample == 5 * 48000 )
-			{
-				theSynth.keyReleased(64);
-			}
-
-
-			nextVal = theSynth.getnext(deltaT);
-
-		 printf("%f",nextVal.left);
-
-	}
-}*/
-
-
-
 int main(int argc,char** argv)
 {
 	printf("main\n");
@@ -415,9 +396,16 @@ int main(int argc,char** argv)
 	//WriteTestToFile();
 	//return 0;
 
+	TheSocket.Initalise(TCP_PORT);
 	ThePortAudio.Initalise(StreamCallback);
 	
+	printf("Starting console loop\n");
 	pConsoleLoopThread = new std::thread(ConsoleLoop);
+
+	printf("Starting socket loop\n");
+	pSocketReadThread = new std::thread(SocketReadingLoop);
+
+	printf("Threads started\n");
 
 #ifdef ENABLE_MIDI
 	//pthread_t midiThread;

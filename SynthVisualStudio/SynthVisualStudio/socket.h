@@ -12,32 +12,29 @@ using namespace std;
 
 //using stringReceivedCallback = void(*)(string);
 
-class SocketClient
+class SocketServer
 {
 protected:
-	string _serverIp;
-	int _serverPort;
 
-	int discoverSocket = 0;
+	int _ListenPort;
 
-	int sockfd = 0;
+	int listenSockfd = 0;
+	int clientScokFd = 0;
 
 	char readBuffer[READ_BUFFER_SIZE] = { 0 };
 	char writeBuffer[WRITE_BUFFER_SIZE] = { 0 };
 
-	bool DiscoverEndpoint();
-	void ConnectLoop();
-	void ReadingLoop();
-
-	thread* connectionThread = nullptr;
 	bool shutdown = false;
 
+	void ReadingLoop();
+	
 public:
-	SocketClient();
+	SocketServer();
 
-	void Initalise(string serverIp, int port);
+	void Initalise(int port);
 
-	void Connect();
+	void Open();
+	
 	void Disconnect();
 
 

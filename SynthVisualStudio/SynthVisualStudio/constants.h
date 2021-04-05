@@ -22,13 +22,6 @@
 
 #define INITIAL_TEST_SOUND // if defined, the sound buffers are initially filled with a test sound to test the sound system
 
-#define NETWORK_DISCOVERY_PORT 8888
-#define GAME_ENGINE_DISCOVERY_RESPONSE_START "??GameEngine:"
-
-
-
-
-
 // Options
 #ifdef _WIN32
 #define SAMPLE_FREQUENCY (44100)
