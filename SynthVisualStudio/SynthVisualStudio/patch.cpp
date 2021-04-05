@@ -290,7 +290,7 @@ bool ProcessWG(patch* pPatch, int WGIndex, vector<NameIndexer> nixers, string va
 	{
 		if (value == "MUTE")
 		{
-			pWG->_type = MUTE;
+			pWG->_type = waveformtype::MUTE;
 			return true;
 		}
 
@@ -466,37 +466,37 @@ bool ProcessLFO(patch* pPatch, int LFOIndex, vector<NameIndexer> nixers, string 
 	{
 		if (value == "MUTE")
 		{
-			pPatch->LFOs[LFOIndex]._type = MUTE;
+			pPatch->LFOs[LFOIndex]._type = waveformtype::MUTE;
 			return true;
 		}
 
 		if (value == "SQUARE")
 		{
-			pPatch->LFOs[LFOIndex]._type = SQUARE;
+			pPatch->LFOs[LFOIndex]._type = waveformtype::SQUARE;
 			return true;
 		}
 
 		if (value == "SIN")
 		{
-			pPatch->LFOs[LFOIndex]._type = SIN;
+			pPatch->LFOs[LFOIndex]._type = waveformtype::SIN;
 			return true;
 		}
 
 		if (value == "SAW")
 		{
-			pPatch->LFOs[LFOIndex]._type = SAW;
+			pPatch->LFOs[LFOIndex]._type = waveformtype::SAW;
 			return true;
 		}
 
 		if (value == "NOISE")
 		{
-			pPatch->LFOs[LFOIndex]._type = NOISE;
+			pPatch->LFOs[LFOIndex]._type = waveformtype::NOISE;
 			return true;
 		}
 
 		if (value == "RND_SQ")
 		{
-			pPatch->LFOs[LFOIndex]._type = RND_SQ;
+			pPatch->LFOs[LFOIndex]._type = waveformtype::RND_SQ;
 			return true;
 		}
 		
@@ -779,31 +779,31 @@ void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 		
 			switch (pPatch->LFOs[count]._type)
 			{
-				case MUTE:
+				case waveformtype::MUTE:
 					fprintf (file, "LFO[%i].Type=MUTE\r\n", count);	
 					break;
 
-				case SQUARE:
+				case waveformtype::SQUARE:
 					fprintf (file, "LFO[%i].Type=SQUARE\r\n", count);	
 					break;
 
-				case SIN:
+				case waveformtype::SIN:
 					fprintf (file, "LFO[%i].Type=SIN\r\n", count);	
 					break;
 
-				case SAW:
+				case waveformtype::SAW:
 					fprintf (file, "LFO[%i].Type=SAW\r\n", count);	
 					break;
 
-				case NOISE:
+				case waveformtype::NOISE:
 					fprintf (file, "LFO[%i].Type=NOISE\r\n", count);	
 					break;
 
-				case RND_SQ:
+				case waveformtype::RND_SQ:
 					fprintf (file, "LFO[%i].Type=RND_SQ\r\n", count);	
 					break;
 
-				case PCM:
+				case waveformtype::PCM:
 					fprintf (file, "LFOWG[%i].Type=PCM\r\n", count);	
 					break;
 
@@ -1095,47 +1095,47 @@ void PopulateDefaultPatch(patch* pPatch)
 		{
 			case 0:
 				pPatch->LFOs[count].frequency = 3.0F;
-				pPatch->LFOs[count]._type = RND_SQ;
+				pPatch->LFOs[count]._type = waveformtype::RND_SQ;
 				break;
 
 			case 1:
 				pPatch->LFOs[count].frequency = 5.0F;
-				pPatch->LFOs[count]._type = RND_SQ;
+				pPatch->LFOs[count]._type = waveformtype::RND_SQ;
 				break;
 
 			case 2:
 				pPatch->LFOs[count].frequency = 4.0F;
-				pPatch->LFOs[count]._type = RND_SQ;
+				pPatch->LFOs[count]._type = waveformtype::RND_SQ;
 				break;
 
 			case 3:
 				pPatch->LFOs[count].frequency = 2.0F;
-				pPatch->LFOs[count]._type = RND_SQ;
+				pPatch->LFOs[count]._type = waveformtype::RND_SQ;
 				break;
 
 			case 4:
 				pPatch->LFOs[count].frequency = 1.0F;
-				pPatch->LFOs[count]._type = RND_SQ;
+				pPatch->LFOs[count]._type = waveformtype::RND_SQ;
 				break;
 
 			case 5:
 				pPatch->LFOs[count].frequency = 1.0F;
-				pPatch->LFOs[count]._type = RND_SQ;
+				pPatch->LFOs[count]._type = waveformtype::RND_SQ;
 				break;
 
 			case 6:
 				pPatch->LFOs[count].frequency = 1.0F;
-				pPatch->LFOs[count]._type = RND_SQ;
+				pPatch->LFOs[count]._type = waveformtype::RND_SQ;
 				break;
 
 			case 7:
 				pPatch->LFOs[count].frequency = 1.0F;
-				pPatch->LFOs[count]._type = RND_SQ;
+				pPatch->LFOs[count]._type = waveformtype::RND_SQ;
 				break;
 
 			case 8:
 				pPatch->LFOs[count].frequency = 1.0F;
-				pPatch->LFOs[count]._type = RND_SQ;
+				pPatch->LFOs[count]._type = waveformtype::RND_SQ;
 				break;
 
 		}
@@ -1149,7 +1149,7 @@ void PopulateDefaultPatch(patch* pPatch)
 		switch (count)
 		{
 			case 0:
-				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count]._type = waveformtype::SAW;
 				pPatch->WGs[count].enablePitchBend = true;
 				pPatch->WGs[count].pitchBendAmount = 1.0F;
 				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
@@ -1166,7 +1166,7 @@ void PopulateDefaultPatch(patch* pPatch)
 				break;
 				
 			case 1:
-				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count]._type = waveformtype::SAW;
 				pPatch->WGs[count].enablePitchBend = true;
 				pPatch->WGs[count].pitchBendAmount = 1.0F;
 				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
@@ -1183,7 +1183,7 @@ void PopulateDefaultPatch(patch* pPatch)
 				break;
 
 			case 2:
-				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count]._type = waveformtype::SAW;
 				pPatch->WGs[count].enablePitchBend = true;
 				pPatch->WGs[count].pitchBendAmount = 1.0F;
 				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
@@ -1200,7 +1200,7 @@ void PopulateDefaultPatch(patch* pPatch)
 				break;
 
 			case 3:
-				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count]._type = waveformtype::SAW;
 				pPatch->WGs[count].enablePitchBend = true;
 				pPatch->WGs[count].pitchBendAmount = 1.0F;
 				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
@@ -1217,7 +1217,7 @@ void PopulateDefaultPatch(patch* pPatch)
 				break;
 
 			case 4:
-				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count]._type = waveformtype::SAW;
 				pPatch->WGs[count].enablePitchBend = true;
 				pPatch->WGs[count].pitchBendAmount = 1.0F;
 				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
@@ -1234,7 +1234,7 @@ void PopulateDefaultPatch(patch* pPatch)
 				break;
 
 			case 5:
-				pPatch->WGs[count]._type = SAW;
+				pPatch->WGs[count]._type = waveformtype::SAW;
 				pPatch->WGs[count].enablePitchBend = true;
 				pPatch->WGs[count].pitchBendAmount = 1.0F;
 				pPatch->WGs[count].velocityVolumeAdjust = 0.5F;
@@ -1404,7 +1404,7 @@ void PopulateDefaultPatch(patch* pPatch)
 #endif
 	}
 
-	pPatch->WGMixMode = MIX;
+	pPatch->WGMixMode = WGMIX::MIX;
 
 	// Reverb
 	pPatch->Reverb.feedback = 0.60F;

@@ -51,7 +51,7 @@ enum class filtertype
 	OFF			= 0,
 	LPF			= 1,
 	HPF			= 2,
-	BPF		= 3,
+	BPF			= 3,
 	BPF2		= 4,
 	NOTCH		= 5,
 	APF			= 6,

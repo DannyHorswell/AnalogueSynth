@@ -54,17 +54,17 @@
 
             <div> <!-- Wave generator type parametrers-->
                 <p>Waveform type</p>
-                <select name="waveformType" class="form-control" v-model="wg.selectedWaveformType">
+                <select name="waveformType" class="form-control" v-model="wg.waveform.selectedWaveformType">
                     <option v-for="item in enumerations.waveformtype">{{item.text}}</option>
                 </select>
 
                 <p>PWM LFO ID</p>
-                <select name="pwmLFOId" class="form-control" v-model="wg.pwmLFOId">
+                <select name="pwmLFOId" class="form-control" v-model="wg.waveform.pwmLFOId">
                     <option v-for="item in enumerations.lfoID">{{item.text}}</option>
                 </select>
 
                 <p>PWM LFO Level</p>
-                <input type="range" min="0" max="1" step="0.01" v-model="wg.pwmLFOLevel">
+                <input type="range" min="0" max="1" step="0.01" v-model="wg.waveform.pwmLFOLevel">
                 <input type="number" step="0.01" v-model="wg.pwmLFOLevel">
             </div>
             <div> <!-- Pitch parameters -->
@@ -72,25 +72,164 @@
                 <input type="checkbox" v-model="enablePitchBend" />
 
                 <p>Pitch bend semitones</p>
-                <input type="range" min="-12" max="12" step="0.01" v-model="wg.pitchBendSemitones">
-                <input type="number" step="0.25" v-model="wg.pitchBendSemitones">
+                <input type="range" min="-12" max="12" step="0.01" v-model="wg.pitch.pitchBendSemitones">
+                <input type="number" step="0.25" v-model="wg.pitch.pitchBendSemitones">
 
                 <p>Pitch offest semitones</p>
-                <input type="range" min="-12" max="12" step="0.01" v-model="wg.pitchOffestSemitones">
-                <input type="number" step="0.25" v-model="wg.pitchOffestSemitones">
+                <input type="range" min="-12" max="12" step="0.01" v-model="wg.pitch.pitchOffestSemitones">
+                <input type="number" step="0.25" v-model="wg.pitch.pitchOffestSemitones">
 
                 <p>Pitch LFO ID</p>
-                <select name="pwmLFOId" class="form-control" v-model="wg.pitchLFOId">
+                <select name="pwmLFOId" class="form-control" v-model="wg.pitch.pitchLFOId">
                     <option v-for="item in enumerations.lfoID">{{item.text}}</option>
                 </select>
 
                 <p>Pitch LFO Level</p>
-                <input type="range" min="0" max="1" step="0.01" v-model="wg.pitchLFOLevel">
+                <input type="range" min="0" max="1" step="0.01" v-model="wg.pitch.pitchLFOLevel">
                 <input type="number" step="0.01" v-model="wg.pitchLFOLevel">
 
                 <p>Pitch LFO Delay</p>
-                <input type="range" min="0" max="10" step="0.1" v-model="wg.pitchLFODelay">
+                <input type="range" min="0" max="10" step="0.1" v-model="wg.pitch.pitchLFODelay">
                 <input type="number" step="0.1" v-model="wg.pitchLFODelay">
+
+                <div>
+                    <!-- Pitch envelope-->
+                    <p>Pitch Envelope</p>
+
+                    <p>T1</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T1">
+                    <input type="number" step="0.1" v-model="wg.pitch.tdp.T1">
+
+                    <p>L1</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.L1">
+                    <input type="number" step="0.1" v-model="wg.pitch.tdp.L1">
+
+                    <p>T2</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T2">
+                    <input type="number" step="0.1" v-model="wg.pitch.tdp.T2">
+
+                    <p>L2</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.L2">
+                    <input type="number" step="0.1" v-model="wg.pitch.tdp.L2">
+
+                    <p>T3</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T3">
+                    <input type="number" step="0.1" v-model="wg.pitch.tdp.T3">
+
+                    <p>Sustain</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.Sustain">
+                    <input type="number" step="0.1" v-model="wg.pitch.tdp.Sustain">
+
+                    <p>T4</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.T4">
+                    <input type="number" step="0.1" v-model="wg.pitch.tdp.T4">
+
+                    <p>L4</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.pitch.tdp.L4">
+                    <input type="number" step="0.1" v-model="wg.pitch.tdp.L4">
+
+                </div>
+                
+            </div>
+            <div> <!-- Amplitude parameters-->
+                <p>Velocity volume adjust</p>
+                <input type="range" min="0" max="1" step="0.1" v-model="wg.amplitude.velocityVolumeAdjust">
+                <input type="number" step="0.1" v-model="wg.amplitude.velocityVolumeAdjust">
+
+                <div>
+                    <!-- Pitch envelope-->
+                    <p>Amplitude Envelope</p>
+
+                    <p>T1</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T1">
+                    <input type="number" step="0.1" v-model="wg.amplitude.tda.T1">
+
+                    <p>L1</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.L1">
+                    <input type="number" step="0.1" v-model="wg.amplitude.tda.L1">
+
+                    <p>T2</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T2">
+                    <input type="number" step="0.1" v-model="wg.amplitude.tda.T2">
+
+                    <p>L2</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.L2">
+                    <input type="number" step="0.1" v-model="wg.amplitude.tda.L2">
+
+                    <p>T3</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T3">
+                    <input type="number" step="0.1" v-model="wg.amplitude.tda.T3">
+
+                    <p>Sustain</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.Sustain">
+                    <input type="number" step="0.1" v-model="wg.amplitude.tda.Sustain">
+
+                    <p>T4</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.T4">
+                    <input type="number" step="0.1" v-model="wg.amplitude.tda.T4">
+
+                    <p>L4</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.amplitude.tda.L4">
+                    <input type="number" step="0.1" v-model="wg.amplitude.tda.L4">
+
+                </div>
+            </div>
+            <div>
+                <!-- Filter parameters -->
+                <p>Filter type</p>
+                <select name="filterType" class="form-control" v-model="wg.filter.filterType">
+                    <option v-for="item in enumerations.filterType">{{item.text}}</option>
+                </select>
+
+                <p>Q</p>
+                <input type="range" min="0" max="100" step="1" v-model="wg.filter.Q">
+                <input type="number" step="1" v-model="wg.filter.Q">
+
+                <p>Relative freq</p>
+                <input type="range" min="0.1" max="10" step="1" v-model="wg.filter.RelativeFrequency">
+                <input type="number" step="1" v-model="wg.filter.RelativeFrequency">
+
+                <p>Velocity freq</p>
+                <input type="range" min="-1.0" max="1.0" step="0.1" v-model="wg.filter.Velocity">
+                <input type="number" step="0.1" v-model="wg.filter.Velocity">
+
+                <div>
+                    <!-- Filter envelope-->
+                    <p>Filter Envelope</p>
+
+                    <p>T1</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T1">
+                    <input type="number" step="0.1" v-model="wg.filter.tdf.T1">
+
+                    <p>L1</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.L1">
+                    <input type="number" step="0.1" v-model="wg.filter.tdf.L1">
+
+                    <p>T2</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T2">
+                    <input type="number" step="0.1" v-model="wg.filter.tdf.T2">
+
+                    <p>L2</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.L2">
+                    <input type="number" step="0.1" v-model="wg.filter.tdf.L2">
+
+                    <p>T3</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T3">
+                    <input type="number" step="0.1" v-model="wg.filter.tdf.T3">
+
+                    <p>Sustain</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.Sustain">
+                    <input type="number" step="0.1" v-model="wg.filter.tdf.Sustain">
+
+                    <p>T4</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.T4">
+                    <input type="number" step="0.1" v-model="wg.filter.tdf.T4">
+
+                    <p>L4</p>
+                    <input type="range" min="0" max="60" step="0.1" v-model="wg.filter.tdf.L4">
+                    <input type="number" step="0.1" v-model="wg.filter.tdf.L4">
+
+                </div>
             </div>
         </div>
     </div>
@@ -125,30 +264,132 @@
                         { id: 6, text: '6' },
                         { id: 7, text: '7' },
                         { id: 8, text: '8' },
+                    ],
+                    filterType: [
+                        { id: 0, text: 'OFF' },
+                        { id: 1, text: 'LPF' },
+                        { id: 2, text: 'HPF' },
+                        { id: 3, text: 'BPF' },
+                        /*{ id: 4, text: 'BPF2' },
+                        { id: 5, text: 'NOTCH' },
+                        { id: 6, text: 'APF' },
+                        { id: 7, text: 'PEAKINGEQ' },
+                        { id: 8, text: 'LOWSHELF' },
+                        { id: 8, text: 'HIGHSHELF' },*/
                     ]
                 },
                 wavegenerators: [
                     {
-                        selectedWaveformType: "MUTE",
-                        pwmLFOId: "0",
-                        pwmLFOLevel: "0",
-                        enablePitchBend: false,
-                        pitchBendSemitones: 0,
-                        pitchOffestSemitones: 0,
-                        pitchLFOId: "0",
-                        pitchLFOLevel: 0,
-                        pitchLFODelay: 0
+                        waveform: {
+                            selectedWaveformType: "MUTE",
+                            pwmLFOId: "0",
+                            pwmLFOLevel: "0"
+                        },
+                        pitch: {
+                            enablePitchBend: false,
+                            pitchBendSemitones: 0,
+                            pitchOffestSemitones: 0,
+                            pitchLFOId: "0",
+                            pitchLFOLevel: 0,
+                            pitchLFODelay: 0,
+                            tdp: {
+                                T1: 0,
+                                L1: 0,
+                                T2: 0,
+                                L2: 0,
+                                T3: 0,
+                                Sustain: 0,
+                                T4: 0,
+                                L4: 0,
+                            }
+                        },
+                        amplitude:
+                        {
+                            velocityVolumeAdjust: 0,
+                            tda: {
+                                T1: 0,
+                                L1: 0,
+                                T2: 0,
+                                L2: 0,
+                                T3: 0,
+                                Sustain: 0,
+                                T4: 0,
+                                L4: 0,
+                            }
+                        },
+                        filter: {
+
+                            filterType: "OFF",
+                            Q: 0,
+                            RelativeFrequency : 1,
+                            Velocity: 0,
+                            tdf: {
+                                T1: 0,
+                                L1: 0,
+                                T2: 0,
+                                L2: 0,
+                                T3: 0,
+                                Sustain: 0,
+                                T4: 0,
+                                L4: 0,
+                            }
+                        }
                     },
                     {
-                        selectedWaveformType: "MUTE",
-                        pwmLFOId: "0",
-                        pwmLFOLevel: "0",
-                        enablePitchBend: false,
-                        pitchBendSemitones: 0,
-                        pitchOffestSemitones: 0,
-                        pitchLFOId: "0",
-                        pitchLFOLevel: 0,
-                        pitchLFODelay: 0
+                        waveform: {
+                            selectedWaveformType: "MUTE",
+                            pwmLFOId: "0",
+                            pwmLFOLevel: "0"
+                        },
+                        pitch: {
+                            enablePitchBend: false,
+                            pitchBendSemitones: 0,
+                            pitchOffestSemitones: 0,
+                            pitchLFOId: "0",
+                            pitchLFOLevel: 0,
+                            pitchLFODelay: 0,
+                            tdp: {
+                                T1: 0,
+                                L1: 0,
+                                T2: 0,
+                                L2: 0,
+                                T3: 0,
+                                Sustain: 0,
+                                T4: 0,
+                                L4: 0,
+                            }
+                        },
+                        amplitude:
+                        {
+                            velocityVolumeAdjust: 0,
+                            tda: {
+                                T1: 0,
+                                L1: 0,
+                                T2: 0,
+                                L2: 0,
+                                T3: 0,
+                                Sustain: 0,
+                                T4: 0,
+                                L4: 0,
+                            }
+                        },
+                        filter: {
+
+                            filterType: "OFF",
+                            Q: 0,
+                            RelativeFrequency: 1,
+                            Velocity: 0,
+                            tdf: {
+                                T1: 0,
+                                L1: 0,
+                                T2: 0,
+                                L2: 0,
+                                T3: 0,
+                                Sustain: 0,
+                                T4: 0,
+                                L4: 0,
+                            }
+                        }
                     },
                 ]
 
