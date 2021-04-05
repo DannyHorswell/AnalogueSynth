@@ -98,31 +98,31 @@ float LCRFilter::getNext(float x)
 
     switch (pPatchFilter->FilterType)
 	{
-		case OFF:
+        case filtertype::OFF:
             return x;
             break;
 
-		case LPF:
-        case HIGHSHELF:
+        case filtertype::LPF:
+        case filtertype::HIGHSHELF:
             return Vc;
             break;
 
-		case HPF:
-        case LOWSHELF:
+        case filtertype::HPF:
+        case filtertype::LOWSHELF:
             return x - Vc - (i * R);
             break;
 
-		case BPF:
-		case BPF2:
-        case PEAKINGEQ:
+        case filtertype::BPF:
+        case filtertype::BPF2:
+        case filtertype::PEAKINGEQ:
             return i * R;
             break;
 
-		case NOTCH: // Band stop filter
+        case filtertype::NOTCH: // Band stop filter
             return x - (i * R);
             break;
 
-		case APF:
+        case filtertype::APF:
             return x;
             break;
 	}

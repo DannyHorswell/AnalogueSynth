@@ -55,7 +55,7 @@ float lfo::getnext(float deltaT)
 
 	switch (pLFO->_type)
 	{
-		case SQUARE:
+		case waveformtype::SQUARE:
 			if (_part_period < (_full_period / 2.0F))
 			{
 				output = -1.0F;
@@ -66,19 +66,19 @@ float lfo::getnext(float deltaT)
 			}
 			break;
 	
-		case SIN:
+		case waveformtype::SIN:
 			output = wg_sin(TWO_PI * _part_period / _full_period);
 			break;
 
-		case SAW:
+		case waveformtype::SAW:
 			output = -1.0F + _part_period * 2.0F / _full_period;
 			break;
 
-		case NOISE:
+		case waveformtype::NOISE:
 			output = theNoiseGenerator.getnext();
 			break;
 
-		case RND_SQ:
+		case waveformtype::RND_SQ:
 			if (_part_period < (_full_period / 2.0F))
 			{
 				if (sqLastPhase)

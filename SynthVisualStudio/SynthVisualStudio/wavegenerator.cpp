@@ -82,7 +82,7 @@ stereo wavegenerator::getnext(float deltaT)
 
 	patchWG* patchWG = &_pSynth->_pSelectedPatch->WGs[_wgID];
 
-	if (_pVoice->key == 0.0 || patchWG->_type == MUTE)
+	if (_pVoice->key == 0.0 || patchWG->_type == waveformtype::MUTE)
 	{
 		ret.left = 0.0F;
 		ret.right = 0.0F;
@@ -141,11 +141,11 @@ stereo wavegenerator::getnext(float deltaT)
 
 	switch (patchWG->_type)
 	{
-		case MUTE:
+		case waveformtype::MUTE:
 			mono = 0.0F;
 			break;
 
-		case SQUARE:
+		case waveformtype::SQUARE:
 			if (_part_period < mid)
 			{
 				mono = -waveformLevel;
@@ -156,20 +156,20 @@ stereo wavegenerator::getnext(float deltaT)
 			}
 			break;
 	
-		case SIN:
+		case waveformtype::SIN:
 			mono = waveformLevel * wg_sin(TWO_PI * _part_period / _full_period);
 			//ret = waveformLevel * sin(TWO_PI * _part_period / _full_period);
 			break;
 
-		case SAW:
+		case waveformtype::SAW:
 			mono = waveformLevel * (-1.0F + _part_period * 2.0F / _full_period) ;
 			break;
 
-		case NOISE:
+		case waveformtype::NOISE:
 			mono = waveformLevel * theNoiseGenerator.getnext();
 			break;
 
-		case RND_SQ:
+		case waveformtype::RND_SQ:
 			if (_part_period < (_full_period / 2.0F))
 			{
 				if (sqLastPhase)
@@ -192,7 +192,7 @@ stereo wavegenerator::getnext(float deltaT)
 			}
 			break;
 
-		case PCM:
+		case waveformtype::PCM:
 			mono = waveformLevel * _pSynth->sampleSets[_wgID].getWav(_pSynth->KeyNumberToFrequency(keyFreq))->getNext(pcmTime, deltaT, _full_period, _pVoice->keyPressed);
 			break;
 	}

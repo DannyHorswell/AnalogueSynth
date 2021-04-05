@@ -189,55 +189,55 @@ bool ProcessFilter(patchFilter* pFilter, vector<NameIndexer> nixers, string valu
 	{
 		if (value == "OFF")
 		{
-			pFilter->FilterType=OFF;
+			pFilter->FilterType= filtertype::OFF;
 			return true;
 		}
 
 		if (value == "LPF")
 		{
-			pFilter->FilterType=LPF;
+			pFilter->FilterType= filtertype::LPF;
 			return true;
 		}
 
 		if (value == "HPF")
 		{
-			pFilter->FilterType=HPF;
+			pFilter->FilterType= filtertype::HPF;
 			return true;
 		}
 
 		if (value == "BPF")
 		{
-			pFilter->FilterType=BPF;
+			pFilter->FilterType= filtertype::BPF;
 			return true;
 		}
 
 		if (value == "BPF2")
 		{
-			pFilter->FilterType=BPF2;
+			pFilter->FilterType= filtertype::BPF2;
 			return true;
 		}
 
 		if (value == "NOTCH")
 		{
-			pFilter->FilterType=NOTCH;
+			pFilter->FilterType= filtertype::NOTCH;
 			return true;
 		}
 
 		if (value == "APF")
 		{
-			pFilter->FilterType=APF;
+			pFilter->FilterType= filtertype::APF;
 			return true;
 		}
 
 		if (value == "PEAKINGEQ")
 		{
-			pFilter->FilterType=PEAKINGEQ;
+			pFilter->FilterType= filtertype::PEAKINGEQ;
 			return true;
 		}
 
 		if (value == "LOWSHELF")
 		{
-			pFilter->FilterType=LOWSHELF;
+			pFilter->FilterType= filtertype::LOWSHELF;
 			return true;
 		}
 
@@ -296,37 +296,37 @@ bool ProcessWG(patch* pPatch, int WGIndex, vector<NameIndexer> nixers, string va
 
 		if (value == "SQUARE")
 		{
-			pWG->_type = SQUARE;
+			pWG->_type = waveformtype::SQUARE;
 			return true;
 		}
 
 		if (value == "SIN")
 		{
-			pWG->_type = SIN;
+			pWG->_type = waveformtype::SIN;
 			return true;
 		}
 
 		if (value == "SAW")
 		{
-			pWG->_type = SAW;
+			pWG->_type = waveformtype::SAW;
 			return true;
 		}
 
 		if (value == "NOISE")
 		{
-			pWG->_type = NOISE;
+			pWG->_type = waveformtype::NOISE;
 			return true;
 		}
 
 		if (value == "RND_SQ")
 		{
-			pWG->_type = RND_SQ;
+			pWG->_type = waveformtype::RND_SQ;
 			return true;
 		}
 
 		if (value == "PCM")
 		{
-			pWG->_type = PCM;
+			pWG->_type = waveformtype::PCM;
 			return true;
 		}
 		
@@ -568,73 +568,73 @@ bool ProcessSetting(patch* pPatch, vector<NameIndexer> nixers, string value, boo
 	{
 		if (value == "WG0")
 		{
-			pPatch->WGMixMode = WG0;
+			pPatch->WGMixMode = WGMIX::WG0;
 			return true;
 		}
 
 		if (value == "WG1")
 		{
-			pPatch->WGMixMode = WG1;
+			pPatch->WGMixMode = WGMIX::WG1;
 			return true;
 		}
 
 		if (value == "WG2")
 		{
-			pPatch->WGMixMode = WG2;
+			pPatch->WGMixMode = WGMIX::WG2;
 			return true;
 		}
 
 		if (value == "WG3")
 		{
-			pPatch->WGMixMode = WG3;
+			pPatch->WGMixMode = WGMIX::WG3;
 			return true;
 		}
 
 		if (value == "WG4")
 		{
-			pPatch->WGMixMode = WG4;
+			pPatch->WGMixMode = WGMIX::WG4;
 			return true;
 		}
 
 		if (value == "WG5")
 		{
-			pPatch->WGMixMode = WG5;
+			pPatch->WGMixMode = WGMIX::WG5;
 			return true;
 		}
 
 		if (value == "WG0")
 		{
-			pPatch->WGMixMode = WG0;
+			pPatch->WGMixMode = WGMIX::WG0;
 			return true;
 		}
 
 		if (value == "WG6")
 		{
-			pPatch->WGMixMode = WG6;
+			pPatch->WGMixMode = WGMIX::WG6;
 			return true;
 		}
 
 		if (value == "WG7")
 		{
-			pPatch->WGMixMode = WG7;
+			pPatch->WGMixMode = WGMIX::WG7;
 			return true;
 		}
 
 		if (value == "MIX")
 		{
-			pPatch->WGMixMode = MIX;
+			pPatch->WGMixMode = WGMIX::MIX;
 			return true;
 		}
 
 		if (value == "RING")
 		{
-			pPatch->WGMixMode = RING;
+			pPatch->WGMixMode = WGMIX::RING;
 			return true;
 		}
 
 		if (value == "RING_MIX")
 		{
-			pPatch->WGMixMode = RING_MIX;
+			pPatch->WGMixMode = WGMIX::RING_MIX;
 			return true;
 		}
 
@@ -826,31 +826,31 @@ void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 
 			switch (wg._type)
 			{
-				case MUTE:
+				case waveformtype::MUTE:
 					fprintf (file, "WG[%i].Type=MUTE\r\n", count);	
 					break;
 
-				case SQUARE:
+				case waveformtype::SQUARE:
 					fprintf (file, "WG[%i].Type=SQUARE\r\n", count);	
 					break;
 
-				case SIN:
+				case waveformtype::SIN:
 					fprintf (file, "WG[%i].Type=SIN\r\n", count);	
 					break;
 
-				case SAW:
+				case waveformtype::SAW:
 					fprintf (file, "WG[%i].Type=SAW\r\n", count);	
 					break;
 
-				case NOISE:
+				case waveformtype::NOISE:
 					fprintf (file, "WG[%i].Type=NOISE\r\n", count);	
 					break;
 
-				case RND_SQ:
+				case waveformtype::RND_SQ:
 					fprintf (file, "WG[%i].Type=RND_SQ\r\n", count);	
 					break;
 
-				case PCM:
+				case waveformtype::PCM:
 					fprintf (file, "WG[%i].Type=PCM\r\n", count);	
 					break;
 
@@ -889,43 +889,43 @@ void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 			fprintf (file, "# ****************** Filter *******************\r\n");
 			switch (wg.Filter.FilterType)
 			{
-				case OFF:
+			case filtertype::OFF:
 					fprintf (file, "WG[%i].Filter.FilterType=OFF\r\n", count);
 					break;
 
-				case LPF:
+			case filtertype::LPF:
 					fprintf (file, "WG[%i].Filter.FilterType=LPF\r\n", count);
 					break;
 
-				case HPF:
+			case filtertype::HPF:
 					fprintf (file, "WG[%i].Filter.FilterType=HPF\r\n", count);
 					break;
 
-				case BPF:
-					fprintf (file, "WG[%i].Filter.FilterType=BPF1\r\n", count);
+			case filtertype::BPF:
+					fprintf (file, "WG[%i].Filter.FilterType=BPF\r\n", count);
 					break;
 
-				case BPF2:
+			case filtertype::BPF2:
 					fprintf (file, "WG[%i].Filter.FilterType=BPF2\r\n", count);
 					break;
 
-				case NOTCH:
+			case filtertype::NOTCH:
 					fprintf (file, "WG[%i].Filter.FilterType=NOTCH\r\n", count);
 					break;
 
-				case APF:
+			case filtertype::APF:
 					fprintf (file, "WG[%i].Filter.FilterType=APF\r\n", count);
 					break;
 
-				case PEAKINGEQ:
+			case filtertype::PEAKINGEQ:
 					fprintf (file, "WG[%i].Filter.FilterType=PEAKINGEQ\r\n", count);
 					break;
 
-				case LOWSHELF:
+			case filtertype::LOWSHELF:
 					fprintf (file, "WG[%i].Filter.FilterType=LOWSHELF\r\n", count);
 					break;
 
-				case HIGHSHELF:
+			case filtertype::HIGHSHELF:
 					fprintf (file, "WG[%i].Filter.FilterType=HIGHSHELF\r\n", count);
 					break;
 			}
@@ -1030,26 +1030,26 @@ void SavePatch(synth* pSynth, patch* pPatch, char* filePath)
 		
 		switch (pPatch->WGMixMode)
 		{
-			case	WG0:
-			case	WG1:
-			case	WG2:
-			case	WG3:
-			case	WG4:
-			case	WG5:
-			case	WG6:
-			case	WG7:
+			case WGMIX::WG0:
+			case WGMIX::WG1:
+			case WGMIX::WG2:
+			case WGMIX::WG3:
+			case WGMIX::WG4:
+			case WGMIX::WG5:
+			case WGMIX::WG6:
+			case WGMIX::WG7:
 				fprintf (file, "WGMixMode=WG%i\r\n", (int) pPatch->WGMixMode);
 				break;
 			
-			case MIX:
+			case WGMIX::MIX:
 				fprintf (file, "WGMixMode=MIX\r\n");
 				break;
 
-			case RING:
+			case WGMIX::RING:
 				fprintf (file, "WGMixMode=RING\r\n");
 				break;
 
-			case RING_MIX:
+			case WGMIX::RING_MIX:
 				fprintf (file, "WGMixMode=RING_MIX\r\n");
 				break;
 		}
@@ -1262,7 +1262,7 @@ void PopulateDefaultPatch(patch* pPatch)
 		pPatch->WGs[count].pwmLFOLevel = 0.8;
 
 		// **************** Filter *******************
-		pPatch->WGs[count].Filter.FilterType = BPF;
+		pPatch->WGs[count].Filter.FilterType = filtertype::BPF;
 		pPatch->WGs[count].Filter.Q = 20;
 		pPatch->WGs[count].Filter.RelativeFrequency = 20.0F;
 		pPatch->WGs[count].Filter.DBGain = 0.0F;

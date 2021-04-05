@@ -97,22 +97,22 @@ stereo voice::getnext(float deltaT)
 	switch (_pSynth->_pSelectedPatch->WGMixMode)
 	{
 		// The following cases used to isolate single WGs for testing
-		case WG0:
-		case WG1:
-		case WG2:
-		case WG3:
-		case WG4:
-		case WG5:
-		case WG6:
-		case WG7:
+		case WGMIX::WG0:
+		case WGMIX::WG1:
+		case WGMIX::WG2:
+		case WGMIX::WG3:
+		case WGMIX::WG4:
+		case WGMIX::WG5:
+		case WGMIX::WG6:
+		case WGMIX::WG7:
 
-			if (_pSynth->_pSelectedPatch->WGMixMode < NUMBER_OF_WAVE_GENERATORS_PER_VOICE)
+			if ((int) _pSynth->_pSelectedPatch->WGMixMode < NUMBER_OF_WAVE_GENERATORS_PER_VOICE)
 			{
-				output = waveGenerators[_pSynth->_pSelectedPatch->WGMixMode].getnext(deltaT);
+				output = waveGenerators[(int) _pSynth->_pSelectedPatch->WGMixMode].getnext(deltaT);
 
 				#ifdef ENABLE_TDA
-				output.left = output.left * TDAs[_pSynth->_pSelectedPatch->WGMixMode].output;
-				output.right = output.right * TDAs[_pSynth->_pSelectedPatch->WGMixMode].output;
+				output.left = output.left * TDAs[(int) _pSynth->_pSelectedPatch->WGMixMode].output;
+				output.right = output.right * TDAs[(int) _pSynth->_pSelectedPatch->WGMixMode].output;
 				#endif
 			}
 			else
@@ -123,7 +123,7 @@ stereo voice::getnext(float deltaT)
 			}
 			break;
 
-		case RING:
+		case WGMIX::RING:
 			
 			{
 				output.left = 0.0F;
@@ -167,7 +167,7 @@ stereo voice::getnext(float deltaT)
 			}
 			break;
 
-		case RING_MIX:
+		case WGMIX::RING_MIX:
 
 			{
 				output.left = 0.0F;
@@ -211,7 +211,7 @@ stereo voice::getnext(float deltaT)
 			}
 			break;
 			
-		case MIX:
+		case WGMIX::MIX:
 		default:
 
 			output.left = 0.0F;

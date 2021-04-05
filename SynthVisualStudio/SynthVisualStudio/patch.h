@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum waveformtype
+enum class waveformtype
 {
 	MUTE	= 0,
 	SQUARE 	= 1,
@@ -29,7 +29,7 @@ struct patchTDL // Time dependany level
 	float L4;
 };
 
-enum WGMIX
+enum class WGMIX
 {
 	// Thes are useful for isolating single wave generators to test seperately from others in the voice
 	WG0		 = 0,	// WG 0 only
@@ -46,7 +46,7 @@ enum WGMIX
 	RING_MIX = 67,   // WGs fed into ring modulator and mixed with first WG, outputs equal left and right
 };
 
-enum filtertype
+enum class filtertype
 {
 	OFF			= 0,
 	LPF			= 1,

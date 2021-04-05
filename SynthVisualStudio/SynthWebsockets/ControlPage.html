@@ -48,45 +48,51 @@
     </div>
 
     <div id="app-7">
+        <div v-for="(wg, index) in wavegenerators">
 
-        <p>Waveform type</p>
-        <select name="waveformType" class="form-control" v-model="selectedWaveformType">
-            <option v-for="item in waveformtype">{{item.text}}</option>
-        </select>
+            <p><b>Wave generator {{index}}</b></p>
 
-        <p>PWM LFO ID</p>
-        <select name="pwmLFOId" class="form-control" v-model="pwmLFOId">
-            <option v-for="item in lfoID">{{item.text}}</option>
-        </select>
+            <div> <!-- Wave generator type parametrers-->
+                <p>Waveform type</p>
+                <select name="waveformType" class="form-control" v-model="wg.selectedWaveformType">
+                    <option v-for="item in enumerations.waveformtype">{{item.text}}</option>
+                </select>
 
-        <p>PWM LFO Level</p>
-        <input type="range" min="0" max="1" step="0.01" v-model="pwmLFOLevel">
-        <input type="number" step="0.01" v-model="pwmLFOLevel">
+                <p>PWM LFO ID</p>
+                <select name="pwmLFOId" class="form-control" v-model="wg.pwmLFOId">
+                    <option v-for="item in enumerations.lfoID">{{item.text}}</option>
+                </select>
 
-        <p>Pitch bend</p>
-        <input type="checkbox" v-model="enablePitchBend" />
+                <p>PWM LFO Level</p>
+                <input type="range" min="0" max="1" step="0.01" v-model="wg.pwmLFOLevel">
+                <input type="number" step="0.01" v-model="wg.pwmLFOLevel">
+            </div>
+            <div> <!-- Pitch parameters -->
+                <p>Pitch bend</p>
+                <input type="checkbox" v-model="enablePitchBend" />
 
-        <p>Pitch bend semitones</p>
-        <input type="range" min="-12" max="12" step="0.01" v-model="pitchBendSemitones">
-        <input type="number" step="0.25" v-model="pitchBendSemitones">
+                <p>Pitch bend semitones</p>
+                <input type="range" min="-12" max="12" step="0.01" v-model="wg.pitchBendSemitones">
+                <input type="number" step="0.25" v-model="wg.pitchBendSemitones">
 
-        <p>Pitch offest semitones</p>
-        <input type="range" min="-12" max="12" step="0.01" v-model="pitchOffestSemitones">
-        <input type="number" step="0.25" v-model="pitchOffestSemitones">
+                <p>Pitch offest semitones</p>
+                <input type="range" min="-12" max="12" step="0.01" v-model="wg.pitchOffestSemitones">
+                <input type="number" step="0.25" v-model="wg.pitchOffestSemitones">
 
-        <p>Pitch LFO ID</p>
-        <select name="pwmLFOId" class="form-control" v-model="pitchLFOId">
-            <option v-for="item in lfoID">{{item.text}}</option>
-        </select>
+                <p>Pitch LFO ID</p>
+                <select name="pwmLFOId" class="form-control" v-model="wg.pitchLFOId">
+                    <option v-for="item in enumerations.lfoID">{{item.text}}</option>
+                </select>
 
-        <p>Pitch LFO Level</p>
-        <input type="range" min="0" max="1" step="0.01" v-model="pitchLFOLevel">
-        <input type="number" step="0.01" v-model="pitchLFOLevel">
+                <p>Pitch LFO Level</p>
+                <input type="range" min="0" max="1" step="0.01" v-model="wg.pitchLFOLevel">
+                <input type="number" step="0.01" v-model="wg.pitchLFOLevel">
 
-        <p>Pitch LFO Delay</p>
-        <input type="range" min="0" max="10" step="0.1" v-model="pitchLFODelay">
-        <input type="number" step="0.1" v-model="pitchLFODelay">
-
+                <p>Pitch LFO Delay</p>
+                <input type="range" min="0" max="10" step="0.1" v-model="wg.pitchLFODelay">
+                <input type="number" step="0.1" v-model="wg.pitchLFODelay">
+            </div>
+        </div>
     </div>
     
     <script>
@@ -99,35 +105,52 @@
         var app7 = new Vue({
             el: '#app-7',
             data: {
-                waveformtype: [
-                    { id: 0, text: 'MUTE' },
-                    { id: 1, text: 'SQUARE' },
-                    { id: 2, text: 'SIN' },
-                    { id: 3, text: 'SAW' },
-                    { id: 4, text: 'NOISE' },
-                    { id: 5, text: 'RND_SQ' },
-                    { id: 6, text: 'PCM' },
-                ],
-                lfoID: [
-                    { id: 0, text: '0' },
-                    { id: 1, text: '1' },
-                    { id: 2, text: '2' },
-                    { id: 3, text: '3' },
-                    { id: 4, text: '4' },
-                    { id: 5, text: '5' },
-                    { id: 6, text: '6' },
-                    { id: 7, text: '7' },
-                    { id: 8, text: '8' },
-                ],
-                selectedWaveformType: "MUTE",
-                pwmLFOId: "0",
-                pwmLFOLevel: "0",
-                enablePitchBend: false,
-                pitchBendSemitones: 0,
-                pitchOffestSemitones: 0,
-                pitchLFOId: "0",
-                pitchLFOLevel: 0,
-                pitchLFODelay: 0
+                enumerations: {
+                    waveformtype: [
+                        { id: 0, text: 'MUTE' },
+                        { id: 1, text: 'SQUARE' },
+                        { id: 2, text: 'SIN' },
+                        { id: 3, text: 'SAW' },
+                        { id: 4, text: 'NOISE' },
+                        { id: 5, text: 'RND_SQ' },
+                        { id: 6, text: 'PCM' },
+                    ],
+                    lfoID: [
+                        { id: 0, text: '0' },
+                        { id: 1, text: '1' },
+                        { id: 2, text: '2' },
+                        { id: 3, text: '3' },
+                        { id: 4, text: '4' },
+                        { id: 5, text: '5' },
+                        { id: 6, text: '6' },
+                        { id: 7, text: '7' },
+                        { id: 8, text: '8' },
+                    ]
+                },
+                wavegenerators: [
+                    {
+                        selectedWaveformType: "MUTE",
+                        pwmLFOId: "0",
+                        pwmLFOLevel: "0",
+                        enablePitchBend: false,
+                        pitchBendSemitones: 0,
+                        pitchOffestSemitones: 0,
+                        pitchLFOId: "0",
+                        pitchLFOLevel: 0,
+                        pitchLFODelay: 0
+                    },
+                    {
+                        selectedWaveformType: "MUTE",
+                        pwmLFOId: "0",
+                        pwmLFOLevel: "0",
+                        enablePitchBend: false,
+                        pitchBendSemitones: 0,
+                        pitchOffestSemitones: 0,
+                        pitchLFOId: "0",
+                        pitchLFOLevel: 0,
+                        pitchLFODelay: 0
+                    },
+                ]
 
             }
         })
