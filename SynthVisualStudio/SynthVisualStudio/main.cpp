@@ -269,7 +269,7 @@ void SocketCommand(const string& com)
 			{
 				commandFound = true;
 
-				bool wasSampleSetChange = true;
+				bool wasSampleSetChange = false;
 				ProcessPatchLine(theSynth._pSelectedPatch, splits[1], wasSampleSetChange);
 
 				if (wasSampleSetChange)

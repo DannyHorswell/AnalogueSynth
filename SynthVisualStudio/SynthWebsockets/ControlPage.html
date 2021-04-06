@@ -14,7 +14,7 @@
 
             <p>Waveform type</p>
             <select :data-synthId="'LFO[' + index + '].Type'" class="form-control" v-model="lfo.selectedWaveformType" @change="signalChange">
-                <option v-for="item in enumerations.waveformtype">{{item.text}}</option>
+                <option v-for="item in enumerations.lfowaveformtype">{{item.text}}</option>
             </select>
 
             <p>Frequency</p>
@@ -31,7 +31,7 @@
             <div> <!-- Wave generator type parametrers-->
                 <p>Waveform type</p>
                 <select :data-synthId="'WG[' + index + '].Type'" name="waveformType" class="form-control" v-model="wg.waveform.selectedWaveformType" @change="signalChange">
-                    <option v-for="item in enumerations.lfowaveformtype">{{item.text}}</option>
+                    <option v-for="item in enumerations.waveformtype">{{item.text}}</option>
                 </select>
 
                 <p>PWM LFO ID</p>
@@ -255,7 +255,7 @@
             if ("WebSocket" in window) {
 
                 // Let us open a web socket
-                ws = new WebSocket("ws://localhost:1234");
+                ws = new WebSocket("ws://localhost:1235/ws");
 
                 ws.onopen = function () {
 
@@ -510,9 +510,9 @@
             },
             methods: {
                 signalChange: function (evt) {
-                    var message = evt.target.getAttribute("data-synthId") + ":" + evt.target.value;
+                    var message = "Patch:" + evt.target.getAttribute("data-synthId") + "=" + evt.target.value;
 
-                    alert(message);
+                    //alert(message);
                     ws.send(message);
                 }
             }
