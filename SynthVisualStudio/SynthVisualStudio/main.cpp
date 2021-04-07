@@ -61,7 +61,7 @@ SocketServer TheSocket;
 #endif
 
 #ifdef ENABLE_SOCKET
-	static SocketClient theSocket;
+	static SocketServer theSocket;
 #endif
 
 bool running = true;
@@ -195,7 +195,8 @@ void SocketCommand(const string& com)
 {
 	int keyNo;
 
-	//printf("%s\n",com.c_str()); // Print the command(s)
+	
+	printf("%s\n",com.c_str()); // Print the command(s)
 
 	// Single characters are easy play notes from keyboard		 
 
@@ -268,7 +269,7 @@ void SocketCommand(const string& com)
 			{
 				commandFound = true;
 
-				bool wasSampleSetChange = true;
+				bool wasSampleSetChange = false;
 				ProcessPatchLine(theSynth._pSelectedPatch, splits[1], wasSampleSetChange);
 
 				if (wasSampleSetChange)
@@ -423,11 +424,6 @@ int main(int argc,char** argv)
 
 	theMidi.startmidi(mididevice);
 
-#endif
-
-#ifdef ENABLE_SOCKET
-	theSocket.tcpCommandCallback = &SocketCommand;
-	theSocket.opensocket();
 #endif
 
 	MainProcessingLoop();
