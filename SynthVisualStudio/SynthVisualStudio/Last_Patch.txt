@@ -46,7 +46,7 @@ WG[0].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
-WG[0].Filter.FilterType=BPF1
+WG[0].Filter.FilterType=BPF
 WG[0].Filter.Q=20.000000
 WG[0].Filter.RelativeFrequency=20.000000
 WG[0].Filter.DBGain=0.000000
@@ -70,7 +70,7 @@ WG[1].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
-WG[1].Filter.FilterType=BPF1
+WG[1].Filter.FilterType=BPF
 WG[1].Filter.Q=20.000000
 WG[1].Filter.RelativeFrequency=20.000000
 WG[1].Filter.DBGain=0.000000
@@ -94,7 +94,7 @@ WG[2].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
-WG[2].Filter.FilterType=BPF1
+WG[2].Filter.FilterType=BPF
 WG[2].Filter.Q=20.000000
 WG[2].Filter.RelativeFrequency=20.000000
 WG[2].Filter.DBGain=0.000000
@@ -118,7 +118,7 @@ WG[3].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
-WG[3].Filter.FilterType=BPF1
+WG[3].Filter.FilterType=BPF
 WG[3].Filter.Q=20.000000
 WG[3].Filter.RelativeFrequency=20.000000
 WG[3].Filter.DBGain=0.000000
@@ -142,7 +142,7 @@ WG[4].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
-WG[4].Filter.FilterType=BPF1
+WG[4].Filter.FilterType=BPF
 WG[4].Filter.Q=20.000000
 WG[4].Filter.RelativeFrequency=20.000000
 WG[4].Filter.DBGain=0.000000
@@ -166,7 +166,7 @@ WG[5].PWMLFOLevel=0
 
 
 # ****************** Filter *******************
-WG[5].Filter.FilterType=BPF1
+WG[5].Filter.FilterType=BPF
 WG[5].Filter.Q=20.000000
 WG[5].Filter.RelativeFrequency=20.000000
 WG[5].Filter.DBGain=0.000000

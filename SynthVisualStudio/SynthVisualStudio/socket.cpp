@@ -38,6 +38,7 @@ void SocketServer::Open()
 {
 	int opt = 1;
 	struct sockaddr_in address;
+	struct sockaddr clientaddr;
 
 	printf("SocketServer::Open %d \n", _ListenPort);
 
@@ -59,7 +60,6 @@ void SocketServer::Open()
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(_ListenPort);
 
-	// Forcefully attaching socket to the port 8080
     if (bind(listenSockfd, (struct sockaddr *)&address, sizeof(address))<0)
     {
         perror("bind failed");
@@ -72,7 +72,11 @@ void SocketServer::Open()
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    if ((clientScokFd = accept(listenSockfd, (struct sockaddr *)&address, (socklen_t*) sizeof(address)))<0)
+
+	socklen_t addrlen = sizeof(clientaddr);
+	clientScokFd = accept(listenSockfd, (struct sockaddr *)&clientaddr, &addrlen);
+
+    if (clientScokFd<0)
     {
 		printf("Accept %d \n", _ListenPort);
         perror("accept");
@@ -106,6 +110,7 @@ void SocketServer::ReadingLoop()
 
 			if (iResult > 0)
 			{
+				printf("Hello \n");
 				readBuffer[iResult] = 0; // Terminate the string in the buffer
 				SocketCommand(string(readBuffer));
 			}
