@@ -67,7 +67,8 @@ void SocketServer::Open()
 		exit(EXIT_FAILURE);
 	}
 
-	if ((clientScokFd = accept(listenSockfd, (struct sockaddr*)&address, (socklen_t*)sizeof(address))) < 0)
+	//if ((clientScokFd = accept(listenSockfd, (struct sockaddr*)&address, (socklen_t*)sizeof(address))) < 0)
+	if ((clientScokFd = accept(listenSockfd, NULL, NULL)) < 0)
 	{
 		printf("Accept %d \n", _ListenPort);
 		perror("accept");
