@@ -9,6 +9,7 @@
 #ifdef __arm__
 #include <alsa/asoundlib.h>
 #include <chrono>
+#endif
 
 uint64_t lastStart;
 float percent;
@@ -20,7 +21,6 @@ uint64_t micros()
 		now().time_since_epoch()).count();
 	return us;
 }
-#endif
 
 using namespace std;
 
@@ -96,9 +96,7 @@ static int lrCount = 0;
 
  static PaError StreamCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData)
  {
-#ifdef __arm__
 	 uint64_t start = micros();
-#endif
 
 #ifdef __arm__
 	 /* Cast data passed through stream to our structure type. */
@@ -131,13 +129,12 @@ static int lrCount = 0;
 	 }
 	 
 
-#ifdef __arm__
 	 uint64_t end = micros();
 
 	 percent = ((float) (end - start)) * 100.0F / ((float) (start - lastStart));
 
 	 lastStart = start;
-#endif
+
 
 	 return 0; 
 }
@@ -195,7 +192,6 @@ void SocketCommand(const string& com)
 {
 	int keyNo;
 
-	
 	printf("%s\n",com.c_str()); // Print the command(s)
 
 	// Single characters are easy play notes from keyboard		 
@@ -240,11 +236,9 @@ void SocketCommand(const string& com)
 				keyNo = 0;
 				break;
 
-#ifdef __arm__
 			case '%':
 				printf("Percent load %.2f\n", percent);
 				break;
-#endif
 		}
 
 		// press the new one
@@ -303,7 +297,6 @@ void SocketCommand(const string& com)
 void ConsoleLoop()
 {
 	char consoleLine[CONSOLE_BUFFER_SIZE];
-	string com;
 
 	// wait for input loop
 	do
@@ -320,13 +313,11 @@ void ConsoleLoop()
 			}
 		}
 
-		com = consoleLine;
+		printf("key %s\n", consoleLine);
 
-		printf("key %s", consoleLine);
-
-		SocketCommand(com);
+		SocketCommand(consoleLine);
 	}
-	while (com != "exit");
+	while (consoleLine != "exit");
 	
 	running = false;
 }

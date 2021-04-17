@@ -69,7 +69,7 @@ void wavegenerator::keyPress(float midiVelocity, float midiKey)
 	panLevel += (patchWG->keyPanAdjustment) * keyNegOnetoOne;
 
 	panMultipliers = thePan.GetStereoMultipliers(panLevel);
-	printf("keyNegHalftoHalf %f, pan level %f\n", keyNegOnetoOne, panLevel);
+	//printf("keyNegHalftoHalf %f, pan level %f\n", keyNegOnetoOne, panLevel);
 }
 
 stereo wavegenerator::getnext(float deltaT)
