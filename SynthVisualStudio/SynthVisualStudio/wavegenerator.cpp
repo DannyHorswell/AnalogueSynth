@@ -106,19 +106,17 @@ stereo wavegenerator::getnext(float deltaT)
 			calcKey += _pVoice->_pSynth->_LFOs[patchWG->freqLFOid].output * patchWG->freqLFOLevel;
 		}
 
+
 #ifdef ENABLE_TDP
 		calcKey += _pVoice->TDPs[_wgID].output;
 #endif
+
  		_full_period = _pVoice->_pSynth->KeyToPeriod(calcKey);
 
 #ifdef ENABLE_FILTERS
 
-		//if (_pVoice->key != lastKey)
-		//{
-			
-			theFilter.recalculateCoefficients(); // In case things have changed
-			lastKey = _pVoice->key;
-		//}
+		theFilter.recalculateCoefficients(); // In case things have changed
+		lastKey = _pVoice->key;
 #endif
 	}
 
@@ -137,7 +135,6 @@ stereo wavegenerator::getnext(float deltaT)
 	{
 		mid = 0.0F;
 	}
-
 
 	switch (patchWG->_type)
 	{
