@@ -177,6 +177,11 @@ void MIDIPitchBend(int channel, unsigned int Value)
 	theSynth._pitchBendSemitones = val;
 }
 
+void MIDIControlChange(int channel, unsigned int control, unsigned int value)
+{
+	fprintf(stderr, "control chnage %x %x\n", control, value);
+}
+
 void MIDIAfterTouch(int channel, int key, int pressure)
 {
 
@@ -410,6 +415,7 @@ int main(int argc,char** argv)
 
 
 	theMidi.pitchBendCallback =	&MIDIPitchBend;
+	theMidi.controlChangeCallback =	&MIDIControlChange;
 	theMidi.afterTouchCallback = &MIDIAfterTouch;
 	theMidi.programChangeCallback = &MIDIProgramChange;
 
