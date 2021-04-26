@@ -3,14 +3,6 @@
 
 
 #ifdef ENABLE_MIDI
-typedef void (*NoteOff)(int channel, int key, int velocity);
-typedef void (*NoteOn)(int channel, int key, int velocity); 
-typedef void (*AfterTouch)(int channel, int key, int pressure);
-// TODO Control mode
-typedef void (*ProgramChange)(int channel, int program);
-
-typedef void (*PitchBend)(int channel, unsigned int amount); 
-typedef void (*ControlChange)(int channel, unsigned int controlNumber, unsigned int value); 
 
 const int MIDI_DATA_BUFFER_SIZE = 256;
 
@@ -47,8 +39,8 @@ enum class messageType
 
 enum class controlChangeType
 {
-	BANK_SELECT				= 0x00,
-	MODULATION				= 0x01,
+	BANK_SELECT_MSB			= 0x00,
+	MODULATION_MSB			= 0x01,
 	BREATH_MSB				= 0x02,
 	FOOT_MSB				= 0x04,
 	PORTAMENTO_TIME_MSB		= 0x05,
@@ -63,8 +55,8 @@ enum class controlChangeType
 	GENERAL_PURPOSE2_MSB 	= 0x11,
 	GENERAL_PURPOSE3_MSB 	= 0x12,
 	GENERAL_PURPOSE4_MSB 	= 0x13,
-	BANK					= 0x20,
-	MODWHEEL        		= 0x21,
+	BANK_SELECT				= 0x20,
+	MODULATION       		= 0x21,
 	BREATH           		= 0x22,
 	FOOT             		= 0x24,
 	PORTAMENTO_TIME 		= 0x25,
@@ -91,11 +83,11 @@ enum class controlChangeType
 	SC3_RELEASE_TIME		= 0x48,
 	SC4_ATTACK_TIME			= 0x49,
 	SC5_BRIGHTNESS			= 0x4a,
-	SC6						= 0x4b,
+	SC6_DECAY_TIME			= 0x4b,
 	SC7						= 0x4c,
 	SC8						= 0x4d,
 	SC9						= 0x4e,
-	SC10					= 0x4f,
+	SC10_STSTAIN_LEVEL		= 0x4f,
 	GENERAL_PURPOSE5     	= 0x50,
 	GENERAL_PURPOSE6     	= 0x51,
 	GENERAL_PURPOSE7     	= 0x52,
@@ -121,6 +113,16 @@ enum class controlChangeType
 	MONO1					= 0x7e,
 	MONO2					= 0x7f,
 };
+
+typedef void (*NoteOff)(int channel, int key, int velocity);
+typedef void (*NoteOn)(int channel, int key, int velocity); 
+typedef void (*AfterTouch)(int channel, int key, int pressure);
+typedef void (*ProgramChange)(int channel, int program);
+
+typedef void (*PitchBend)(int channel, unsigned int amount); 
+typedef void (*ControlChange)(int channel, controlChangeType controlType, unsigned int value); 
+
+float controlChangeValueToLog(int cc, float max); // Converts control change 0 - 7F to 1/max to max log value
 
 class midi
 {

@@ -149,7 +149,7 @@ void MIDINoteOn(int channel, int key, int velocity)
 	}
 	else
 	{
-		//fprintf(stderr, "Voice set key %i, vel %i\n", key, velocity);
+		//fprintf(stderr, "Voice seunsigned intt key %i, vel %i\n", key, velocity);
 		theSynth.keyPressed(key, velocity);
 	}
 }
@@ -177,9 +177,65 @@ void MIDIPitchBend(int channel, unsigned int Value)
 	theSynth._pitchBendSemitones = val;
 }
 
-void MIDIControlChange(int channel, unsigned int control, unsigned int value)
+void MIDIControlChange(int channel, controlChangeType controlType, unsigned int value)
 {
-	fprintf(stderr, "control chnage %x %x\n", control, value);
+	float val;
+
+	fprintf(stderr, "control change %x %x\n", controlType, value);
+
+
+	// Global controls
+
+	switch (controlType)
+	{
+		case controlChangeType::EFFECT1: // Reverb sed level
+			theSynth._pSelectedPatch->Reverb.level = CONTROL_7F_TO_FLOAT_0_1 * value;
+			break;
+	}
+
+	// Wave generator specific
+
+	for (int selecteWgId=0;selecteWgId<NUMBER_OF_WAVE_GENERATORS_PER_VOICE; selecteWgId++)
+	{
+		patchTDL* ptdh = &theSynth._pSelectedPatch->WGs[selecteWgId].TDA;
+
+		switch (controlType)
+		{
+			case controlChangeType::SC5_BRIGHTNESS: // VCF Cutoff frequency
+				val = controlChangeValueToLog(value, 100.0F);
+
+				theSynth._pSelectedPatch->WGs[selecteWgId].Filter.RelativeFrequency = val;
+
+				break;
+
+			case controlChangeType::SC2_TIMBRE: // VCF resonance - Q
+				val = controlChangeValueToLog(value, 25.0F);
+
+				theSynth._pSelectedPatch->WGs[selecteWgId].Filter.Q = val;
+
+				break;
+
+			case controlChangeType::SC4_ATTACK_TIME:
+				ptdh->T1 = CONTROL_7F_TO_FLOAT_0_1 * value * 30.0;
+				ptdh->L1 = 10.F;
+				break;
+
+			case controlChangeType::SC6_DECAY_TIME:
+				ptdh->T2 = CONTROL_7F_TO_FLOAT_0_1 * value * 30.0;
+				ptdh->L2 = ptdh->Sustain;
+				ptdh->T3 = 0.0F;
+				break;
+
+			case controlChangeType::SC10_STSTAIN_LEVEL:
+				ptdh->Sustain = CONTROL_7F_TO_FLOAT_0_1 * value;
+				break;
+
+			case controlChangeType::SC3_RELEASE_TIME:
+				ptdh->T4 = CONTROL_7F_TO_FLOAT_0_1 * value * 30.0;
+				break;
+		}
+	}
+	
 }
 
 void MIDIAfterTouch(int channel, int key, int pressure)

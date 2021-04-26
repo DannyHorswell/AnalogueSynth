@@ -3,6 +3,7 @@
 #include <string>
 #include <ctype.h>
 #include <signal.h>
+#include <math.h>
 
 #ifdef __arm__
 #include <alsa/asoundlib.h>
@@ -203,7 +204,7 @@ void midi::pollmidi()
 					case messageType::CONTROL_CHANGE:
 						if (controlChangeCallback)
 						{
-							controlChangeCallback(channel, (unsigned int) data[1] ,((unsigned int) data[2]) );
+							controlChangeCallback(channel, (controlChangeType) data[1] ,((unsigned int) data[2]) );
 						}
 						break;
 						
@@ -276,6 +277,19 @@ void midi::stopmidi()
 {
 	snd_rawmidi_drain(handle_in); 
 	snd_rawmidi_close(handle_in);
+}
+
+// Converts control change 0 - 7F to 1/max to max log value
+float controlChangeValueToLog(int cc, float max)
+{
+	float minToMax = (cc - 0x3F) ;
+	float minus1To1 = minToMax / 64.0F;
+	float logVal = pow(2.0, minus1To1 * log2(max));
+	float ret = logVal;
+
+
+	printf("%f\n", logVal);
+	return ret;
 }
 
 #endif
