@@ -3,6 +3,7 @@
 #include <string>
 #include <ctype.h>
 #include <signal.h>
+#include <math.h>
 
 #ifdef __arm__
 #include <alsa/asoundlib.h>
@@ -74,12 +75,12 @@ void midi::pollmidi()
 
 				data[bytecount++] = ch;
 
-				lastControl = (control) (ch & 0xF0);
+				lastMessageType = (messageType) (ch & 0xF0);
 
 				// Extract the control type and channel if relevent
-				if (lastControl == 0xF0)
+				if ((int) lastMessageType == 0xF0)
 				{
-					lastControl = (control) (ch & 0xFF);
+					lastMessageType = (messageType) (ch & 0xFF);
 					channel = 0;
 				}
 				else
@@ -89,7 +90,7 @@ void midi::pollmidi()
 			}
 			else
 			{
-				if (lastControl != UNDEFINED)
+				if (lastMessageType != messageType::UNDEFINED)
 				{
 					if (bytecount < MIDI_DATA_BUFFER_SIZE)
 					{
@@ -106,36 +107,36 @@ void midi::pollmidi()
 			if (bytecount == 1)
 			{
 				// single byte message
-				switch (lastControl)
+				switch (lastMessageType)
 				{
-					case UNDEFINED:
+					case messageType::UNDEFINED:
 						// Ignore, we were not expecting data
 						bytecount = 0;
 						break;
 
 						// ************ Unknown messages
-					case UNDEFINED1:
-					case UNDEFINED2:
-					case UNDEFINED3:
-					case UNDEFINED4:
+					case messageType::UNDEFINED1:
+					case messageType::UNDEFINED2:
+					case messageType::UNDEFINED3:
+					case messageType::UNDEFINED4:
 
 						bytecount = 0;
 						// Ignore
-						lastControl = UNDEFINED;
+						lastMessageType = messageType::UNDEFINED;
 						break;
 
 					// ************  O Data bytes
-					case SYSTEM_RESET:
-					case ACTIVE_SENSING:
-					case START:
-					case CONTINIE:
-					case STOP:
-					case TIMING_CLOCK:
-					case END_SYSEX:
-					case TUNE_REQUEST:
+					case messageType::SYSTEM_RESET:
+					case messageType::ACTIVE_SENSING:
+					case messageType::START:
+					case messageType::CONTINIE:
+					case messageType::STOP:
+					case messageType::TIMING_CLOCK:
+					case messageType::END_SYSEX:
+					case messageType::TUNE_REQUEST:
 					
 						// Handle zero byte commands
-						lastControl = UNDEFINED;
+						lastMessageType = messageType::UNDEFINED;
 						break;
 
 					default:
@@ -147,27 +148,27 @@ void midi::pollmidi()
 			if (bytecount == 2)
 			{
 				// 2 byte messages
-				switch (lastControl)
+				switch (lastMessageType)
 				{
-					case UNDEFINED:
+					case messageType::UNDEFINED:
 						// Ignore, we were not expecting data
 						bytecount = 0;
 						break;
 
 					// ************ 1 Data byte
-					case SONG_SELECT:
-					case CHAN_AFTER_TOUCH:
+					case messageType::SONG_SELECT:
+					case messageType::CHAN_AFTER_TOUCH:
 
-						lastControl = UNDEFINED;
+						lastMessageType = messageType::UNDEFINED;
 						break;
 
-					case PROGRAM_CHANGE:
+					case messageType::PROGRAM_CHANGE:
 						if (programChangeCallback)
 						{
 							programChangeCallback(channel, data[1]);
 						}
 
-						lastControl = UNDEFINED;
+						lastMessageType = messageType::UNDEFINED;
 
 						break;
 
@@ -181,15 +182,15 @@ void midi::pollmidi()
 			{
 
 				// 3 byte messages
-				switch (lastControl)
+				switch (lastMessageType)
 				{
-					case UNDEFINED:
+					case messageType::UNDEFINED:
 						// Ignore, we were not expecting data
 						bytecount = 0;
 						break;
 
 					// ************ 2 Data bytes
-					case PITCH_WHEEL:
+					case messageType::PITCH_WHEEL:
 
 						if (pitchBendCallback)
 						{
@@ -197,43 +198,50 @@ void midi::pollmidi()
 							pitchBendCallback(channel, ((unsigned int) data[1]) + ((unsigned int) data[2]) << 8);
 						}
 
-						lastControl = UNDEFINED;
+						lastMessageType = messageType::UNDEFINED;
+						break;
+
+					case messageType::CONTROL_CHANGE:
+						if (controlChangeCallback)
+						{
+							controlChangeCallback(channel, (controlChangeType) data[1] ,((unsigned int) data[2]) );
+						}
 						break;
 						
-					case SONG_POS:
+					case messageType::SONG_POS:
 
 						// Ignore
-						lastControl = UNDEFINED;
+						lastMessageType = messageType::UNDEFINED;
 						break;
 
-					case POLY_AFTER_TOUCH:
+					case messageType::POLY_AFTER_TOUCH:
 
 						if (afterTouchCallback)
 						{
 							afterTouchCallback(channel, data[1], data[2]);
 						}
 
-						lastControl = UNDEFINED;
+						lastMessageType = messageType::UNDEFINED;
 						break;
 
-					case NOTE_OFF:
+					case messageType::NOTE_OFF:
 
 						if (noteOffCallback)
 						{
 							noteOffCallback(channel, data[1], data[2]);
 						}
 
-						lastControl = UNDEFINED;
+						lastMessageType = messageType::UNDEFINED;
 						break;
 
-					case NOTE_ON:
+					case messageType::NOTE_ON:
 						fprintf(stderr,"Note ON Note %d, velocity %d\n", data[1], data[2]);
 						if (noteOnCallback)
 						{
 							noteOnCallback(channel, data[1], data[2]);
 						}
 
-						lastControl = UNDEFINED;
+						lastMessageType = messageType::UNDEFINED;
 						break;
 
 					default:
@@ -245,16 +253,18 @@ void midi::pollmidi()
 			if (bytecount > 3)
 			{
 				// Variable length messages
-				switch (lastControl)
+				switch (lastMessageType)
 				{
-					case UNDEFINED:
-					case CONTROL_CHANGE:
-					case SYSEXC:
-					case MIDI_TIME_QTR_FRAME:
+					case messageType::UNDEFINED:
+					
+					case messageType::SYSEXC:
+					case messageType::MIDI_TIME_QTR_FRAME:
 					default:
 						// Ignore
 						bytecount = 0;
-						lastControl = UNDEFINED;
+						lastMessageType = messageType::UNDEFINED;
+
+						printf("%x\n", lastMessageType);
 						break;
 				}
 			}
@@ -267,6 +277,19 @@ void midi::stopmidi()
 {
 	snd_rawmidi_drain(handle_in); 
 	snd_rawmidi_close(handle_in);
+}
+
+// Converts control change 0 - 7F to 1/max to max log value
+float controlChangeValueToLog(int cc, float max)
+{
+	float minToMax = (cc - 0x3F) ;
+	float minus1To1 = minToMax / 64.0F;
+	float logVal = pow(2.0, minus1To1 * log2(max));
+	float ret = logVal;
+
+
+	printf("%f\n", logVal);
+	return ret;
 }
 
 #endif
